@@ -1,8 +1,8 @@
 site_name: pymizer
 site_description: Python wrappers for the mizer R package
-site_url: https://sizespectrum.org/mizer/python/
-repo_url: https://github.com/sizespectrum/mizer
-repo_name: sizespectrum/mizer
+site_url: https://sizespectrum.github.io/pymizer/
+repo_url: https://github.com/sizespectrum/pymizer
+repo_name: sizespectrum/pymizer
 docs_dir: docs
 site_dir: site
 
