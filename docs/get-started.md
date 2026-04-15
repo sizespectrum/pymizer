@@ -82,3 +82,17 @@ For live preview during editing:
 ```bash
 python/.venv/bin/mkdocs serve -f python/mkdocs.yml
 ```
+
+## Publish To GitHub Pages
+
+`pymizer` is intended to publish its static documentation by pushing the built
+site to the repository's `gh-pages` branch from a local environment.
+
+From the `python/` directory:
+
+```bash
+mkdocs gh-deploy
+```
+
+This command builds the site and updates the `gh-pages` branch used by GitHub
+Pages.

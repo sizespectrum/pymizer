@@ -47,3 +47,10 @@ The Python package has a MkDocs-based documentation site under `python/docs/`.
 python/.venv/bin/pip install -e './python[docs]'
 python/.venv/bin/mkdocs serve -f python/mkdocs.yml
 ```
+
+To publish the site to GitHub Pages from your local machine:
+
+```bash
+cd python
+mkdocs gh-deploy
+```
