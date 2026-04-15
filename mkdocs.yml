@@ -1,0 +1,67 @@
+site_name: pymizer
+site_description: Python wrappers for the mizer R package
+site_url: https://sizespectrum.org/mizer/python/
+repo_url: https://github.com/sizespectrum/mizer
+repo_name: sizespectrum/mizer
+docs_dir: docs
+site_dir: site
+
+theme:
+  name: material
+  logo: assets/images/mizer.png
+  favicon: assets/favicon/favicon-32x32.png
+  features:
+    - navigation.sections
+    - navigation.tabs
+    - navigation.top
+    - content.code.copy
+    - content.action.edit
+  palette:
+    - scheme: default
+      primary: teal
+      accent: blue
+
+extra_css:
+  - stylesheets/extra.css
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - def_list
+  - footnotes
+  - md_in_html
+  - pymdownx.highlight
+  - pymdownx.inlinehilite
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+
+plugins:
+  - search
+  - mkdocstrings:
+      handlers:
+        python:
+          paths:
+            - src
+          options:
+            docstring_style: google
+            merge_init_into_class: true
+            members_order: source
+            show_root_heading: true
+            show_source: false
+            show_symbol_type_heading: true
+            show_symbol_type_toc: true
+
+nav:
+  - Home: index.md
+  - Get Started: get-started.md
+  - Roadmap: roadmap.md
+  - Articles:
+      - Community Model: articles/community-model.md
+      - Datasets: articles/datasets.md
+  - Reference:
+      - Overview: reference/index.md
+      - Model API: reference/model.md
+      - Dataset API: reference/datasets.md
+      - R Bridge API: reference/bridge.md
+  - News: news.md

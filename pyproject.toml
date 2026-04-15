@@ -1,0 +1,39 @@
+[build-system]
+requires = ["hatchling>=1.24.0"]
+build-backend = "hatchling.build"
+
+[project]
+name = "pymizer"
+version = "0.1.0"
+description = "Python wrappers for the mizer R package"
+readme = "README.md"
+requires-python = ">=3.10"
+license = "GPL-3.0-or-later"
+authors = [
+    { name = "mizer developers" }
+]
+dependencies = [
+    "numpy>=1.23",
+    "pandas>=1.5",
+    "rpy2>=3.5",
+    "xarray>=2023.1.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/sizespectrum/mizer"
+
+[project.optional-dependencies]
+docs = [
+    "mkdocs>=1.6",
+    "mkdocs-material>=9.5",
+    "mkdocstrings[python]>=0.25",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/pymizer"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+markers = [
+    "integration: tests that exercise the live R bridge",
+]
