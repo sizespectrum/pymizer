@@ -33,6 +33,23 @@ wrapped in a Python-native way.
 - R installed
 - the `mizer` R package installed and loadable by R
 
+## Diagnostics
+
+If the bridge cannot start cleanly, you can inspect the detected runtime stack:
+
+```python
+import pymizer as mz
+
+print(mz.runtime_diagnostics())
+```
+
+This reports:
+
+- whether `rpy2` imported successfully
+- detected versions of Python, `rpy2`, R, and `mizer`
+- whether the environment passes the wrapper's compatibility checks
+- any compatibility or startup issues found
+
 ## Development install
 
 ```bash

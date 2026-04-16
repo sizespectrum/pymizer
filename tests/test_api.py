@@ -7,11 +7,14 @@ import pytest
 
 def test_public_api_imports():
     module = importlib.import_module("pymizer")
+    assert hasattr(module, "CompatibilityReport")
     assert hasattr(module, "MizerParams")
     assert hasattr(module, "MizerSim")
+    assert hasattr(module, "evaluate_versions")
     assert hasattr(module, "list_datasets")
     assert hasattr(module, "load_dataset")
     assert hasattr(module, "new_multispecies_params")
+    assert hasattr(module, "runtime_diagnostics")
     assert hasattr(module, "validate_species_params")
 
 
@@ -49,3 +52,14 @@ def test_environment_versions():
     assert "rpy2" in versions
     assert "R" in versions
     assert "mizer" in versions
+
+
+@pytest.mark.integration
+def test_runtime_diagnostics_success():
+    pymizer = importlib.import_module("pymizer")
+    diagnostics = pymizer.runtime_diagnostics()
+
+    assert diagnostics["rpy2_import_ok"] is True
+    assert diagnostics["compatibility"] is True
+    assert "versions" in diagnostics
+    assert "issues" in diagnostics
