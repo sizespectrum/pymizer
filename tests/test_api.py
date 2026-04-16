@@ -51,7 +51,10 @@ def test_params_read_only_analysis_methods():
     biomass = params.biomass()
     abundance = params.abundance()
     ssb = params.ssb()
+    initial_n = params.initial_n()
+    initial_n_resource = params.initial_n_resource()
     feeding = params.feeding_level()
+    pred_rate = params.pred_rate()
     pred_mort = params.pred_mort()
     growth = params.growth_curves()
     diet = params.diet()
@@ -65,7 +68,10 @@ def test_params_read_only_analysis_methods():
     assert biomass.index.tolist() == ["Community"]
     assert abundance.index.tolist() == ["Community"]
     assert ssb.index.tolist() == ["Community"]
+    assert initial_n.dims == ("sp", "w")
+    assert initial_n_resource.index.name == "w"
     assert feeding.dims == ("sp", "w")
+    assert pred_rate.dims == ("sp", "w_prey")
     assert pred_mort.dims == ("sp", "w")
     assert growth.index.tolist() == ["Community"]
     assert growth.columns[0] == 0.0
@@ -87,6 +93,8 @@ def test_indicator_methods_accept_species_and_size_filters():
     sim = params.project(t_max=1, dt=0.1, t_save=1, effort=0, progress_bar=False)
 
     growth = params.growth_curves(species=["Cod", "Haddock"], max_age=5, percentage=True)
+    biomass = params.biomass(min_w=10, max_w=1000)
+    abundance = sim.abundance(min_w=10, max_w=1000)
     mean_weight = params.mean_weight(species=["Cod", "Haddock"], min_w=10, max_w=1000)
     large_fish = params.proportion_of_large_fish(
         species=["Cod", "Haddock"],
@@ -99,6 +107,8 @@ def test_indicator_methods_accept_species_and_size_filters():
     mean_max_weight = sim.mean_max_weight(measure="numbers", species=["Cod", "Haddock"], min_w=10, max_w=1000)
 
     assert growth.index.tolist() == ["Cod", "Haddock"]
+    assert "Cod" in biomass.index
+    assert "Cod" in abundance.columns
     assert growth.columns[0] == 0.0
     assert growth.to_numpy().max() <= 100.0
     assert isinstance(mean_weight, float)
@@ -116,8 +126,11 @@ def test_sim_extended_analysis_methods():
     sim = params.project(t_max=1, dt=0.1, t_save=1, effort=0, progress_bar=False)
 
     ssb = sim.ssb()
+    initial_n = sim.initial_n()
+    initial_n_resource = sim.initial_n_resource()
     yield_gear = sim.yield_gear()
     f_mort_gear = sim.f_mort_gear()
+    pred_rate = sim.pred_rate()
     pred_mort = sim.pred_mort()
     growth = sim.growth_curves()
     diet = sim.diet()
@@ -130,8 +143,11 @@ def test_sim_extended_analysis_methods():
 
     assert ssb.index.tolist() == ["0", "1"]
     assert "Cod" in ssb.columns
+    assert initial_n.dims == ("sp", "w")
+    assert initial_n_resource.index.name == "w"
     assert yield_gear.dims == ("time", "gear", "sp")
     assert f_mort_gear.dims == ("time", "gear", "sp", "w")
+    assert pred_rate.dims == ("sp", "w_prey")
     assert pred_mort.dims == ("time", "sp", "w")
     assert "Cod" in growth.index
     assert growth.columns[0] == 0.0

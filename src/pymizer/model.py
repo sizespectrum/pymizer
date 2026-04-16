@@ -88,6 +88,15 @@ def _scalar_from_r(value: Any) -> float:
     return float(data[0])
 
 
+def _series_with_float_index(value: Any, *, name: str | None = None, index_name: str | None = None) -> pd.Series:
+    """Convert a named R vector to a pandas Series with float index."""
+    series = _series_from_r_vector(value, name=name)
+    series.index = [float(item) for item in series.index]
+    if index_name is not None:
+        series.index.name = index_name
+    return series
+
+
 def _growth_curves_to_frame(value: Any, species_order: str | list[str] | tuple[str, ...] | None = None) -> pd.DataFrame:
     """Convert an R species x age matrix to a labelled pandas DataFrame."""
     frame = to_dataframe_2d(value, index_name="species", column_name="age")
@@ -159,17 +168,66 @@ class MizerParams:
         summary_obj = self._env.base.summary(self._r_obj)
         return str(summary_obj)
 
-    def biomass(self) -> pd.Series:
+    def biomass(
+        self,
+        *,
+        use_cutoff: bool = False,
+        min_w: float | list[float] | None = None,
+        max_w: float | list[float] | None = None,
+        min_l: float | list[float] | None = None,
+        max_l: float | list[float] | None = None,
+    ) -> pd.Series:
         """Return species biomass in the initial state as a pandas Series."""
-        return _series_from_r_vector(self._env.call("getBiomass", self._r_obj), name="biomass")
+        return _series_from_r_vector(
+            self._env.call(
+                "getBiomass",
+                self._r_obj,
+                use_cutoff=use_cutoff,
+                **_indicator_kwargs(min_w=min_w, max_w=max_w, min_l=min_l, max_l=max_l),
+            ),
+            name="biomass",
+        )
 
-    def abundance(self) -> pd.Series:
+    def abundance(
+        self,
+        *,
+        min_w: float | list[float] | None = None,
+        max_w: float | list[float] | None = None,
+        min_l: float | list[float] | None = None,
+        max_l: float | list[float] | None = None,
+    ) -> pd.Series:
         """Return species abundance in the initial state as a pandas Series."""
-        return _series_from_r_vector(self._env.call("getN", self._r_obj), name="abundance")
+        return _series_from_r_vector(
+            self._env.call(
+                "getN",
+                self._r_obj,
+                **_indicator_kwargs(min_w=min_w, max_w=max_w, min_l=min_l, max_l=max_l),
+            ),
+            name="abundance",
+        )
 
     def ssb(self) -> pd.Series:
         """Return spawning stock biomass in the initial state as a pandas Series."""
         return _series_from_r_vector(self._env.call("getSSB", self._r_obj), name="ssb")
+
+    def initial_n(self, *, as_xarray: bool = True):
+        """Return the initial fish abundance density spectrum."""
+        value = self._env.call("initialN", self._r_obj)
+        if as_xarray:
+            return to_xarray(value, ["sp", "w"])
+        return to_numpy(value)
+
+    def initial_n_resource(self) -> pd.Series:
+        """Return the initial resource spectrum as a pandas Series."""
+        value = self._env.call("initialNResource", self._r_obj)
+        return _series_with_float_index(value, name="initial_n_resource", index_name="w")
+
+    def pred_rate(self, *, as_xarray: bool = True, t: float = 0):
+        """Return predation rate by predator species and prey size."""
+        value = self._env.call("getPredRate", self._r_obj, t=t)
+        if as_xarray:
+            return to_xarray(value, ["sp", "w_prey"])
+        return to_numpy(value)
 
     def pred_mort(self, *, as_xarray: bool = True):
         """Return predation mortality in the initial state."""
@@ -330,13 +388,45 @@ class MizerSim:
         """Return saved times as a numpy array."""
         return to_numpy(self._env.call("getTimes", self._r_obj))
 
-    def biomass(self) -> pd.DataFrame:
+    def biomass(
+        self,
+        *,
+        use_cutoff: bool = False,
+        min_w: float | list[float] | None = None,
+        max_w: float | list[float] | None = None,
+        min_l: float | list[float] | None = None,
+        max_l: float | list[float] | None = None,
+    ) -> pd.DataFrame:
         """Return biomass through time as a pandas DataFrame."""
-        return to_dataframe_2d(self._env.call("getBiomass", self._r_obj), index_name="time", column_name="species")
+        return to_dataframe_2d(
+            self._env.call(
+                "getBiomass",
+                self._r_obj,
+                use_cutoff=use_cutoff,
+                **_indicator_kwargs(min_w=min_w, max_w=max_w, min_l=min_l, max_l=max_l),
+            ),
+            index_name="time",
+            column_name="species",
+        )
 
-    def abundance(self) -> pd.DataFrame:
+    def abundance(
+        self,
+        *,
+        min_w: float | list[float] | None = None,
+        max_w: float | list[float] | None = None,
+        min_l: float | list[float] | None = None,
+        max_l: float | list[float] | None = None,
+    ) -> pd.DataFrame:
         """Return total abundance through time as a pandas DataFrame."""
-        return to_dataframe_2d(self._env.call("getN", self._r_obj), index_name="time", column_name="species")
+        return to_dataframe_2d(
+            self._env.call(
+                "getN",
+                self._r_obj,
+                **_indicator_kwargs(min_w=min_w, max_w=max_w, min_l=min_l, max_l=max_l),
+            ),
+            index_name="time",
+            column_name="species",
+        )
 
     def yield_(self) -> pd.DataFrame:
         """Return fisheries yield through time as a pandas DataFrame."""
@@ -381,6 +471,14 @@ class MizerSim:
             return to_xarray(value, ["time", "w"])
         return to_numpy(value)
 
+    def initial_n(self, *, as_xarray: bool = True):
+        """Return the initial fish abundance density spectrum used by the simulation."""
+        return self.params().initial_n(as_xarray=as_xarray)
+
+    def initial_n_resource(self) -> pd.Series:
+        """Return the initial resource spectrum used by the simulation."""
+        return self.params().initial_n_resource()
+
     def f_mort(self, *, as_xarray: bool = True):
         """Return fishing mortality through time."""
         value = self._env.call("getFMort", self._r_obj)
@@ -393,6 +491,13 @@ class MizerSim:
         value = self._env.call("getFeedingLevel", self._r_obj)
         if as_xarray:
             return to_xarray(value, ["time", "sp", "w"])
+        return to_numpy(value)
+
+    def pred_rate(self, *, as_xarray: bool = True):
+        """Return predation rate at the final simulated state."""
+        value = self._env.call("getPredRate", self._final_params().r, t=float(self.times()[-1]))
+        if as_xarray:
+            return to_xarray(value, ["sp", "w_prey"])
         return to_numpy(value)
 
     def growth_curves(
