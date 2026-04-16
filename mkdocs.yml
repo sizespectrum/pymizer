@@ -60,6 +60,7 @@ nav:
       - Community Model: articles/community-model.md
       - Datasets: articles/datasets.md
       - North Sea Model: articles/north-sea-model.md
+      - Analysis And Plotting: articles/analysis-and-plotting.md
   - Reference:
       - Overview: reference/index.md
       - Model API: reference/model.md

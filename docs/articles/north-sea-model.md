@@ -126,3 +126,6 @@ edited_sim = edited.project(t_max=1, dt=0.1, t_save=1, effort=0, progress_bar=Fa
 
 This makes the bundled North Sea model a good starting point for notebooks,
 tests, and examples.
+
+For a notebook-style follow-up that reshapes outputs and adds plotting,
+see [Analysis And Plotting](analysis-and-plotting.md).
