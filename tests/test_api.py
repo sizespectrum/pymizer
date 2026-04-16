@@ -44,6 +44,56 @@ def test_load_builtin_datasets():
 
 
 @pytest.mark.integration
+def test_params_read_only_analysis_methods():
+    pymizer = importlib.import_module("pymizer")
+    params = pymizer.new_community_params(no_w=20)
+
+    biomass = params.biomass()
+    abundance = params.abundance()
+    ssb = params.ssb()
+    feeding = params.feeding_level()
+    pred_mort = params.pred_mort()
+    mean_weight = params.mean_weight()
+    large_fish = params.proportion_of_large_fish()
+    slope = params.community_slope()
+
+    assert biomass.index.tolist() == ["Community"]
+    assert abundance.index.tolist() == ["Community"]
+    assert ssb.index.tolist() == ["Community"]
+    assert feeding.dims == ("sp", "w")
+    assert pred_mort.dims == ("sp", "w")
+    assert isinstance(mean_weight, float)
+    assert isinstance(large_fish, float)
+    assert {"slope", "intercept", "r2"} == set(slope.columns)
+
+
+@pytest.mark.integration
+def test_sim_extended_analysis_methods():
+    pymizer = importlib.import_module("pymizer")
+    species = pymizer.load_dataset("NS_species_params")
+    interaction = pymizer.load_dataset("NS_interaction")
+    params = pymizer.new_multispecies_params(species_params=species, interaction=interaction)
+    sim = params.project(t_max=1, dt=0.1, t_save=1, effort=0, progress_bar=False)
+
+    ssb = sim.ssb()
+    yield_gear = sim.yield_gear()
+    f_mort_gear = sim.f_mort_gear()
+    pred_mort = sim.pred_mort()
+    mean_weight = sim.mean_weight()
+    large_fish = sim.proportion_of_large_fish()
+    slope = sim.community_slope()
+
+    assert ssb.index.tolist() == ["0", "1"]
+    assert "Cod" in ssb.columns
+    assert yield_gear.dims == ("time", "gear", "sp")
+    assert f_mort_gear.dims == ("time", "gear", "sp", "w")
+    assert pred_mort.dims == ("time", "sp", "w")
+    assert mean_weight.index.tolist() == ["0.0", "1.0"]
+    assert large_fish.index.tolist() == ["0.0", "1.0"]
+    assert {"slope", "intercept", "r2"} == set(slope.columns)
+
+
+@pytest.mark.integration
 def test_environment_versions():
     pymizer = importlib.import_module("pymizer")
     versions = pymizer.get_environment().versions()

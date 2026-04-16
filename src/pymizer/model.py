@@ -5,6 +5,7 @@ from pathlib import Path
 from typing import Any
 
 import pandas as pd
+from rpy2 import robjects
 
 from ._bridge import MizerREnvironment, get_environment
 from ._converters import named_numeric_vector, to_dataframe_2d, to_numpy, to_r, to_xarray
@@ -17,6 +18,33 @@ def _wrap_params(obj: Any, env: MizerREnvironment | None = None) -> "MizerParams
 
 def _wrap_sim(obj: Any, env: MizerREnvironment | None = None) -> "MizerSim":
     return MizerSim(_r_obj=obj, _env=env or get_environment())
+
+
+def _series_from_r_vector(value: Any, *, index: list[str] | None = None, name: str | None = None) -> pd.Series:
+    """Convert an R vector to a pandas Series."""
+    data = to_numpy(value)
+    if index is None:
+        names = robjects.r["names"](value)
+        if names is not robjects.NULL and len(names) == len(data):
+            index = [str(item) for item in names]
+    return pd.Series(data, index=index, name=name)
+
+
+def _frame_from_r_dataframe(value: Any, *, index_name: str | None = None) -> pd.DataFrame:
+    """Convert an R data.frame to a labelled pandas DataFrame."""
+    frame = pd.DataFrame({str(name): to_numpy(value.rx2(name)) for name in value.names})
+    rownames = robjects.r["rownames"](value)
+    if rownames is not robjects.NULL and len(rownames) == len(frame):
+        frame.index = [str(item) for item in rownames]
+        if index_name is not None:
+            frame.index.name = index_name
+    return frame
+
+
+def _scalar_from_r(value: Any) -> float:
+    """Convert a length-1 R numeric result to a Python float."""
+    data = to_numpy(value).reshape(-1)
+    return float(data[0])
 
 
 @dataclass(frozen=True)
@@ -78,6 +106,52 @@ class MizerParams:
         summary_obj = self._env.base.summary(self._r_obj)
         return str(summary_obj)
 
+    def biomass(self) -> pd.Series:
+        """Return species biomass in the initial state as a pandas Series."""
+        return _series_from_r_vector(self._env.call("getBiomass", self._r_obj), name="biomass")
+
+    def abundance(self) -> pd.Series:
+        """Return species abundance in the initial state as a pandas Series."""
+        return _series_from_r_vector(self._env.call("getN", self._r_obj), name="abundance")
+
+    def ssb(self) -> pd.Series:
+        """Return spawning stock biomass in the initial state as a pandas Series."""
+        return _series_from_r_vector(self._env.call("getSSB", self._r_obj), name="ssb")
+
+    def pred_mort(self, *, as_xarray: bool = True):
+        """Return predation mortality in the initial state."""
+        value = self._env.call("getPredMort", self._r_obj)
+        if as_xarray:
+            return to_xarray(value, ["sp", "w"])
+        return to_numpy(value)
+
+    def feeding_level(self, *, as_xarray: bool = True):
+        """Return feeding level in the initial state."""
+        value = self._env.call("getFeedingLevel", self._r_obj)
+        if as_xarray:
+            return to_xarray(value, ["sp", "w"])
+        return to_numpy(value)
+
+    def mean_weight(self, **kwargs: Any) -> float:
+        """Return the mean community weight in the initial state."""
+        value = self._env.call("getMeanWeight", self._r_obj, **{key: to_r(val) for key, val in kwargs.items()})
+        return _scalar_from_r(value)
+
+    def proportion_of_large_fish(self, **kwargs: Any) -> float:
+        """Return the proportion of large fish in the initial state."""
+        value = self._env.call(
+            "getProportionOfLargeFish",
+            self._r_obj,
+            **{key: to_r(val) for key, val in kwargs.items()},
+        )
+        return _scalar_from_r(value)
+
+    def community_slope(self, **kwargs: Any) -> pd.DataFrame:
+        """Return the fitted community size-spectrum slope in the initial state."""
+        return _frame_from_r_dataframe(
+            self._env.call("getCommunitySlope", self._r_obj, **{key: to_r(val) for key, val in kwargs.items()})
+        )
+
 
 @dataclass(frozen=True)
 class MizerSim:
@@ -112,6 +186,31 @@ class MizerSim:
         """Return fisheries yield through time as a pandas DataFrame."""
         return to_dataframe_2d(self._env.call("getYield", self._r_obj), index_name="time", column_name="species")
 
+    def ssb(self) -> pd.DataFrame:
+        """Return spawning stock biomass through time as a pandas DataFrame."""
+        return to_dataframe_2d(self._env.call("getSSB", self._r_obj), index_name="time", column_name="species")
+
+    def yield_gear(self, *, as_xarray: bool = True):
+        """Return gear-resolved fisheries yield through time."""
+        value = self._env.call("getYieldGear", self._r_obj)
+        if as_xarray:
+            return to_xarray(value, ["time", "gear", "sp"])
+        return to_numpy(value)
+
+    def f_mort_gear(self, *, as_xarray: bool = True):
+        """Return gear-resolved fishing mortality through time."""
+        value = self._env.call("getFMortGear", self._r_obj)
+        if as_xarray:
+            return to_xarray(value, ["time", "gear", "sp", "w"])
+        return to_numpy(value)
+
+    def pred_mort(self, *, as_xarray: bool = True):
+        """Return predation mortality through time."""
+        value = self._env.call("getPredMort", self._r_obj, drop=False)
+        if as_xarray:
+            return to_xarray(value, ["time", "sp", "w"])
+        return to_numpy(value)
+
     def n(self, *, as_xarray: bool = True):
         """Return the species abundance array."""
         value = self._env.call("N", self._r_obj)
@@ -139,6 +238,33 @@ class MizerSim:
         if as_xarray:
             return to_xarray(value, ["time", "sp", "w"])
         return to_numpy(value)
+
+    def mean_weight(self, **kwargs: Any) -> pd.Series:
+        """Return mean community weight through time."""
+        value = self._env.call("getMeanWeight", self._r_obj, **{key: to_r(val) for key, val in kwargs.items()})
+        time_index = [str(item) for item in self.times()]
+        series = _series_from_r_vector(value, index=time_index, name="mean_weight")
+        series.index.name = "time"
+        return series
+
+    def proportion_of_large_fish(self, **kwargs: Any) -> pd.Series:
+        """Return the proportion of large fish through time."""
+        value = self._env.call(
+            "getProportionOfLargeFish",
+            self._r_obj,
+            **{key: to_r(val) for key, val in kwargs.items()},
+        )
+        time_index = [str(item) for item in self.times()]
+        series = _series_from_r_vector(value, index=time_index, name="proportion_of_large_fish")
+        series.index.name = "time"
+        return series
+
+    def community_slope(self, **kwargs: Any) -> pd.DataFrame:
+        """Return the fitted community size-spectrum slope through time."""
+        return _frame_from_r_dataframe(
+            self._env.call("getCommunitySlope", self._r_obj, **{key: to_r(val) for key, val in kwargs.items()}),
+            index_name="time",
+        )
 
 
 def new_multispecies_params(
