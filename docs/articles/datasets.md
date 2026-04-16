@@ -57,6 +57,9 @@ sim = north_sea.sim
 This is usually the most convenient entry point for a notebook because the
 tabular inputs and wrapped model objects stay grouped together.
 
+A runnable version of this workflow is included in
+[examples/north_sea.py](/home/gustav/Git/mizer/python/examples/north_sea.py).
+
 ## North Sea Example
 
 You can rebuild the North Sea parameter object from Python inputs:
