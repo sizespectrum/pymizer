@@ -15,9 +15,15 @@ The model API combines constructor functions with two wrapper classes:
 - state inspection: `initial_n()`, `initial_n_resource()`, `biomass()`,
   `abundance()`, `ssb()`
 - size-resolved rates: `pred_rate()`, `pred_mort()`, `feeding_level()`,
-  `diet()`, `trophic_level()`
+  `diet()`, `trophic_level()`, `pred_kernel()`
 - indicators: `mean_weight()`, `mean_max_weight()`,
   `proportion_of_large_fish()`, `community_slope()`
+- parameter editing: `set_interaction()`, `set_resource()`,
+  `set_initial_values()`, `set_metadata()`, `set_reproduction()`,
+  `set_search_volume()`, `set_max_intake_rate()`, `set_metabolic_rate()`,
+  `set_pred_kernel()`
+- steady-state workflows: `project_to_steady()`, `steady()`,
+  `steady_single_species()`
 - simulation: `project()`
 
 ## Common `MizerSim` Methods
@@ -28,6 +34,30 @@ The model API combines constructor functions with two wrapper classes:
   `pred_rate()`, `pred_mort()`, `feeding_level()`, `f_mort()`, `f_mort_gear()`
 - ecological summaries: `diet()`, `growth_curves()`, `trophic_level()`,
   `trophic_level_by_species()`
+
+## Editing Workflow
+
+The editing methods mirror the `mizer` design: they do not mutate the current
+object in place. Instead they return a new `MizerParams` wrapper with the
+updated R object inside it.
+
+Typical usage looks like:
+
+```python
+interaction = params.interaction_matrix()
+interaction.iloc[0, 1] = 0.0
+
+updated = params.set_interaction(interaction)
+sim = updated.project(t_max=2, dt=0.1, t_save=1, effort=0, progress_bar=False)
+```
+
+## Steady-State Workflow
+
+The wrapper exposes both lower-level and higher-level steady-state helpers:
+
+- `project_to_steady()` searches for convergence under the current dynamics
+- `steady()` applies the more opinionated `mizer::steady()` workflow
+- `steady_single_species()` solves selected species against the current rates
 
 ## Filtering And Return Types
 

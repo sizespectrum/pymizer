@@ -234,6 +234,34 @@ def test_reproduction_and_rate_setters():
 
 
 @pytest.mark.integration
+def test_steady_state_workflows():
+    pymizer = importlib.import_module("pymizer")
+    params = pymizer.new_community_params(no_w=20)
+    ns_params = pymizer.load_dataset("NS_params")
+
+    projected = params.project_to_steady(t_per=0.5, t_max=0.5, dt=0.1, progress_bar=False, info_level=0)
+    projected_sim = params.project_to_steady(
+        t_per=0.5,
+        t_max=0.5,
+        dt=0.1,
+        return_sim=True,
+        progress_bar=False,
+        info_level=0,
+    )
+    steady_params = ns_params.steady(t_per=1.5, t_max=1.5, dt=0.1, progress_bar=False, info_level=0)
+    single_species = params.steady_single_species()
+
+    assert isinstance(projected, pymizer.MizerParams)
+    assert isinstance(projected_sim, pymizer.MizerSim)
+    assert isinstance(steady_params, pymizer.MizerParams)
+    assert isinstance(single_species, pymizer.MizerParams)
+    assert projected.initial_n().dims == ("sp", "w")
+    assert projected_sim.biomass().shape[0] >= 1
+    assert steady_params.initial_n().dims == ("sp", "w")
+    assert single_species.initial_n().dims == ("sp", "w")
+
+
+@pytest.mark.integration
 def test_environment_versions():
     pymizer = importlib.import_module("pymizer")
     versions = pymizer.get_environment().versions()

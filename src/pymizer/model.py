@@ -61,6 +61,15 @@ def _wrap_sim(obj: Any, env: MizerREnvironment | None = None) -> "MizerSim":
     return MizerSim(_r_obj=obj, _env=env or get_environment())
 
 
+def _wrap_params_or_sim(obj: Any, env: MizerREnvironment | None = None) -> "MizerParams | MizerSim":
+    """Wrap an R object as either MizerParams or MizerSim."""
+    env = env or get_environment()
+    cls = env.class_name(obj)
+    if cls == "MizerSim":
+        return _wrap_sim(obj, env)
+    return _wrap_params(obj, env)
+
+
 def _series_from_r_vector(value: Any, *, index: list[str] | None = None, name: str | None = None) -> pd.Series:
     """Convert an R vector to a pandas Series."""
     data = to_numpy(value)
@@ -220,11 +229,21 @@ class MizerParams:
         self._env.call("saveParams", self._r_obj, str(path))
 
     def interaction_matrix(self) -> pd.DataFrame:
-        """Return the species interaction matrix as a pandas DataFrame."""
+        """Return the species interaction matrix.
+
+        Returns:
+            A ``pandas.DataFrame`` indexed by predator species with prey species
+            as columns.
+        """
         return to_dataframe_2d(self._env.call("interaction_matrix", self._r_obj), index_name="predator", column_name="prey")
 
     def metadata(self) -> dict[str, Any]:
-        """Return model metadata as nested Python structures."""
+        """Return model metadata as nested Python structures.
+
+        Returns:
+            A Python ``dict`` containing metadata fields such as title,
+            description, timestamps, and `mizer` version information.
+        """
         return _listvector_to_python(self._env.call("getMetadata", self._r_obj))
 
     def set_interaction(self, interaction: Any) -> "MizerParams":
@@ -249,7 +268,26 @@ class MizerParams:
         w_pp_cutoff: float | None = None,
         balance: bool | None = None,
     ) -> "MizerParams":
-        """Return a new params object with updated resource settings."""
+        """Return a new params object with updated resource settings.
+
+        Args:
+            resource_rate: Resource growth-rate parameter or vector.
+            resource_capacity: Resource carrying capacity parameter or vector.
+            resource_level: Ratio of current resource to carrying capacity.
+            resource_dynamics: Name of the resource dynamics function.
+            lambda_: Resource capacity power-law exponent.
+            n: Resource rate power-law exponent.
+            w_pp_cutoff: Upper cutoff size for the resource power law.
+            balance: Whether to rebalance the resource to the current state.
+
+        Examples:
+            ```python
+            updated = params.set_resource(
+                resource_dynamics="resource_constant",
+                balance=False,
+            )
+            ```
+        """
         updated = self._env.call(
             "setResource",
             self._r_obj,
@@ -273,7 +311,20 @@ class MizerParams:
         time_range: Any | None = None,
         geometric_mean: bool = False,
     ) -> "MizerParams":
-        """Return a new params object with initial values copied from a simulation."""
+        """Return a new params object with initial values copied from a simulation.
+
+        Args:
+            sim: Simulation providing the source state.
+            time_range: Optional time range over which to average.
+            geometric_mean: Use a geometric rather than arithmetic mean for
+                abundance spectra.
+
+        Examples:
+            ```python
+            sim = params.project(t_max=5, dt=0.1, t_save=1, progress_bar=False)
+            updated = params.set_initial_values(sim)
+            ```
+        """
         updated = self._env.call(
             "setInitialValues",
             self._r_obj,
@@ -295,7 +346,16 @@ class MizerParams:
         doi: str | None = None,
         **extra_fields: Any,
     ) -> "MizerParams":
-        """Return a new params object with updated metadata."""
+        """Return a new params object with updated metadata.
+
+        Examples:
+            ```python
+            updated = params.set_metadata(
+                title="North Sea example",
+                description="Python wrapper demo",
+            )
+            ```
+        """
         call_kwargs = _optional_kwargs(
             title=title,
             description=description,
@@ -316,7 +376,14 @@ class MizerParams:
         reset: bool = False,
         rdd: str | None = None,
     ) -> "MizerParams":
-        """Return a new params object with updated reproduction settings."""
+        """Return a new params object with updated reproduction settings.
+
+        Args:
+            maturity: Species-by-size maturity array.
+            repro_prop: Species-by-size reproductive proportion array.
+            reset: Recompute from species parameters.
+            rdd: Name of the R density-dependence function to use.
+        """
         updated = self._env.call(
             "setReproduction",
             self._r_obj,
@@ -354,7 +421,13 @@ class MizerParams:
         return _wrap_params(updated, self._env)
 
     def set_pred_kernel(self, pred_kernel: Any | None = None, *, reset: bool = False) -> "MizerParams":
-        """Return a new params object with an updated predation kernel."""
+        """Return a new params object with an updated predation kernel.
+
+        Args:
+            pred_kernel: Predator x predator-size x prey-size array.
+            reset: Recompute from species parameters instead of using a custom
+                kernel.
+        """
         updated = self._env.call(
             "setPredKernel",
             self._r_obj,
@@ -364,6 +437,111 @@ class MizerParams:
             ),
         )
         return _wrap_params(updated, self._env)
+
+    def project_to_steady(
+        self,
+        effort: float | dict[str, float] | Any | None = None,
+        *,
+        t_per: float = 1.5,
+        t_max: float = 100,
+        dt: float = 0.1,
+        tol: float | None = None,
+        return_sim: bool = False,
+        progress_bar: bool = False,
+        info_level: int = 3,
+    ) -> "MizerParams | MizerSim":
+        """Run ``mizer::projectToSteady()``.
+
+        Args:
+            effort: Optional fishing effort used throughout the search.
+            t_per: Time between convergence checks.
+            t_max: Maximum search duration.
+            dt: Integration time step.
+            tol: Convergence tolerance. Defaults to ``0.1 * t_per``.
+            return_sim: Return a ``MizerSim`` with saved intermediate states.
+            progress_bar: Show an R-side progress bar.
+            info_level: Verbosity of R-side messages.
+
+        Returns:
+            Either a :class:`MizerParams` or :class:`MizerSim`, depending on
+            ``return_sim``.
+
+        Examples:
+            ```python
+            steady_params = params.project_to_steady(
+                t_per=1.0,
+                t_max=5.0,
+                dt=0.1,
+                progress_bar=False,
+                info_level=0,
+            )
+            ```
+        """
+        call_kwargs = {
+            "t_per": t_per,
+            "t_max": t_max,
+            "dt": dt,
+            "tol": 0.1 * t_per if tol is None else tol,
+            "return_sim": return_sim,
+            "progress_bar": progress_bar,
+            "info_level": info_level,
+        }
+        if effort is not None:
+            call_kwargs["effort"] = named_numeric_vector(effort) if isinstance(effort, dict) else to_r(effort)
+        result = self._env.call("projectToSteady", self._r_obj, **call_kwargs)
+        return _wrap_params_or_sim(result, self._env)
+
+    def steady(
+        self,
+        *,
+        t_per: float = 1.5,
+        t_max: float = 100,
+        dt: float = 0.1,
+        tol: float | None = None,
+        return_sim: bool = False,
+        preserve: str = "reproduction_level",
+        progress_bar: bool = False,
+        info_level: int = 3,
+    ) -> "MizerParams | MizerSim":
+        """Run ``mizer::steady()`` and return params or a simulation.
+
+        This uses the higher-level `mizer` steady-state workflow that holds
+        reproduction and resource dynamics constant during the search.
+        """
+        result = self._env.call(
+            "steady",
+            self._r_obj,
+            t_per=t_per,
+            t_max=t_max,
+            dt=dt,
+            tol=0.1 * dt if tol is None else tol,
+            return_sim=return_sim,
+            preserve=preserve,
+            progress_bar=progress_bar,
+            info_level=info_level,
+        )
+        return _wrap_params_or_sim(result, self._env)
+
+    def steady_single_species(
+        self,
+        species: str | list[str] | tuple[str, ...] | None = None,
+        *,
+        keep: str = "egg",
+    ) -> "MizerParams":
+        """Run ``mizer::steadySingleSpecies()`` for selected species.
+
+        Args:
+            species: Optional species subset.
+            keep: Quantity to preserve. One of ``"egg"``, ``"biomass"``, or
+                ``"number"``.
+        """
+        species_arg = _species_arg(species) if isinstance(species, (str, list, tuple)) else (to_r(species) if species is not None else None)
+        result = self._env.call(
+            "steadySingleSpecies",
+            self._r_obj,
+            **_optional_kwargs(species=species_arg, keep=keep),
+        )
+        return _wrap_params(result, self._env)
 
     def set_metabolic_rate(
         self,

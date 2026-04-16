@@ -97,6 +97,69 @@ Supported filter arguments vary by method, but the common ones are:
 - `min_l=` and `max_l=`
 - method-specific options such as `use_cutoff=`, `threshold_w=`, and `biomass=`
 
+## Edit And Rerun Models
+
+`pymizer` now supports the common “load, tweak, rerun” workflow directly from
+Python. The editing methods follow the `mizer` pattern and return a new
+`MizerParams` object rather than mutating the existing one.
+
+```python
+import pymizer as mz
+
+params = mz.load_dataset("NS_params")
+
+interaction = params.interaction_matrix()
+interaction.iloc[0, 1] = 0.0
+
+updated = (
+    params
+    .set_interaction(interaction)
+    .set_metadata(title="North Sea example", description="Edited from Python")
+)
+
+sim = updated.project(t_max=2, dt=0.1, t_save=1, effort=0, progress_bar=False)
+```
+
+Useful editing methods include:
+
+- `set_interaction()`
+- `set_resource()`
+- `set_initial_values()`
+- `set_metadata()`
+- `set_reproduction()`
+- `set_search_volume()`
+- `set_max_intake_rate()`
+- `set_metabolic_rate()`
+- `set_pred_kernel()`
+
+## Steady-State Workflows
+
+The wrapper also exposes the steady-state search helpers from `mizer`:
+
+```python
+import pymizer as mz
+
+params = mz.load_dataset("NS_params")
+
+steady_params = params.project_to_steady(
+    t_per=1.0,
+    t_max=5.0,
+    dt=0.1,
+    progress_bar=False,
+    info_level=0,
+)
+
+single_species_params = params.steady_single_species(keep="biomass")
+```
+
+Available helpers are:
+
+- `project_to_steady()` for the lower-level convergence search
+- `steady()` for the higher-level workflow that holds reproduction and
+  resource dynamics constant during the search
+- `steady_single_species()` for solving selected species against the current
+  rates
+
 ## Built-in Datasets
 
 The wrapper can also load datasets shipped with the R package:
