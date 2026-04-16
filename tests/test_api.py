@@ -161,6 +161,43 @@ def test_sim_extended_analysis_methods():
 
 
 @pytest.mark.integration
+def test_parameter_editing_methods_return_new_params():
+    pymizer = importlib.import_module("pymizer")
+    species = pymizer.load_dataset("NS_species_params")
+    interaction = pymizer.load_dataset("NS_interaction")
+    params = pymizer.new_multispecies_params(species_params=species, interaction=interaction)
+
+    original_interaction = params.interaction_matrix()
+    modified_interaction = original_interaction.copy()
+    modified_interaction.iloc[0, 1] = 0.0
+
+    updated = params.set_interaction(modified_interaction)
+
+    assert isinstance(updated, pymizer.MizerParams)
+    assert params.interaction_matrix().iloc[0, 1] == original_interaction.iloc[0, 1]
+    assert updated.interaction_matrix().iloc[0, 1] == 0.0
+
+
+@pytest.mark.integration
+def test_set_initial_values_metadata_and_resource():
+    pymizer = importlib.import_module("pymizer")
+    params = pymizer.new_community_params(no_w=20)
+    sim = params.project(t_max=1, dt=0.1, t_save=1, progress_bar=False)
+
+    updated_initial = params.set_initial_values(sim)
+    updated_metadata = params.set_metadata(title="Community example", description="Test model")
+    updated_resource = params.set_resource(resource_dynamics="resource_constant", balance=False)
+
+    assert isinstance(updated_initial, pymizer.MizerParams)
+    assert isinstance(updated_metadata, pymizer.MizerParams)
+    assert isinstance(updated_resource, pymizer.MizerParams)
+    assert not updated_initial.initial_n().equals(params.initial_n())
+    assert updated_metadata.metadata()["title"] == "Community example"
+    assert updated_metadata.metadata()["description"] == "Test model"
+    assert updated_resource.project(t_max=0.5, dt=0.1, t_save=0.5, progress_bar=False).biomass().shape[0] == 2
+
+
+@pytest.mark.integration
 def test_environment_versions():
     pymizer = importlib.import_module("pymizer")
     versions = pymizer.get_environment().versions()

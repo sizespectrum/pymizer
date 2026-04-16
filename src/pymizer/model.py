@@ -8,7 +8,7 @@ import pandas as pd
 from rpy2 import robjects
 
 from ._bridge import MizerREnvironment, get_environment
-from ._converters import named_numeric_vector, to_dataframe_2d, to_numpy, to_r, to_xarray
+from ._converters import named_list, named_numeric_vector, to_dataframe_2d, to_numpy, to_r, to_xarray
 from ._validation import validate_interaction_matrix, validate_species_params
 
 
@@ -109,6 +109,25 @@ def _growth_curves_to_frame(value: Any, species_order: str | list[str] | tuple[s
     return frame
 
 
+def _listvector_to_python(value: Any) -> Any:
+    """Convert a named R list to nested Python structures."""
+    if isinstance(value, robjects.vectors.ListVector):
+        if value.names is robjects.NULL:
+            return [_listvector_to_python(item) for item in value]
+        result: dict[str, Any] = {}
+        names = [str(name) for name in value.names]
+        for name, item in zip(names, value):
+            result[name] = _listvector_to_python(item)
+        return result
+    data = to_numpy(value)
+    if data.ndim == 0:
+        return data.item() if hasattr(data, "item") else data
+    if data.size == 1:
+        scalar = data.reshape(-1)[0]
+        return scalar.item() if hasattr(scalar, "item") else scalar
+    return data.tolist()
+
+
 @dataclass(frozen=True)
 class MizerParams:
     """Python wrapper around an R ``MizerParams`` object.
@@ -199,6 +218,95 @@ class MizerParams:
     def save(self, path: str | Path) -> None:
         """Save the params object using `saveParams()`."""
         self._env.call("saveParams", self._r_obj, str(path))
+
+    def interaction_matrix(self) -> pd.DataFrame:
+        """Return the species interaction matrix as a pandas DataFrame."""
+        return to_dataframe_2d(self._env.call("interaction_matrix", self._r_obj), index_name="predator", column_name="prey")
+
+    def metadata(self) -> dict[str, Any]:
+        """Return model metadata as nested Python structures."""
+        return _listvector_to_python(self._env.call("getMetadata", self._r_obj))
+
+    def set_interaction(self, interaction: Any) -> "MizerParams":
+        """Return a new params object with an updated interaction matrix.
+
+        Args:
+            interaction: Species interaction matrix as a pandas DataFrame,
+                NumPy array, or other matrix-like object.
+        """
+        updated = self._env.call("setInteraction", self._r_obj, interaction=to_r(interaction))
+        return _wrap_params(updated, self._env)
+
+    def set_resource(
+        self,
+        *,
+        resource_rate: Any | None = None,
+        resource_capacity: Any | None = None,
+        resource_level: Any | None = None,
+        resource_dynamics: str | None = None,
+        lambda_: float | None = None,
+        n: float | None = None,
+        w_pp_cutoff: float | None = None,
+        balance: bool | None = None,
+    ) -> "MizerParams":
+        """Return a new params object with updated resource settings."""
+        updated = self._env.call(
+            "setResource",
+            self._r_obj,
+            **_optional_kwargs(
+                resource_rate=to_r(resource_rate) if resource_rate is not None else None,
+                resource_capacity=to_r(resource_capacity) if resource_capacity is not None else None,
+                resource_level=to_r(resource_level) if resource_level is not None else None,
+                resource_dynamics=resource_dynamics,
+                **{"lambda": lambda_},
+                n=n,
+                w_pp_cutoff=w_pp_cutoff,
+                balance=balance,
+            ),
+        )
+        return _wrap_params(updated, self._env)
+
+    def set_initial_values(
+        self,
+        sim: "MizerSim",
+        *,
+        time_range: Any | None = None,
+        geometric_mean: bool = False,
+    ) -> "MizerParams":
+        """Return a new params object with initial values copied from a simulation."""
+        updated = self._env.call(
+            "setInitialValues",
+            self._r_obj,
+            sim.r,
+            **_optional_kwargs(
+                time_range=to_r(time_range) if time_range is not None else None,
+                geometric_mean=geometric_mean,
+            ),
+        )
+        return _wrap_params(updated, self._env)
+
+    def set_metadata(
+        self,
+        *,
+        title: str | None = None,
+        description: str | None = None,
+        authors: Any | None = None,
+        url: str | None = None,
+        doi: str | None = None,
+        **extra_fields: Any,
+    ) -> "MizerParams":
+        """Return a new params object with updated metadata."""
+        call_kwargs = _optional_kwargs(
+            title=title,
+            description=description,
+            authors=to_r(authors) if authors is not None else None,
+            url=url,
+            doi=doi,
+        )
+        for key, value in extra_fields.items():
+            call_kwargs[key] = named_list(value) if isinstance(value, dict) else to_r(value)
+        updated = self._env.call("setMetadata", self._r_obj, **call_kwargs)
+        return _wrap_params(updated, self._env)
 
     def summary(self) -> str:
         """Return the text representation of `summary(params)`."""
