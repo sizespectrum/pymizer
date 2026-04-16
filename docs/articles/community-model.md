@@ -25,6 +25,9 @@ times = sim.times()
 biomass = sim.biomass()
 abundance = sim.abundance()
 resource = sim.n_resource()
+initial_n = params.initial_n()
+initial_resource = params.initial_n_resource()
+pred_rate = sim.pred_rate()
 ```
 
 The returned objects are chosen to feel natural in Python:
@@ -32,6 +35,23 @@ The returned objects are chosen to feel natural in Python:
 - `times` is a NumPy array
 - `biomass` and `abundance` are labelled `pandas.DataFrame` objects
 - `resource` is an `xarray.DataArray` by default
+- `initial_n` and `pred_rate` are labelled `xarray.DataArray` objects
+- `initial_resource` is a `pandas.Series`
+
+## Focus On A Size Range
+
+The high-level summary methods can also be narrowed to a size range without
+leaving Python:
+
+```python
+community_biomass = sim.biomass(min_w=1, max_w=1000)
+community_abundance = sim.abundance(min_w=1, max_w=1000)
+mean_weight = params.mean_weight(min_w=1, max_w=1000)
+large_fish = params.proportion_of_large_fish(threshold_w=100)
+```
+
+That makes it easy to move between broad summaries and size-resolved arrays in
+the same notebook.
 
 ## Example Biomass Output
 
