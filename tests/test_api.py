@@ -53,6 +53,11 @@ def test_params_read_only_analysis_methods():
     ssb = params.ssb()
     feeding = params.feeding_level()
     pred_mort = params.pred_mort()
+    growth = params.growth_curves()
+    diet = params.diet()
+    trophic = params.trophic_level()
+    trophic_by_species = params.trophic_level_by_species()
+    mean_max_weight = params.mean_max_weight()
     mean_weight = params.mean_weight()
     large_fish = params.proportion_of_large_fish()
     slope = params.community_slope()
@@ -62,6 +67,12 @@ def test_params_read_only_analysis_methods():
     assert ssb.index.tolist() == ["Community"]
     assert feeding.dims == ("sp", "w")
     assert pred_mort.dims == ("sp", "w")
+    assert growth.index.tolist() == ["Community"]
+    assert growth.columns[0] == 0.0
+    assert diet.dims == ("predator", "w", "prey")
+    assert trophic.dims == ("sp", "w")
+    assert trophic_by_species.index.tolist() == ["Community"]
+    assert set(mean_max_weight.index.tolist()) == {"mmw_numbers", "mmw_biomass"}
     assert isinstance(mean_weight, float)
     assert isinstance(large_fish, float)
     assert {"slope", "intercept", "r2"} == set(slope.columns)
@@ -79,6 +90,11 @@ def test_sim_extended_analysis_methods():
     yield_gear = sim.yield_gear()
     f_mort_gear = sim.f_mort_gear()
     pred_mort = sim.pred_mort()
+    growth = sim.growth_curves()
+    diet = sim.diet()
+    trophic = sim.trophic_level()
+    trophic_by_species = sim.trophic_level_by_species()
+    mean_max_weight = sim.mean_max_weight()
     mean_weight = sim.mean_weight()
     large_fish = sim.proportion_of_large_fish()
     slope = sim.community_slope()
@@ -88,6 +104,12 @@ def test_sim_extended_analysis_methods():
     assert yield_gear.dims == ("time", "gear", "sp")
     assert f_mort_gear.dims == ("time", "gear", "sp", "w")
     assert pred_mort.dims == ("time", "sp", "w")
+    assert "Cod" in growth.index
+    assert growth.columns[0] == 0.0
+    assert diet.dims == ("predator", "w", "prey")
+    assert trophic.dims == ("sp", "w")
+    assert "Cod" in trophic_by_species.index
+    assert {"mmw_numbers", "mmw_biomass"} == set(mean_max_weight.columns)
     assert mean_weight.index.tolist() == ["0.0", "1.0"]
     assert large_fish.index.tolist() == ["0.0", "1.0"]
     assert {"slope", "intercept", "r2"} == set(slope.columns)

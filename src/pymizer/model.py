@@ -47,6 +47,13 @@ def _scalar_from_r(value: Any) -> float:
     return float(data[0])
 
 
+def _growth_curves_to_frame(value: Any) -> pd.DataFrame:
+    """Convert an R species x age matrix to a labelled pandas DataFrame."""
+    frame = to_dataframe_2d(value, index_name="species", column_name="age")
+    frame.columns = [float(col) for col in frame.columns]
+    return frame
+
+
 @dataclass(frozen=True)
 class MizerParams:
     """Python wrapper around an R `MizerParams` object."""
@@ -132,6 +139,30 @@ class MizerParams:
             return to_xarray(value, ["sp", "w"])
         return to_numpy(value)
 
+    def growth_curves(self) -> pd.DataFrame:
+        """Return species growth curves as a pandas DataFrame."""
+        value = self._env.call("getGrowthCurves", self._r_obj)
+        return _growth_curves_to_frame(value)
+
+    def diet(self, *, proportion: bool = True, as_xarray: bool = True):
+        """Return diet composition in the initial state."""
+        value = self._env.call("getDiet", self._r_obj, proportion=proportion)
+        if as_xarray:
+            return to_xarray(value, ["predator", "w", "prey"])
+        return to_numpy(value)
+
+    def trophic_level(self, *, as_xarray: bool = True):
+        """Return trophic level at size in the initial state."""
+        value = self._env.call("getTrophicLevel", self._r_obj)
+        if as_xarray:
+            return to_xarray(value, ["sp", "w"])
+        return to_numpy(value)
+
+    def trophic_level_by_species(self) -> pd.Series:
+        """Return the species-level trophic level in the initial state."""
+        value = self._env.call("getTrophicLevelBySpecies", self._r_obj)
+        return _series_from_r_vector(value, name="trophic_level_by_species")
+
     def mean_weight(self, **kwargs: Any) -> float:
         """Return the mean community weight in the initial state."""
         value = self._env.call("getMeanWeight", self._r_obj, **{key: to_r(val) for key, val in kwargs.items()})
@@ -152,6 +183,18 @@ class MizerParams:
             self._env.call("getCommunitySlope", self._r_obj, **{key: to_r(val) for key, val in kwargs.items()})
         )
 
+    def mean_max_weight(self, measure: str = "both", **kwargs: Any):
+        """Return the mean maximum weight in the initial state."""
+        value = self._env.call(
+            "getMeanMaxWeight",
+            self._r_obj,
+            measure=measure,
+            **{key: to_r(val) for key, val in kwargs.items()},
+        )
+        if measure == "both":
+            return _series_from_r_vector(value, name="mean_max_weight")
+        return _scalar_from_r(value)
+
 
 @dataclass(frozen=True)
 class MizerSim:
@@ -169,6 +212,12 @@ class MizerSim:
         """Return the `MizerParams` used to create the simulation."""
         params = self._env.call("getParams", self._r_obj)
         return _wrap_params(params, self._env)
+
+    def _final_params(self) -> MizerParams:
+        """Return params updated to the final state of the simulation."""
+        params = self._env.call("getParams", self._r_obj)
+        updated = self._env.call("setInitialValues", params, self._r_obj)
+        return _wrap_params(updated, self._env)
 
     def times(self):
         """Return saved times as a numpy array."""
@@ -239,6 +288,30 @@ class MizerSim:
             return to_xarray(value, ["time", "sp", "w"])
         return to_numpy(value)
 
+    def growth_curves(self) -> pd.DataFrame:
+        """Return growth curves evaluated from the final simulation state."""
+        value = self._env.call("getGrowthCurves", self._r_obj)
+        return _growth_curves_to_frame(value)
+
+    def diet(self, *, proportion: bool = True, as_xarray: bool = True):
+        """Return diet composition at the final simulated state."""
+        value = self._env.call("getDiet", self._final_params().r, proportion=proportion)
+        if as_xarray:
+            return to_xarray(value, ["predator", "w", "prey"])
+        return to_numpy(value)
+
+    def trophic_level(self, *, as_xarray: bool = True):
+        """Return trophic level at size at the final simulated state."""
+        value = self._env.call("getTrophicLevel", self._final_params().r)
+        if as_xarray:
+            return to_xarray(value, ["sp", "w"])
+        return to_numpy(value)
+
+    def trophic_level_by_species(self) -> pd.Series:
+        """Return the species-level trophic level at the final simulated state."""
+        value = self._env.call("getTrophicLevelBySpecies", self._final_params().r)
+        return _series_from_r_vector(value, name="trophic_level_by_species")
+
     def mean_weight(self, **kwargs: Any) -> pd.Series:
         """Return mean community weight through time."""
         value = self._env.call("getMeanWeight", self._r_obj, **{key: to_r(val) for key, val in kwargs.items()})
@@ -265,6 +338,22 @@ class MizerSim:
             self._env.call("getCommunitySlope", self._r_obj, **{key: to_r(val) for key, val in kwargs.items()}),
             index_name="time",
         )
+
+    def mean_max_weight(self, measure: str = "both", **kwargs: Any):
+        """Return the mean maximum weight through time."""
+        value = self._env.call(
+            "getMeanMaxWeight",
+            self._r_obj,
+            measure=measure,
+            **{key: to_r(val) for key, val in kwargs.items()},
+        )
+        if measure == "both":
+            frame = to_dataframe_2d(value, index_name="time")
+            return frame
+        time_index = [str(item) for item in self.times()]
+        series = _series_from_r_vector(value, index=time_index, name=f"mean_max_weight_{measure}")
+        series.index.name = "time"
+        return series
 
 
 def new_multispecies_params(
