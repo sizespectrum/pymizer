@@ -12,6 +12,7 @@ def test_public_api_imports():
     assert hasattr(module, "list_datasets")
     assert hasattr(module, "load_dataset")
     assert hasattr(module, "new_multispecies_params")
+    assert hasattr(module, "validate_species_params")
 
 
 @pytest.mark.integration
@@ -37,3 +38,14 @@ def test_load_builtin_datasets():
     assert "NS_species_params" in datasets["name"].tolist()
     assert "species" in species.columns
     assert isinstance(params, pymizer.MizerParams)
+
+
+@pytest.mark.integration
+def test_environment_versions():
+    pymizer = importlib.import_module("pymizer")
+    versions = pymizer.get_environment().versions()
+
+    assert "pymizer" in versions
+    assert "rpy2" in versions
+    assert "R" in versions
+    assert "mizer" in versions

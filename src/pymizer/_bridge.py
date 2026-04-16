@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
+from importlib import metadata
 from pathlib import Path
 from typing import Any
 
@@ -29,8 +30,9 @@ class MizerREnvironment:
             self.mizer = importr(self.package_name)
         except Exception as exc:  # pragma: no cover - depends on local R setup
             raise MizerError(
-                "Could not load the R package 'mizer'. Make sure R is installed "
-                "and that the mizer package is available in your R library."
+                "Could not load the R bridge for pymizer. Make sure R is installed, "
+                "that the 'mizer' R package is available in your R library, and "
+                "that the Python package 'rpy2' can talk to your local R installation."
             ) from exc
 
     def call(self, name: str, *args: Any, **kwargs: Any) -> Any:
@@ -40,7 +42,10 @@ class MizerREnvironment:
         except AttributeError as exc:
             raise MizerError(f"The R package does not export '{name}'.") from exc
 
-        return fun(*args, **kwargs)
+        try:
+            return fun(*args, **kwargs)
+        except Exception as exc:
+            raise MizerError(f"Calling mizer::{name} failed.") from exc
 
     def save_rds(self, obj: Any, path: str | Path) -> None:
         """Save an R object to an RDS file."""
@@ -72,6 +77,17 @@ class MizerREnvironment:
             if isinstance(frame, pd.DataFrame):
                 return frame
             return pd.DataFrame(frame)
+
+    def versions(self) -> dict[str, str]:
+        """Return version information for the active Python and R bridge stack."""
+        r_version = str(robjects.r["as.character"](robjects.r["getRversion"]())[0])
+        mizer_version = str(robjects.r["as.character"](self.utils.packageVersion(self.package_name))[0])
+        return {
+            "pymizer": metadata.version("pymizer"),
+            "rpy2": metadata.version("rpy2"),
+            "R": r_version,
+            self.package_name: mizer_version,
+        }
 
 
 _ENV: MizerREnvironment | None = None

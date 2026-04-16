@@ -8,6 +8,7 @@ import pandas as pd
 
 from ._bridge import MizerREnvironment, get_environment
 from ._converters import named_numeric_vector, to_dataframe_2d, to_numpy, to_r, to_xarray
+from ._validation import validate_interaction_matrix, validate_species_params
 
 
 def _wrap_params(obj: Any, env: MizerREnvironment | None = None) -> "MizerParams":
@@ -149,6 +150,8 @@ def new_multispecies_params(
 ) -> MizerParams:
     """Wrap `newMultispeciesParams()` with pandas-friendly inputs."""
     env = env or get_environment()
+    species_params = validate_species_params(species_params)
+    interaction = validate_interaction_matrix(interaction, species_params["species"].tolist())
     call_kwargs = {"species_params": to_r(species_params)}
     if interaction is not None:
         call_kwargs["interaction"] = to_r(interaction)
@@ -166,6 +169,7 @@ def new_single_species_params(
 ) -> MizerParams:
     """Wrap `newSingleSpeciesParams()`."""
     env = env or get_environment()
+    species_params = validate_species_params(species_params, single_species=True)
     call_kwargs = {"species_params": to_r(species_params)}
     for key, value in kwargs.items():
         call_kwargs[key] = to_r(value)
