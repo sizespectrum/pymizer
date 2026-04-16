@@ -79,6 +79,35 @@ def test_params_read_only_analysis_methods():
 
 
 @pytest.mark.integration
+def test_indicator_methods_accept_species_and_size_filters():
+    pymizer = importlib.import_module("pymizer")
+    species = pymizer.load_dataset("NS_species_params")
+    interaction = pymizer.load_dataset("NS_interaction")
+    params = pymizer.new_multispecies_params(species_params=species, interaction=interaction)
+    sim = params.project(t_max=1, dt=0.1, t_save=1, effort=0, progress_bar=False)
+
+    growth = params.growth_curves(species=["Cod", "Haddock"], max_age=5, percentage=True)
+    mean_weight = params.mean_weight(species=["Cod", "Haddock"], min_w=10, max_w=1000)
+    large_fish = params.proportion_of_large_fish(
+        species=["Cod", "Haddock"],
+        threshold_w=1000,
+        biomass_proportion=False,
+        min_w=10,
+        max_w=5000,
+    )
+    slope = params.community_slope(species=["Cod", "Haddock"], biomass=False, min_w=10, max_w=1000)
+    mean_max_weight = sim.mean_max_weight(measure="numbers", species=["Cod", "Haddock"], min_w=10, max_w=1000)
+
+    assert growth.index.tolist() == ["Cod", "Haddock"]
+    assert growth.columns[0] == 0.0
+    assert growth.to_numpy().max() <= 100.0
+    assert isinstance(mean_weight, float)
+    assert isinstance(large_fish, float)
+    assert {"slope", "intercept", "r2"} == set(slope.columns)
+    assert mean_max_weight.index.tolist() == ["0.0", "1.0"]
+
+
+@pytest.mark.integration
 def test_sim_extended_analysis_methods():
     pymizer = importlib.import_module("pymizer")
     species = pymizer.load_dataset("NS_species_params")

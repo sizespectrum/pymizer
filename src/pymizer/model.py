@@ -12,6 +12,47 @@ from ._converters import named_numeric_vector, to_dataframe_2d, to_numpy, to_r, 
 from ._validation import validate_interaction_matrix, validate_species_params
 
 
+def _species_arg(species: str | list[str] | tuple[str, ...] | None) -> Any:
+    """Convert species selections to the R form expected by mizer."""
+    if species is None:
+        return None
+    if isinstance(species, str):
+        return robjects.StrVector([species])
+    return robjects.StrVector([str(item) for item in species])
+
+
+def _indicator_kwargs(
+    *,
+    species: str | list[str] | tuple[str, ...] | None = None,
+    min_w: float | list[float] | None = None,
+    max_w: float | list[float] | None = None,
+    min_l: float | list[float] | None = None,
+    max_l: float | list[float] | None = None,
+    **kwargs: Any,
+) -> dict[str, Any]:
+    """Build keyword arguments for size-filtered summary methods."""
+    call_kwargs: dict[str, Any] = {}
+    if species is not None:
+        call_kwargs["species"] = _species_arg(species)
+    if min_w is not None:
+        call_kwargs["min_w"] = to_r(min_w)
+    if max_w is not None:
+        call_kwargs["max_w"] = to_r(max_w)
+    if min_l is not None:
+        call_kwargs["min_l"] = to_r(min_l)
+    if max_l is not None:
+        call_kwargs["max_l"] = to_r(max_l)
+    for key, value in kwargs.items():
+        if value is not None:
+            call_kwargs[key] = to_r(value)
+    return call_kwargs
+
+
+def _optional_kwargs(**kwargs: Any) -> dict[str, Any]:
+    """Drop keyword arguments with None values."""
+    return {key: value for key, value in kwargs.items() if value is not None}
+
+
 def _wrap_params(obj: Any, env: MizerREnvironment | None = None) -> "MizerParams":
     return MizerParams(_r_obj=obj, _env=env or get_environment())
 
@@ -47,10 +88,15 @@ def _scalar_from_r(value: Any) -> float:
     return float(data[0])
 
 
-def _growth_curves_to_frame(value: Any) -> pd.DataFrame:
+def _growth_curves_to_frame(value: Any, species_order: str | list[str] | tuple[str, ...] | None = None) -> pd.DataFrame:
     """Convert an R species x age matrix to a labelled pandas DataFrame."""
     frame = to_dataframe_2d(value, index_name="species", column_name="age")
     frame.columns = [float(col) for col in frame.columns]
+    if species_order is not None:
+        requested = [species_order] if isinstance(species_order, str) else [str(item) for item in species_order]
+        available = [item for item in requested if item in frame.index]
+        if available:
+            frame = frame.loc[available]
     return frame
 
 
@@ -139,10 +185,20 @@ class MizerParams:
             return to_xarray(value, ["sp", "w"])
         return to_numpy(value)
 
-    def growth_curves(self) -> pd.DataFrame:
+    def growth_curves(
+        self,
+        *,
+        species: str | list[str] | tuple[str, ...] | None = None,
+        max_age: float = 20,
+        percentage: bool = False,
+    ) -> pd.DataFrame:
         """Return species growth curves as a pandas DataFrame."""
-        value = self._env.call("getGrowthCurves", self._r_obj)
-        return _growth_curves_to_frame(value)
+        value = self._env.call("getGrowthCurves", self._r_obj, **_optional_kwargs(
+            species=_species_arg(species),
+            max_age=max_age,
+            percentage=percentage,
+        ))
+        return _growth_curves_to_frame(value, species_order=species)
 
     def diet(self, *, proportion: bool = True, as_xarray: bool = True):
         """Return diet composition in the initial state."""
@@ -163,33 +219,84 @@ class MizerParams:
         value = self._env.call("getTrophicLevelBySpecies", self._r_obj)
         return _series_from_r_vector(value, name="trophic_level_by_species")
 
-    def mean_weight(self, **kwargs: Any) -> float:
+    def mean_weight(
+        self,
+        *,
+        species: str | list[str] | tuple[str, ...] | None = None,
+        min_w: float | list[float] | None = None,
+        max_w: float | list[float] | None = None,
+        min_l: float | list[float] | None = None,
+        max_l: float | list[float] | None = None,
+    ) -> float:
         """Return the mean community weight in the initial state."""
-        value = self._env.call("getMeanWeight", self._r_obj, **{key: to_r(val) for key, val in kwargs.items()})
+        value = self._env.call(
+            "getMeanWeight",
+            self._r_obj,
+            **_indicator_kwargs(species=species, min_w=min_w, max_w=max_w, min_l=min_l, max_l=max_l),
+        )
         return _scalar_from_r(value)
 
-    def proportion_of_large_fish(self, **kwargs: Any) -> float:
+    def proportion_of_large_fish(
+        self,
+        *,
+        species: str | list[str] | tuple[str, ...] | None = None,
+        threshold_w: float = 100,
+        threshold_l: float | None = None,
+        biomass_proportion: bool = True,
+        min_w: float | list[float] | None = None,
+        max_w: float | list[float] | None = None,
+        min_l: float | list[float] | None = None,
+        max_l: float | list[float] | None = None,
+    ) -> float:
         """Return the proportion of large fish in the initial state."""
         value = self._env.call(
             "getProportionOfLargeFish",
             self._r_obj,
-            **{key: to_r(val) for key, val in kwargs.items()},
+            **_optional_kwargs(
+                threshold_w=threshold_w,
+                threshold_l=to_r(threshold_l) if threshold_l is not None else None,
+                biomass_proportion=biomass_proportion,
+            ),
+            **_indicator_kwargs(species=species, min_w=min_w, max_w=max_w, min_l=min_l, max_l=max_l),
         )
         return _scalar_from_r(value)
 
-    def community_slope(self, **kwargs: Any) -> pd.DataFrame:
+    def community_slope(
+        self,
+        *,
+        species: str | list[str] | tuple[str, ...] | None = None,
+        biomass: bool = True,
+        min_w: float | list[float] | None = None,
+        max_w: float | list[float] | None = None,
+        min_l: float | list[float] | None = None,
+        max_l: float | list[float] | None = None,
+    ) -> pd.DataFrame:
         """Return the fitted community size-spectrum slope in the initial state."""
         return _frame_from_r_dataframe(
-            self._env.call("getCommunitySlope", self._r_obj, **{key: to_r(val) for key, val in kwargs.items()})
+            self._env.call(
+                "getCommunitySlope",
+                self._r_obj,
+                biomass=biomass,
+                **_indicator_kwargs(species=species, min_w=min_w, max_w=max_w, min_l=min_l, max_l=max_l),
+            )
         )
 
-    def mean_max_weight(self, measure: str = "both", **kwargs: Any):
+    def mean_max_weight(
+        self,
+        measure: str = "both",
+        *,
+        species: str | list[str] | tuple[str, ...] | None = None,
+        min_w: float | list[float] | None = None,
+        max_w: float | list[float] | None = None,
+        min_l: float | list[float] | None = None,
+        max_l: float | list[float] | None = None,
+    ):
         """Return the mean maximum weight in the initial state."""
         value = self._env.call(
             "getMeanMaxWeight",
             self._r_obj,
             measure=measure,
-            **{key: to_r(val) for key, val in kwargs.items()},
+            **_indicator_kwargs(species=species, min_w=min_w, max_w=max_w, min_l=min_l, max_l=max_l),
         )
         if measure == "both":
             return _series_from_r_vector(value, name="mean_max_weight")
@@ -288,10 +395,20 @@ class MizerSim:
             return to_xarray(value, ["time", "sp", "w"])
         return to_numpy(value)
 
-    def growth_curves(self) -> pd.DataFrame:
+    def growth_curves(
+        self,
+        *,
+        species: str | list[str] | tuple[str, ...] | None = None,
+        max_age: float = 20,
+        percentage: bool = False,
+    ) -> pd.DataFrame:
         """Return growth curves evaluated from the final simulation state."""
-        value = self._env.call("getGrowthCurves", self._r_obj)
-        return _growth_curves_to_frame(value)
+        value = self._env.call("getGrowthCurves", self._r_obj, **_optional_kwargs(
+            species=_species_arg(species),
+            max_age=max_age,
+            percentage=percentage,
+        ))
+        return _growth_curves_to_frame(value, species_order=species)
 
     def diet(self, *, proportion: bool = True, as_xarray: bool = True):
         """Return diet composition at the final simulated state."""
@@ -312,40 +429,91 @@ class MizerSim:
         value = self._env.call("getTrophicLevelBySpecies", self._final_params().r)
         return _series_from_r_vector(value, name="trophic_level_by_species")
 
-    def mean_weight(self, **kwargs: Any) -> pd.Series:
+    def mean_weight(
+        self,
+        *,
+        species: str | list[str] | tuple[str, ...] | None = None,
+        min_w: float | list[float] | None = None,
+        max_w: float | list[float] | None = None,
+        min_l: float | list[float] | None = None,
+        max_l: float | list[float] | None = None,
+    ) -> pd.Series:
         """Return mean community weight through time."""
-        value = self._env.call("getMeanWeight", self._r_obj, **{key: to_r(val) for key, val in kwargs.items()})
+        value = self._env.call(
+            "getMeanWeight",
+            self._r_obj,
+            **_indicator_kwargs(species=species, min_w=min_w, max_w=max_w, min_l=min_l, max_l=max_l),
+        )
         time_index = [str(item) for item in self.times()]
         series = _series_from_r_vector(value, index=time_index, name="mean_weight")
         series.index.name = "time"
         return series
 
-    def proportion_of_large_fish(self, **kwargs: Any) -> pd.Series:
+    def proportion_of_large_fish(
+        self,
+        *,
+        species: str | list[str] | tuple[str, ...] | None = None,
+        threshold_w: float = 100,
+        threshold_l: float | None = None,
+        biomass_proportion: bool = True,
+        min_w: float | list[float] | None = None,
+        max_w: float | list[float] | None = None,
+        min_l: float | list[float] | None = None,
+        max_l: float | list[float] | None = None,
+    ) -> pd.Series:
         """Return the proportion of large fish through time."""
         value = self._env.call(
             "getProportionOfLargeFish",
             self._r_obj,
-            **{key: to_r(val) for key, val in kwargs.items()},
+            **_optional_kwargs(
+                threshold_w=threshold_w,
+                threshold_l=to_r(threshold_l) if threshold_l is not None else None,
+                biomass_proportion=biomass_proportion,
+            ),
+            **_indicator_kwargs(species=species, min_w=min_w, max_w=max_w, min_l=min_l, max_l=max_l),
         )
         time_index = [str(item) for item in self.times()]
         series = _series_from_r_vector(value, index=time_index, name="proportion_of_large_fish")
         series.index.name = "time"
         return series
 
-    def community_slope(self, **kwargs: Any) -> pd.DataFrame:
+    def community_slope(
+        self,
+        *,
+        species: str | list[str] | tuple[str, ...] | None = None,
+        biomass: bool = True,
+        min_w: float | list[float] | None = None,
+        max_w: float | list[float] | None = None,
+        min_l: float | list[float] | None = None,
+        max_l: float | list[float] | None = None,
+    ) -> pd.DataFrame:
         """Return the fitted community size-spectrum slope through time."""
         return _frame_from_r_dataframe(
-            self._env.call("getCommunitySlope", self._r_obj, **{key: to_r(val) for key, val in kwargs.items()}),
+            self._env.call(
+                "getCommunitySlope",
+                self._r_obj,
+                biomass=biomass,
+                **_indicator_kwargs(species=species, min_w=min_w, max_w=max_w, min_l=min_l, max_l=max_l),
+            ),
             index_name="time",
         )
 
-    def mean_max_weight(self, measure: str = "both", **kwargs: Any):
+    def mean_max_weight(
+        self,
+        measure: str = "both",
+        *,
+        species: str | list[str] | tuple[str, ...] | None = None,
+        min_w: float | list[float] | None = None,
+        max_w: float | list[float] | None = None,
+        min_l: float | list[float] | None = None,
+        max_l: float | list[float] | None = None,
+    ):
         """Return the mean maximum weight through time."""
         value = self._env.call(
             "getMeanMaxWeight",
             self._r_obj,
             measure=measure,
-            **{key: to_r(val) for key, val in kwargs.items()},
+            **_indicator_kwargs(species=species, min_w=min_w, max_w=max_w, min_l=min_l, max_l=max_l),
         )
         if measure == "both":
             frame = to_dataframe_2d(value, index_name="time")
