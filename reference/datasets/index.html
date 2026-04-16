@@ -557,6 +557,62 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../articles/north-sea-model/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    North Sea Model
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../articles/analysis-and-plotting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Analysis And Plotting
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -756,6 +812,17 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#pymizer.datasets.NorthSeaExample" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        <code class="doc-symbol doc-symbol-toc doc-symbol-class"></code>&nbsp;NorthSeaExample
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#pymizer.datasets.list_datasets" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -771,6 +838,17 @@
     <span class="md-ellipsis">
       
         <code class="doc-symbol doc-symbol-toc doc-symbol-function"></code>&nbsp;load_dataset
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pymizer.datasets.load_north_sea" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        <code class="doc-symbol doc-symbol-toc doc-symbol-function"></code>&nbsp;load_north_sea
       
     </span>
   </a>
@@ -892,6 +970,17 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#pymizer.datasets.NorthSeaExample" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        <code class="doc-symbol doc-symbol-toc doc-symbol-class"></code>&nbsp;NorthSeaExample
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#pymizer.datasets.list_datasets" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -907,6 +996,17 @@
     <span class="md-ellipsis">
       
         <code class="doc-symbol doc-symbol-toc doc-symbol-function"></code>&nbsp;load_dataset
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pymizer.datasets.load_north_sea" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        <code class="doc-symbol doc-symbol-toc doc-symbol-function"></code>&nbsp;load_north_sea
       
     </span>
   </a>
@@ -951,6 +1051,7 @@ package.</p>
 <li>discover available built-in datasets with <code>list_datasets()</code></li>
 <li>load tabular inputs such as <code>NS_species_params</code> and <code>NS_interaction</code></li>
 <li>load wrapped model objects such as <code>NS_params</code> and <code>NS_sim</code></li>
+<li>load the commonly used North Sea example bundle with <code>load_north_sea()</code></li>
 </ul>
 <p>These helpers are a convenient way to try <code>pymizer</code> without preparing your own
 input files first.</p>
@@ -986,6 +1087,141 @@ input files first.</p>
 
 
 
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="pymizer.datasets.NorthSeaExample" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-class"></code>              <code class="highlight language-python"><span class="n">NorthSeaExample</span><span class="p">(</span><span class="n">species_params</span><span class="p">,</span> <span class="n">interaction</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">sim</span><span class="p">,</span> <span class="n">species_params_gears</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-dataclass"><code>dataclass</code></small>
+  </span>
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+
+
+
+        <p>Convenience bundle for the built-in North Sea example datasets.</p>
+
+
+<p><span class="doc-section-title">Attributes:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td><code><span title="pymizer.datasets.NorthSeaExample.species_params">species_params</span></code></td>
+            <td>
+                  <code><span title="pandas.DataFrame">DataFrame</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Species parameter table.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="pymizer.datasets.NorthSeaExample.interaction">interaction</span></code></td>
+            <td>
+                  <code><span title="pandas.DataFrame">DataFrame</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Species interaction matrix.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="pymizer.datasets.NorthSeaExample.params">params</span></code></td>
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="              MizerParams(_r_obj, _env)
+
+  
+      dataclass
+   (pymizer.model.MizerParams)" href="../model/#pymizer.model.MizerParams">MizerParams</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Wrapped <code>MizerParams</code> object for the built-in North Sea model.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="pymizer.datasets.NorthSeaExample.sim">sim</span></code></td>
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="              MizerSim(_r_obj, _env)
+
+  
+      dataclass
+   (pymizer.model.MizerSim)" href="../model/#pymizer.model.MizerSim">MizerSim</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Wrapped <code>MizerSim</code> object for the built-in North Sea simulation.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="pymizer.datasets.NorthSeaExample.species_params_gears">species_params_gears</span></code></td>
+            <td>
+                  <code><span title="pandas.DataFrame">DataFrame</span> | None</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Optional gear-specific species parameter table
+when available in the installed <code>mizer</code> version.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+<p><span class="doc-section-title">Examples:</span></p>
+    <div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">pymizer</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">mz</span>
+
+<span class="n">north_sea</span> <span class="o">=</span> <span class="n">mz</span><span class="o">.</span><span class="n">load_north_sea</span><span class="p">()</span>
+<span class="n">sim</span> <span class="o">=</span> <span class="n">north_sea</span><span class="o">.</span><span class="n">params</span><span class="o">.</span><span class="n">project</span><span class="p">(</span><span class="n">t_max</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">dt</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">t_save</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">effort</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">progress_bar</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</code></pre></div>
+
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
 
 
 <div class="doc doc-object doc-function">
@@ -1237,6 +1473,109 @@ input files first.</p>
 <span class="n">species</span> <span class="o">=</span> <span class="n">mz</span><span class="o">.</span><span class="n">load_dataset</span><span class="p">(</span><span class="s2">&quot;NS_species_params&quot;</span><span class="p">)</span>
 <span class="n">params</span> <span class="o">=</span> <span class="n">mz</span><span class="o">.</span><span class="n">load_dataset</span><span class="p">(</span><span class="s2">&quot;NS_params&quot;</span><span class="p">)</span>
 <span class="n">sim</span> <span class="o">=</span> <span class="n">mz</span><span class="o">.</span><span class="n">load_dataset</span><span class="p">(</span><span class="s2">&quot;NS_sim&quot;</span><span class="p">)</span>
+</code></pre></div>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="pymizer.datasets.load_north_sea" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-function"></code>            <code class="highlight language-python"><span class="n">load_north_sea</span><span class="p">(</span><span class="n">env</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Load the matching built-in North Sea example datasets together.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>env</code>
+            </td>
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="              MizerREnvironment(package_name='mizer')
+
+  
+      dataclass
+   (pymizer._bridge.MizerREnvironment)" href="../bridge/#pymizer._bridge.MizerREnvironment">MizerREnvironment</a> | None</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Optional shared R environment wrapper.</p>
+              </div>
+            </td>
+            <td>
+                  <code>None</code>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+<th>Name</th>          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+<td><code>A</code></td>            <td>
+                  <code><a class="autorefs autorefs-internal" title="              NorthSeaExample(species_params, interaction, params, sim, species_params_gears=None)
+
+  
+      dataclass
+   (pymizer.datasets.NorthSeaExample)" href="#pymizer.datasets.NorthSeaExample">NorthSeaExample</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>class:<code>NorthSeaExample</code> bundle containing the most commonly used</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+<td></td>            <td>
+                  <code><a class="autorefs autorefs-internal" title="              NorthSeaExample(species_params, interaction, params, sim, species_params_gears=None)
+
+  
+      dataclass
+   (pymizer.datasets.NorthSeaExample)" href="#pymizer.datasets.NorthSeaExample">NorthSeaExample</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>North Sea inputs and example model objects.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+<p><span class="doc-section-title">Examples:</span></p>
+    <div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">pymizer</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">mz</span>
+
+<span class="n">north_sea</span> <span class="o">=</span> <span class="n">mz</span><span class="o">.</span><span class="n">load_north_sea</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">north_sea</span><span class="o">.</span><span class="n">species_params</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">north_sea</span><span class="o">.</span><span class="n">params</span><span class="o">.</span><span class="n">biomass</span><span class="p">())</span>
 </code></pre></div>
 
 

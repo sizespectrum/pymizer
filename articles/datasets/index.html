@@ -16,7 +16,7 @@
         <link rel="prev" href="../community-model/">
       
       
-        <link rel="next" href="../../reference/">
+        <link rel="next" href="../north-sea-model/">
       
       
         
@@ -634,6 +634,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#load-the-north-sea-bundle" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Load The North Sea Bundle
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#north-sea-example" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -648,6 +659,62 @@
   
 </nav>
       
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../north-sea-model/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    North Sea Model
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../analysis-and-plotting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Analysis And Plotting
+  
+
+    
+  </span>
+  
+  
+
+      </a>
     </li>
   
 
@@ -918,6 +985,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#load-the-north-sea-bundle" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Load The North Sea Bundle
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#north-sea-example" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -984,6 +1062,22 @@ testing the wrapper and for learning the <code>mizer</code> workflow from Python
 <li><code>MizerParams</code> -&gt; <code>pymizer.MizerParams</code></li>
 <li><code>MizerSim</code> -&gt; <code>pymizer.MizerSim</code></li>
 </ul>
+<h2 id="load-the-north-sea-bundle">Load The North Sea Bundle</h2>
+<p>For the common North Sea example workflow, <code>pymizer</code> can load the matching
+datasets together:</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">pymizer</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">mz</span>
+
+<span class="n">north_sea</span> <span class="o">=</span> <span class="n">mz</span><span class="o">.</span><span class="n">load_north_sea</span><span class="p">()</span>
+
+<span class="n">species</span> <span class="o">=</span> <span class="n">north_sea</span><span class="o">.</span><span class="n">species_params</span>
+<span class="n">interaction</span> <span class="o">=</span> <span class="n">north_sea</span><span class="o">.</span><span class="n">interaction</span>
+<span class="n">params</span> <span class="o">=</span> <span class="n">north_sea</span><span class="o">.</span><span class="n">params</span>
+<span class="n">sim</span> <span class="o">=</span> <span class="n">north_sea</span><span class="o">.</span><span class="n">sim</span>
+</code></pre></div>
+<p>This is usually the most convenient entry point for a notebook because the
+tabular inputs and wrapped model objects stay grouped together.</p>
+<p>A runnable version of this workflow is included in
+<a href="/home/gustav/Git/mizer/python/examples/north_sea.py">examples/north_sea.py</a>.</p>
 <h2 id="north-sea-example">North Sea Example</h2>
 <p>You can rebuild the North Sea parameter object from Python inputs:</p>
 <div class="highlight"><pre><span></span><code><span class="n">species</span> <span class="o">=</span> <span class="n">mz</span><span class="o">.</span><span class="n">load_dataset</span><span class="p">(</span><span class="s2">&quot;NS_species_params&quot;</span><span class="p">)</span>

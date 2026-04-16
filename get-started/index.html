@@ -714,6 +714,62 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../articles/north-sea-model/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    North Sea Model
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../articles/analysis-and-plotting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Analysis And Plotting
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -1219,6 +1275,7 @@ Python. The editing methods follow the <code>mizer</code> pattern and return a n
 
 <span class="nb">print</span><span class="p">(</span><span class="n">mz</span><span class="o">.</span><span class="n">list_datasets</span><span class="p">())</span>
 
+<span class="n">north_sea</span> <span class="o">=</span> <span class="n">mz</span><span class="o">.</span><span class="n">load_north_sea</span><span class="p">()</span>
 <span class="n">species</span> <span class="o">=</span> <span class="n">mz</span><span class="o">.</span><span class="n">load_dataset</span><span class="p">(</span><span class="s2">&quot;NS_species_params&quot;</span><span class="p">)</span>
 <span class="n">interaction</span> <span class="o">=</span> <span class="n">mz</span><span class="o">.</span><span class="n">load_dataset</span><span class="p">(</span><span class="s2">&quot;NS_interaction&quot;</span><span class="p">)</span>
 <span class="n">params</span> <span class="o">=</span> <span class="n">mz</span><span class="o">.</span><span class="n">load_dataset</span><span class="p">(</span><span class="s2">&quot;NS_params&quot;</span><span class="p">)</span>
@@ -1229,6 +1286,24 @@ Python. The editing methods follow the <code>mizer</code> pattern and return a n
 <li>tabular datasets become <code>pandas.DataFrame</code></li>
 <li><code>NS_params</code> becomes <code>pymizer.MizerParams</code></li>
 <li><code>NS_sim</code> becomes <code>pymizer.MizerSim</code></li>
+</ul>
+<p>For most users, the easiest way to start with a realistic model is the bundled
+North Sea helper:</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">pymizer</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">mz</span>
+
+<span class="n">north_sea</span> <span class="o">=</span> <span class="n">mz</span><span class="o">.</span><span class="n">load_north_sea</span><span class="p">()</span>
+
+<span class="n">params</span> <span class="o">=</span> <span class="n">north_sea</span><span class="o">.</span><span class="n">params</span>
+<span class="n">sim</span> <span class="o">=</span> <span class="n">north_sea</span><span class="o">.</span><span class="n">params</span><span class="o">.</span><span class="n">project</span><span class="p">(</span><span class="n">t_max</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">dt</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">t_save</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">effort</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">progress_bar</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</code></pre></div>
+<p>This returns the matching built-in pieces together:</p>
+<ul>
+<li><code>north_sea.species_params</code></li>
+<li><code>north_sea.interaction</code></li>
+<li><code>north_sea.params</code></li>
+<li><code>north_sea.sim</code></li>
+<li>optionally <code>north_sea.species_params_gears</code> when available in the installed
+  <code>mizer</code> version</li>
 </ul>
 <h2 id="build-the-docs">Build The Docs</h2>
 <p>This website is built with MkDocs:</p>
