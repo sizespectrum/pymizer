@@ -198,6 +198,37 @@ def test_set_initial_values_metadata_and_resource():
 
 
 @pytest.mark.integration
+def test_reproduction_and_rate_setters():
+    pymizer = importlib.import_module("pymizer")
+    params = pymizer.new_community_params(no_w=20)
+
+    original_maturity = params.maturity(as_xarray=False)
+    maturity = original_maturity.copy()
+    maturity[:, -1] = 0.0
+    search_vol = params.search_volume(as_xarray=False).copy()
+    search_vol[:] = search_vol * 1.1
+    intake_max = params.max_intake_rate(as_xarray=False).copy()
+    intake_max[:] = intake_max * 0.9
+    metab = params.metabolic_rate(as_xarray=False).copy()
+    metab[:] = metab * 1.05
+
+    updated_reproduction = params.set_reproduction(maturity=maturity)
+    updated_search = params.set_search_volume(search_vol)
+    updated_intake = params.set_max_intake_rate(intake_max)
+    updated_metab = params.set_metabolic_rate(metab)
+
+    assert isinstance(updated_reproduction, pymizer.MizerParams)
+    assert isinstance(updated_search, pymizer.MizerParams)
+    assert isinstance(updated_intake, pymizer.MizerParams)
+    assert isinstance(updated_metab, pymizer.MizerParams)
+    assert updated_reproduction.maturity(as_xarray=False)[0, -1] == 0.0
+    assert updated_search.search_volume(as_xarray=False)[0, 0] == pytest.approx(search_vol[0, 0])
+    assert updated_intake.max_intake_rate(as_xarray=False)[0, 0] == pytest.approx(intake_max[0, 0])
+    assert updated_metab.metabolic_rate(as_xarray=False)[0, 0] == pytest.approx(metab[0, 0])
+    assert params.maturity(as_xarray=False)[0, -1] == pytest.approx(original_maturity[0, -1])
+
+
+@pytest.mark.integration
 def test_environment_versions():
     pymizer = importlib.import_module("pymizer")
     versions = pymizer.get_environment().versions()

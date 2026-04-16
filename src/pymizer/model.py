@@ -308,6 +308,70 @@ class MizerParams:
         updated = self._env.call("setMetadata", self._r_obj, **call_kwargs)
         return _wrap_params(updated, self._env)
 
+    def set_reproduction(
+        self,
+        *,
+        maturity: Any | None = None,
+        repro_prop: Any | None = None,
+        reset: bool = False,
+        rdd: str | None = None,
+    ) -> "MizerParams":
+        """Return a new params object with updated reproduction settings."""
+        updated = self._env.call(
+            "setReproduction",
+            self._r_obj,
+            **_optional_kwargs(
+                maturity=to_r(maturity) if maturity is not None else None,
+                repro_prop=to_r(repro_prop) if repro_prop is not None else None,
+                reset=reset,
+                RDD=rdd,
+            ),
+        )
+        return _wrap_params(updated, self._env)
+
+    def set_search_volume(self, search_vol: Any | None = None, *, reset: bool = False) -> "MizerParams":
+        """Return a new params object with updated search volume."""
+        updated = self._env.call(
+            "setSearchVolume",
+            self._r_obj,
+            **_optional_kwargs(
+                search_vol=to_r(search_vol) if search_vol is not None else None,
+                reset=reset,
+            ),
+        )
+        return _wrap_params(updated, self._env)
+
+    def set_max_intake_rate(self, intake_max: Any | None = None, *, reset: bool = False) -> "MizerParams":
+        """Return a new params object with updated maximum intake rate."""
+        updated = self._env.call(
+            "setMaxIntakeRate",
+            self._r_obj,
+            **_optional_kwargs(
+                intake_max=to_r(intake_max) if intake_max is not None else None,
+                reset=reset,
+            ),
+        )
+        return _wrap_params(updated, self._env)
+
+    def set_metabolic_rate(
+        self,
+        metab: Any | None = None,
+        *,
+        p: float | None = None,
+        reset: bool = False,
+    ) -> "MizerParams":
+        """Return a new params object with updated metabolic rate."""
+        updated = self._env.call(
+            "setMetabolicRate",
+            self._r_obj,
+            **_optional_kwargs(
+                metab=to_r(metab) if metab is not None else None,
+                p=p,
+                reset=reset,
+            ),
+        )
+        return _wrap_params(updated, self._env)
+
     def summary(self) -> str:
         """Return the text representation of `summary(params)`."""
         summary_obj = self._env.base.summary(self._r_obj)
@@ -408,6 +472,34 @@ class MizerParams:
         """
         value = self._env.call("initialNResource", self._r_obj)
         return _series_with_float_index(value, name="initial_n_resource", index_name="w")
+
+    def maturity(self, *, as_xarray: bool = True):
+        """Return the maturity ogive by species and size."""
+        value = self._env.call("maturity", self._r_obj)
+        if as_xarray:
+            return to_xarray(value, ["sp", "w"])
+        return to_numpy(value)
+
+    def search_volume(self, *, as_xarray: bool = True):
+        """Return search volume by species and size."""
+        value = self._env.call("search_vol", self._r_obj)
+        if as_xarray:
+            return to_xarray(value, ["sp", "w"])
+        return to_numpy(value)
+
+    def max_intake_rate(self, *, as_xarray: bool = True):
+        """Return maximum intake rate by species and size."""
+        value = self._env.call("intake_max", self._r_obj)
+        if as_xarray:
+            return to_xarray(value, ["sp", "w"])
+        return to_numpy(value)
+
+    def metabolic_rate(self, *, as_xarray: bool = True):
+        """Return metabolic rate by species and size."""
+        value = self._env.call("metab", self._r_obj)
+        if as_xarray:
+            return to_xarray(value, ["sp", "w"])
+        return to_numpy(value)
 
     def pred_rate(self, *, as_xarray: bool = True, t: float = 0):
         """Return predation rate by predator species and prey size.
