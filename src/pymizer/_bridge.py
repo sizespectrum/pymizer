@@ -30,12 +30,26 @@ MINIMUM_VERSIONS = {
 
 
 class MizerError(RuntimeError):
-    """Raised when the R bridge cannot complete an operation."""
+    """Raised when the R bridge cannot complete an operation.
+
+    This usually indicates one of three problems:
+
+    - `rpy2` could not be imported or initialised against the local R install
+    - the R package `mizer` is unavailable
+    - an R-side function call failed
+    """
 
 
 @dataclass(frozen=True)
 class CompatibilityReport:
-    """Compatibility report for the active Python and R runtime stack."""
+    """Compatibility report for the active Python and R runtime stack.
+
+    Attributes:
+        versions: Detected versions for the current Python, R, `rpy2`, and
+            `mizer` runtime stack.
+        minimum_versions: Minimum versions expected by `pymizer`.
+        issues: Human-readable compatibility problems, if any.
+    """
 
     versions: dict[str, str]
     minimum_versions: dict[str, str]
@@ -56,7 +70,25 @@ def _safe_version(text: str) -> Version | None:
 
 
 def evaluate_versions(versions: dict[str, str], minimum_versions: dict[str, str] | None = None) -> CompatibilityReport:
-    """Evaluate runtime versions against the supported minimum versions."""
+    """Evaluate detected versions against the supported minimum versions.
+
+    Args:
+        versions: Mapping of component name to version string.
+        minimum_versions: Optional override for the default minimum versions.
+
+    Returns:
+        A :class:`CompatibilityReport`.
+
+    Examples:
+        ```python
+        import pymizer as mz
+
+        report = mz.evaluate_versions(
+            {"python": "3.12.0", "rpy2": "3.6.7", "R": "4.5.3", "mizer": "2.5.4", "pymizer": "0.1.0"}
+        )
+        print(report.ok)
+        ```
+    """
     minimum_versions = minimum_versions or MINIMUM_VERSIONS
     issues: list[str] = []
 
@@ -82,7 +114,19 @@ def evaluate_versions(versions: dict[str, str], minimum_versions: dict[str, str]
 
 @dataclass
 class MizerREnvironment:
-    """Thin wrapper around the embedded R session used by pymizer."""
+    """Thin wrapper around the embedded R session used by `pymizer`.
+
+    Most users should access the shared singleton via :func:`get_environment`
+    rather than instantiating this class directly.
+
+    Examples:
+        ```python
+        import pymizer as mz
+
+        env = mz.get_environment()
+        print(env.versions())
+        ```
+    """
 
     package_name: str = "mizer"
 
@@ -106,7 +150,19 @@ class MizerREnvironment:
             ) from exc
 
     def call(self, name: str, *args: Any, **kwargs: Any) -> Any:
-        """Call an exported R function from the mizer package."""
+        """Call an exported R function from the `mizer` package.
+
+        Args:
+            name: Exported function name in the R package.
+            *args: Positional arguments passed to the R function.
+            **kwargs: Keyword arguments passed to the R function.
+
+        Returns:
+            The raw R object returned by the function call.
+
+        Raises:
+            MizerError: If the function is missing or the R call fails.
+        """
         try:
             fun = getattr(self.mizer, name)
         except AttributeError as exc:
@@ -118,12 +174,12 @@ class MizerREnvironment:
             raise MizerError(f"Calling mizer::{name} failed.") from exc
 
     def save_rds(self, obj: Any, path: str | Path) -> None:
-        """Save an R object to an RDS file."""
+        """Save an R object to an `.rds` file."""
         with conversion.localconverter(default_converter + numpy2ri.converter + pandas2ri.converter):
             self.base.saveRDS(obj, file=str(path))
 
     def read_rds(self, path: str | Path) -> Any:
-        """Read an RDS file."""
+        """Read an `.rds` file and return the raw R object."""
         return self.base.readRDS(str(path))
 
     def class_name(self, obj: Any) -> str:
@@ -141,7 +197,7 @@ class MizerREnvironment:
         return [str(name) for name in slots]
 
     def dataframe_from_r(self, obj: Any) -> pd.DataFrame:
-        """Convert an R object to a pandas DataFrame via as.data.frame()."""
+        """Convert an R object to a pandas DataFrame via `as.data.frame()`."""
         with conversion.localconverter(default_converter + numpy2ri.converter + pandas2ri.converter):
             frame = robjects.r["as.data.frame"](obj)
             if isinstance(frame, pd.DataFrame):
@@ -149,7 +205,12 @@ class MizerREnvironment:
             return pd.DataFrame(frame)
 
     def versions(self) -> dict[str, str]:
-        """Return version information for the active Python and R bridge stack."""
+        """Return version information for the active Python and R bridge stack.
+
+        Returns:
+            A mapping with entries for `pymizer`, Python, `rpy2`, R, and
+            `mizer`.
+        """
         r_version = str(robjects.r["as.character"](robjects.r["getRversion"]())[0])
         mizer_version = str(robjects.r["as.character"](self.utils.packageVersion(self.package_name))[0])
         return {
@@ -169,7 +230,19 @@ _ENV: MizerREnvironment | None = None
 
 
 def get_environment() -> MizerREnvironment:
-    """Return the singleton R environment used by pymizer."""
+    """Return the singleton R environment used by `pymizer`.
+
+    Returns:
+        The shared :class:`MizerREnvironment` instance.
+
+    Examples:
+        ```python
+        import pymizer as mz
+
+        env = mz.get_environment()
+        print(env.compatibility_report().ok)
+        ```
+    """
     global _ENV
     if _ENV is None:
         _ENV = MizerREnvironment()
@@ -177,7 +250,28 @@ def get_environment() -> MizerREnvironment:
 
 
 def runtime_diagnostics() -> dict[str, Any]:
-    """Return environment diagnostics without requiring callers to inspect internals."""
+    """Return environment diagnostics without requiring access to internals.
+
+    The returned dictionary is designed for quick troubleshooting in notebooks,
+    scripts, or issue reports.
+
+    Returns:
+        A dictionary describing:
+
+        - whether `rpy2` imported successfully
+        - minimum supported versions
+        - detected runtime versions when available
+        - overall compatibility status
+        - any issues that were found
+
+    Examples:
+        ```python
+        import pymizer as mz
+
+        diagnostics = mz.runtime_diagnostics()
+        print(diagnostics["compatibility"])
+        ```
+    """
     diagnostics: dict[str, Any] = {
         "rpy2_import_ok": _RPY2_IMPORT_ERROR is None,
         "rpy2_import_error": None if _RPY2_IMPORT_ERROR is None else str(_RPY2_IMPORT_ERROR),

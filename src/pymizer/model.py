@@ -111,7 +111,22 @@ def _growth_curves_to_frame(value: Any, species_order: str | list[str] | tuple[s
 
 @dataclass(frozen=True)
 class MizerParams:
-    """Python wrapper around an R `MizerParams` object."""
+    """Python wrapper around an R ``MizerParams`` object.
+
+    ``MizerParams`` is the main model-configuration object in `mizer`. In
+    Python it acts as the starting point for running projections and inspecting
+    the initial state of a model.
+
+    Examples:
+        Create a small community model and inspect its initial biomass:
+
+        ```python
+        import pymizer as mz
+
+        params = mz.new_community_params(no_w=20)
+        biomass = params.biomass()
+        ```
+    """
 
     _r_obj: Any
     _env: MizerREnvironment
@@ -136,7 +151,29 @@ class MizerParams:
         progress_bar: bool = False,
         **kwargs: Any,
     ) -> "MizerSim":
-        """Run `mizer::project()` and wrap the resulting `MizerSim`."""
+        """Run ``mizer::project()`` and return a wrapped simulation result.
+
+        Args:
+            effort: Fishing effort passed through to `mizer`. A Python dict is
+                converted to a named R numeric vector.
+            t_max: Projection length in years.
+            dt: Internal integration time step.
+            t_save: Interval between saved output times.
+            t_start: Starting time recorded on the simulation output.
+            progress_bar: Whether `mizer` should show an R-side progress bar.
+            **kwargs: Additional arguments forwarded to ``mizer::project()``.
+
+        Returns:
+            A :class:`MizerSim` wrapper around the R simulation object.
+
+        Examples:
+            ```python
+            import pymizer as mz
+
+            params = mz.new_community_params(no_w=20)
+            sim = params.project(t_max=5, dt=0.1, t_save=1, progress_bar=False)
+            ```
+        """
         call_kwargs: dict[str, Any] = {
             "t_max": t_max,
             "dt": dt,
@@ -177,7 +214,24 @@ class MizerParams:
         min_l: float | list[float] | None = None,
         max_l: float | list[float] | None = None,
     ) -> pd.Series:
-        """Return species biomass in the initial state as a pandas Series."""
+        """Return species biomass in the initial state.
+
+        Args:
+            use_cutoff: Use the `biomass_cutoff` species parameter when
+                available.
+            min_w: Minimum weight filter.
+            max_w: Maximum weight filter.
+            min_l: Minimum length filter.
+            max_l: Maximum length filter.
+
+        Returns:
+            A ``pandas.Series`` indexed by species name.
+
+        Examples:
+            ```python
+            biomass = params.biomass(min_w=10, max_w=1000)
+            ```
+        """
         return _series_from_r_vector(
             self._env.call(
                 "getBiomass",
@@ -196,7 +250,17 @@ class MizerParams:
         min_l: float | list[float] | None = None,
         max_l: float | list[float] | None = None,
     ) -> pd.Series:
-        """Return species abundance in the initial state as a pandas Series."""
+        """Return species abundance in the initial state.
+
+        Args:
+            min_w: Minimum weight filter.
+            max_w: Maximum weight filter.
+            min_l: Minimum length filter.
+            max_l: Maximum length filter.
+
+        Returns:
+            A ``pandas.Series`` indexed by species name.
+        """
         return _series_from_r_vector(
             self._env.call(
                 "getN",
@@ -211,19 +275,40 @@ class MizerParams:
         return _series_from_r_vector(self._env.call("getSSB", self._r_obj), name="ssb")
 
     def initial_n(self, *, as_xarray: bool = True):
-        """Return the initial fish abundance density spectrum."""
+        """Return the initial fish abundance density spectrum.
+
+        Args:
+            as_xarray: When ``True``, return an ``xarray.DataArray`` with
+                dimensions ``("sp", "w")``. Otherwise return a NumPy array.
+
+        Examples:
+            ```python
+            initial_n = params.initial_n()
+            cod = initial_n.sel(sp="Cod")
+            ```
+        """
         value = self._env.call("initialN", self._r_obj)
         if as_xarray:
             return to_xarray(value, ["sp", "w"])
         return to_numpy(value)
 
     def initial_n_resource(self) -> pd.Series:
-        """Return the initial resource spectrum as a pandas Series."""
+        """Return the initial resource spectrum.
+
+        Returns:
+            A ``pandas.Series`` indexed by resource size.
+        """
         value = self._env.call("initialNResource", self._r_obj)
         return _series_with_float_index(value, name="initial_n_resource", index_name="w")
 
     def pred_rate(self, *, as_xarray: bool = True, t: float = 0):
-        """Return predation rate by predator species and prey size."""
+        """Return predation rate by predator species and prey size.
+
+        Args:
+            as_xarray: When ``True``, return an ``xarray.DataArray`` with
+                dimensions ``("sp", "w_prey")``.
+            t: Time passed through to ``mizer::getPredRate()``.
+        """
         value = self._env.call("getPredRate", self._r_obj, t=t)
         if as_xarray:
             return to_xarray(value, ["sp", "w_prey"])
@@ -250,7 +335,17 @@ class MizerParams:
         max_age: float = 20,
         percentage: bool = False,
     ) -> pd.DataFrame:
-        """Return species growth curves as a pandas DataFrame."""
+        """Return species growth curves as a pandas DataFrame.
+
+        Args:
+            species: Optional species subset.
+            max_age: Maximum age to evaluate.
+            percentage: Return size as a percentage of ``w_max``.
+
+        Returns:
+            A ``pandas.DataFrame`` indexed by species with age values as
+            columns.
+        """
         value = self._env.call("getGrowthCurves", self._r_obj, **_optional_kwargs(
             species=_species_arg(species),
             max_age=max_age,
@@ -259,7 +354,14 @@ class MizerParams:
         return _growth_curves_to_frame(value, species_order=species)
 
     def diet(self, *, proportion: bool = True, as_xarray: bool = True):
-        """Return diet composition in the initial state."""
+        """Return diet composition in the initial state.
+
+        Args:
+            proportion: If ``True``, normalise prey contributions to
+                proportions.
+            as_xarray: When ``True``, return an ``xarray.DataArray`` with
+                dimensions ``("predator", "w", "prey")``.
+        """
         value = self._env.call("getDiet", self._r_obj, proportion=proportion)
         if as_xarray:
             return to_xarray(value, ["predator", "w", "prey"])
@@ -286,7 +388,15 @@ class MizerParams:
         min_l: float | list[float] | None = None,
         max_l: float | list[float] | None = None,
     ) -> float:
-        """Return the mean community weight in the initial state."""
+        """Return the mean community weight in the initial state.
+
+        Args:
+            species: Optional species subset.
+            min_w: Minimum weight filter.
+            max_w: Maximum weight filter.
+            min_l: Minimum length filter.
+            max_l: Maximum length filter.
+        """
         value = self._env.call(
             "getMeanWeight",
             self._r_obj,
@@ -306,7 +416,18 @@ class MizerParams:
         min_l: float | list[float] | None = None,
         max_l: float | list[float] | None = None,
     ) -> float:
-        """Return the proportion of large fish in the initial state."""
+        """Return the proportion of large fish in the initial state.
+
+        Args:
+            species: Optional species subset.
+            threshold_w: Weight threshold separating small and large fish.
+            threshold_l: Length threshold separating small and large fish.
+            biomass_proportion: Use biomass rather than numbers.
+            min_w: Minimum weight filter.
+            max_w: Maximum weight filter.
+            min_l: Minimum length filter.
+            max_l: Maximum length filter.
+        """
         value = self._env.call(
             "getProportionOfLargeFish",
             self._r_obj,
@@ -329,7 +450,12 @@ class MizerParams:
         min_l: float | list[float] | None = None,
         max_l: float | list[float] | None = None,
     ) -> pd.DataFrame:
-        """Return the fitted community size-spectrum slope in the initial state."""
+        """Return the fitted community size-spectrum slope in the initial state.
+
+        Returns:
+            A one-row ``pandas.DataFrame`` with ``slope``, ``intercept``, and
+            ``r2`` columns.
+        """
         return _frame_from_r_dataframe(
             self._env.call(
                 "getCommunitySlope",
@@ -349,7 +475,16 @@ class MizerParams:
         min_l: float | list[float] | None = None,
         max_l: float | list[float] | None = None,
     ):
-        """Return the mean maximum weight in the initial state."""
+        """Return the mean maximum weight in the initial state.
+
+        Args:
+            measure: One of ``"both"``, ``"numbers"``, or ``"biomass"``.
+            species: Optional species subset.
+            min_w: Minimum weight filter.
+            max_w: Maximum weight filter.
+            min_l: Minimum length filter.
+            max_l: Maximum length filter.
+        """
         value = self._env.call(
             "getMeanMaxWeight",
             self._r_obj,
@@ -363,7 +498,20 @@ class MizerParams:
 
 @dataclass(frozen=True)
 class MizerSim:
-    """Python wrapper around an R `MizerSim` object."""
+    """Python wrapper around an R ``MizerSim`` object.
+
+    ``MizerSim`` stores time-resolved output from a projection. The wrapper
+    exposes common summaries as labelled ``pandas`` and ``xarray`` objects.
+
+    Examples:
+        ```python
+        import pymizer as mz
+
+        params = mz.new_community_params(no_w=20)
+        sim = params.project(t_max=5, dt=0.1, t_save=1, progress_bar=False)
+        biomass = sim.biomass()
+        ```
+    """
 
     _r_obj: Any
     _env: MizerREnvironment
@@ -385,7 +533,7 @@ class MizerSim:
         return _wrap_params(updated, self._env)
 
     def times(self):
-        """Return saved times as a numpy array."""
+        """Return saved times as a NumPy array."""
         return to_numpy(self._env.call("getTimes", self._r_obj))
 
     def biomass(
@@ -397,7 +545,16 @@ class MizerSim:
         min_l: float | list[float] | None = None,
         max_l: float | list[float] | None = None,
     ) -> pd.DataFrame:
-        """Return biomass through time as a pandas DataFrame."""
+        """Return biomass through time as a pandas DataFrame.
+
+        Args:
+            use_cutoff: Use the `biomass_cutoff` species parameter when
+                available.
+            min_w: Minimum weight filter.
+            max_w: Maximum weight filter.
+            min_l: Minimum length filter.
+            max_l: Maximum length filter.
+        """
         return to_dataframe_2d(
             self._env.call(
                 "getBiomass",
@@ -458,14 +615,24 @@ class MizerSim:
         return to_numpy(value)
 
     def n(self, *, as_xarray: bool = True):
-        """Return the species abundance array."""
+        """Return the species abundance array.
+
+        Args:
+            as_xarray: When ``True``, return an ``xarray.DataArray`` with
+                dimensions ``("time", "sp", "w")``.
+        """
         value = self._env.call("N", self._r_obj)
         if as_xarray:
             return to_xarray(value, ["time", "sp", "w"])
         return to_numpy(value)
 
     def n_resource(self, *, as_xarray: bool = True):
-        """Return the resource abundance array."""
+        """Return the resource abundance array.
+
+        Args:
+            as_xarray: When ``True``, return an ``xarray.DataArray`` with
+                dimensions ``("time", "w")``.
+        """
         value = self._env.call("NResource", self._r_obj)
         if as_xarray:
             return to_xarray(value, ["time", "w"])
@@ -494,7 +661,11 @@ class MizerSim:
         return to_numpy(value)
 
     def pred_rate(self, *, as_xarray: bool = True):
-        """Return predation rate at the final simulated state."""
+        """Return predation rate at the final simulated state.
+
+        This uses ``setInitialValues(getParams(sim), sim)`` under the hood so
+        that the predation rate is evaluated on the final simulated state.
+        """
         value = self._env.call("getPredRate", self._final_params().r, t=float(self.times()[-1]))
         if as_xarray:
             return to_xarray(value, ["sp", "w_prey"])
@@ -507,7 +678,13 @@ class MizerSim:
         max_age: float = 20,
         percentage: bool = False,
     ) -> pd.DataFrame:
-        """Return growth curves evaluated from the final simulation state."""
+        """Return growth curves evaluated from the final simulation state.
+
+        Args:
+            species: Optional species subset.
+            max_age: Maximum age to evaluate.
+            percentage: Return size as a percentage of ``w_max``.
+        """
         value = self._env.call("getGrowthCurves", self._r_obj, **_optional_kwargs(
             species=_species_arg(species),
             max_age=max_age,
@@ -516,7 +693,11 @@ class MizerSim:
         return _growth_curves_to_frame(value, species_order=species)
 
     def diet(self, *, proportion: bool = True, as_xarray: bool = True):
-        """Return diet composition at the final simulated state."""
+        """Return diet composition at the final simulated state.
+
+        This method evaluates diet on a params object rebuilt from the final
+        simulated state.
+        """
         value = self._env.call("getDiet", self._final_params().r, proportion=proportion)
         if as_xarray:
             return to_xarray(value, ["predator", "w", "prey"])
@@ -636,7 +817,30 @@ def new_multispecies_params(
     env: MizerREnvironment | None = None,
     **kwargs: Any,
 ) -> MizerParams:
-    """Wrap `newMultispeciesParams()` with pandas-friendly inputs."""
+    """Create a multispecies model from Python data structures.
+
+    Args:
+        species_params: Species parameter table as a ``pandas.DataFrame``.
+        interaction: Optional interaction matrix.
+        env: Optional shared R environment wrapper.
+        **kwargs: Additional arguments forwarded to
+            ``mizer::newMultispeciesParams()``.
+
+    Returns:
+        A wrapped :class:`MizerParams` object.
+
+    Examples:
+        ```python
+        import pymizer as mz
+
+        species = mz.load_dataset("NS_species_params")
+        interaction = mz.load_dataset("NS_interaction")
+        params = mz.new_multispecies_params(
+            species_params=species,
+            interaction=interaction,
+        )
+        ```
+    """
     env = env or get_environment()
     species_params = validate_species_params(species_params)
     interaction = validate_interaction_matrix(interaction, species_params["species"].tolist())
@@ -655,7 +859,14 @@ def new_single_species_params(
     env: MizerREnvironment | None = None,
     **kwargs: Any,
 ) -> MizerParams:
-    """Wrap `newSingleSpeciesParams()`."""
+    """Create a single-species model.
+
+    Args:
+        species_params: Single-row species parameter table.
+        env: Optional shared R environment wrapper.
+        **kwargs: Additional arguments forwarded to
+            ``mizer::newSingleSpeciesParams()``.
+    """
     env = env or get_environment()
     species_params = validate_species_params(species_params, single_species=True)
     call_kwargs = {"species_params": to_r(species_params)}
@@ -666,14 +877,32 @@ def new_single_species_params(
 
 
 def new_community_params(env: MizerREnvironment | None = None, **kwargs: Any) -> MizerParams:
-    """Wrap `newCommunityParams()`."""
+    """Create a simple community model.
+
+    Args:
+        env: Optional shared R environment wrapper.
+        **kwargs: Additional arguments forwarded to
+            ``mizer::newCommunityParams()``.
+
+    Examples:
+        ```python
+        import pymizer as mz
+
+        params = mz.new_community_params(no_w=20)
+        ```
+    """
     env = env or get_environment()
     params = env.call("newCommunityParams", **{key: to_r(value) for key, value in kwargs.items()})
     return _wrap_params(params, env)
 
 
 def read_params(path: str | Path, env: MizerREnvironment | None = None) -> MizerParams:
-    """Load a saved params object with `readParams()`."""
+    """Load a saved params object with ``mizer::readParams()``.
+
+    Args:
+        path: Path to an ``.rds`` file created by ``saveParams()``.
+        env: Optional shared R environment wrapper.
+    """
     env = env or get_environment()
     params = env.call("readParams", str(path))
     return _wrap_params(params, env)
