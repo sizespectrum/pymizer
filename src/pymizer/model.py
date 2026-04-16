@@ -353,6 +353,18 @@ class MizerParams:
         )
         return _wrap_params(updated, self._env)
 
+    def set_pred_kernel(self, pred_kernel: Any | None = None, *, reset: bool = False) -> "MizerParams":
+        """Return a new params object with an updated predation kernel."""
+        updated = self._env.call(
+            "setPredKernel",
+            self._r_obj,
+            **_optional_kwargs(
+                pred_kernel=to_r(pred_kernel) if pred_kernel is not None else None,
+                reset=reset,
+            ),
+        )
+        return _wrap_params(updated, self._env)
+
     def set_metabolic_rate(
         self,
         metab: Any | None = None,
@@ -499,6 +511,13 @@ class MizerParams:
         value = self._env.call("metab", self._r_obj)
         if as_xarray:
             return to_xarray(value, ["sp", "w"])
+        return to_numpy(value)
+
+    def pred_kernel(self, *, as_xarray: bool = True):
+        """Return the predation kernel by predator species, predator size, and prey size."""
+        value = self._env.call("pred_kernel", self._r_obj)
+        if as_xarray:
+            return to_xarray(value, ["sp", "w_pred", "w_prey"])
         return to_numpy(value)
 
     def pred_rate(self, *, as_xarray: bool = True, t: float = 0):
