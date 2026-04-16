@@ -38,6 +38,25 @@ sim = mz.load_dataset("NS_sim")
 - `MizerParams` -> `pymizer.MizerParams`
 - `MizerSim` -> `pymizer.MizerSim`
 
+## Load The North Sea Bundle
+
+For the common North Sea example workflow, `pymizer` can load the matching
+datasets together:
+
+```python
+import pymizer as mz
+
+north_sea = mz.load_north_sea()
+
+species = north_sea.species_params
+interaction = north_sea.interaction
+params = north_sea.params
+sim = north_sea.sim
+```
+
+This is usually the most convenient entry point for a notebook because the
+tabular inputs and wrapped model objects stay grouped together.
+
 ## North Sea Example
 
 You can rebuild the North Sea parameter object from Python inputs:

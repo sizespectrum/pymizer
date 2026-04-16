@@ -10,9 +10,11 @@ def test_public_api_imports():
     assert hasattr(module, "CompatibilityReport")
     assert hasattr(module, "MizerParams")
     assert hasattr(module, "MizerSim")
+    assert hasattr(module, "NorthSeaExample")
     assert hasattr(module, "evaluate_versions")
     assert hasattr(module, "list_datasets")
     assert hasattr(module, "load_dataset")
+    assert hasattr(module, "load_north_sea")
     assert hasattr(module, "new_multispecies_params")
     assert hasattr(module, "runtime_diagnostics")
     assert hasattr(module, "validate_species_params")
@@ -37,10 +39,16 @@ def test_load_builtin_datasets():
     datasets = pymizer.list_datasets()
     species = pymizer.load_dataset("NS_species_params")
     params = pymizer.load_dataset("NS_params")
+    north_sea = pymizer.load_north_sea()
 
     assert "NS_species_params" in datasets["name"].tolist()
     assert "species" in species.columns
     assert isinstance(params, pymizer.MizerParams)
+    assert isinstance(north_sea, pymizer.NorthSeaExample)
+    assert "species" in north_sea.species_params.columns
+    assert "Cod" in north_sea.interaction.columns
+    assert isinstance(north_sea.params, pymizer.MizerParams)
+    assert isinstance(north_sea.sim, pymizer.MizerSim)
 
 
 @pytest.mark.integration

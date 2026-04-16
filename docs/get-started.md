@@ -169,6 +169,7 @@ import pymizer as mz
 
 print(mz.list_datasets())
 
+north_sea = mz.load_north_sea()
 species = mz.load_dataset("NS_species_params")
 interaction = mz.load_dataset("NS_interaction")
 params = mz.load_dataset("NS_params")
@@ -180,6 +181,27 @@ Returned types depend on the dataset:
 - tabular datasets become `pandas.DataFrame`
 - `NS_params` becomes `pymizer.MizerParams`
 - `NS_sim` becomes `pymizer.MizerSim`
+
+For most users, the easiest way to start with a realistic model is the bundled
+North Sea helper:
+
+```python
+import pymizer as mz
+
+north_sea = mz.load_north_sea()
+
+params = north_sea.params
+sim = north_sea.params.project(t_max=1, dt=0.1, t_save=1, effort=0, progress_bar=False)
+```
+
+This returns the matching built-in pieces together:
+
+- `north_sea.species_params`
+- `north_sea.interaction`
+- `north_sea.params`
+- `north_sea.sim`
+- optionally `north_sea.species_params_gears` when available in the installed
+  `mizer` version
 
 ## Build The Docs
 
