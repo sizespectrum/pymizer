@@ -595,6 +595,39 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#focus-on-a-size-range" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Focus On A Size Range
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#edit-and-reuse-a-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Edit And Reuse A Model
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steady-state-helpers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Steady-State Helpers
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#example-biomass-output" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -907,6 +940,39 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#focus-on-a-size-range" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Focus On A Size Range
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#edit-and-reuse-a-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Edit And Reuse A Model
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steady-state-helpers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Steady-State Helpers
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#example-biomass-output" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -973,13 +1039,68 @@ results back into Python objects.</p>
 <span class="n">biomass</span> <span class="o">=</span> <span class="n">sim</span><span class="o">.</span><span class="n">biomass</span><span class="p">()</span>
 <span class="n">abundance</span> <span class="o">=</span> <span class="n">sim</span><span class="o">.</span><span class="n">abundance</span><span class="p">()</span>
 <span class="n">resource</span> <span class="o">=</span> <span class="n">sim</span><span class="o">.</span><span class="n">n_resource</span><span class="p">()</span>
+<span class="n">initial_n</span> <span class="o">=</span> <span class="n">params</span><span class="o">.</span><span class="n">initial_n</span><span class="p">()</span>
+<span class="n">initial_resource</span> <span class="o">=</span> <span class="n">params</span><span class="o">.</span><span class="n">initial_n_resource</span><span class="p">()</span>
+<span class="n">pred_rate</span> <span class="o">=</span> <span class="n">sim</span><span class="o">.</span><span class="n">pred_rate</span><span class="p">()</span>
 </code></pre></div>
 <p>The returned objects are chosen to feel natural in Python:</p>
 <ul>
 <li><code>times</code> is a NumPy array</li>
 <li><code>biomass</code> and <code>abundance</code> are labelled <code>pandas.DataFrame</code> objects</li>
 <li><code>resource</code> is an <code>xarray.DataArray</code> by default</li>
+<li><code>initial_n</code> and <code>pred_rate</code> are labelled <code>xarray.DataArray</code> objects</li>
+<li><code>initial_resource</code> is a <code>pandas.Series</code></li>
 </ul>
+<h2 id="focus-on-a-size-range">Focus On A Size Range</h2>
+<p>The high-level summary methods can also be narrowed to a size range without
+leaving Python:</p>
+<div class="highlight"><pre><span></span><code><span class="n">community_biomass</span> <span class="o">=</span> <span class="n">sim</span><span class="o">.</span><span class="n">biomass</span><span class="p">(</span><span class="n">min_w</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">max_w</span><span class="o">=</span><span class="mi">1000</span><span class="p">)</span>
+<span class="n">community_abundance</span> <span class="o">=</span> <span class="n">sim</span><span class="o">.</span><span class="n">abundance</span><span class="p">(</span><span class="n">min_w</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">max_w</span><span class="o">=</span><span class="mi">1000</span><span class="p">)</span>
+<span class="n">mean_weight</span> <span class="o">=</span> <span class="n">params</span><span class="o">.</span><span class="n">mean_weight</span><span class="p">(</span><span class="n">min_w</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">max_w</span><span class="o">=</span><span class="mi">1000</span><span class="p">)</span>
+<span class="n">large_fish</span> <span class="o">=</span> <span class="n">params</span><span class="o">.</span><span class="n">proportion_of_large_fish</span><span class="p">(</span><span class="n">threshold_w</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+</code></pre></div>
+<p>That makes it easy to move between broad summaries and size-resolved arrays in
+the same notebook.</p>
+<h2 id="edit-and-reuse-a-model">Edit And Reuse A Model</h2>
+<p>The wrapper preserves the <code>mizer</code> pattern where parameter edits return a new
+model object:</p>
+<div class="highlight"><pre><span></span><code><span class="n">edited</span> <span class="o">=</span> <span class="n">params</span><span class="o">.</span><span class="n">set_metadata</span><span class="p">(</span>
+    <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Community demo&quot;</span><span class="p">,</span>
+    <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Edited from Python&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">steady_ready</span> <span class="o">=</span> <span class="n">edited</span><span class="o">.</span><span class="n">set_initial_values</span><span class="p">(</span><span class="n">sim</span><span class="p">)</span>
+</code></pre></div>
+<p>For more structural changes, inspect the current values first and then set an
+updated copy:</p>
+<div class="highlight"><pre><span></span><code><span class="n">search_vol</span> <span class="o">=</span> <span class="n">params</span><span class="o">.</span><span class="n">search_volume</span><span class="p">(</span><span class="n">as_xarray</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">search_vol</span><span class="p">[:]</span> <span class="o">=</span> <span class="n">search_vol</span> <span class="o">*</span> <span class="mf">1.05</span>
+
+<span class="n">retuned</span> <span class="o">=</span> <span class="n">params</span><span class="o">.</span><span class="n">set_search_volume</span><span class="p">(</span><span class="n">search_vol</span><span class="p">)</span>
+</code></pre></div>
+<p>This pattern also applies to <code>set_interaction()</code>, <code>set_reproduction()</code>,
+<code>set_max_intake_rate()</code>, <code>set_metabolic_rate()</code>, and <code>set_pred_kernel()</code>.</p>
+<h2 id="steady-state-helpers">Steady-State Helpers</h2>
+<p>For steady-state-oriented workflows, <code>pymizer</code> exposes the <code>mizer</code> helpers
+directly:</p>
+<div class="highlight"><pre><span></span><code><span class="n">steady_params</span> <span class="o">=</span> <span class="n">params</span><span class="o">.</span><span class="n">project_to_steady</span><span class="p">(</span>
+    <span class="n">t_per</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>
+    <span class="n">t_max</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>
+    <span class="n">dt</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span>
+    <span class="n">progress_bar</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">info_level</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+<span class="p">)</span>
+</code></pre></div>
+<p>For larger packaged models such as <code>NS_params</code>, you can also use:</p>
+<div class="highlight"><pre><span></span><code><span class="n">ns_params</span> <span class="o">=</span> <span class="n">mz</span><span class="o">.</span><span class="n">load_dataset</span><span class="p">(</span><span class="s2">&quot;NS_params&quot;</span><span class="p">)</span>
+<span class="n">ns_steady</span> <span class="o">=</span> <span class="n">ns_params</span><span class="o">.</span><span class="n">steady</span><span class="p">(</span>
+    <span class="n">t_per</span><span class="o">=</span><span class="mf">1.5</span><span class="p">,</span>
+    <span class="n">t_max</span><span class="o">=</span><span class="mf">1.5</span><span class="p">,</span>
+    <span class="n">dt</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span>
+    <span class="n">progress_bar</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">info_level</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+<span class="p">)</span>
+</code></pre></div>
 <h2 id="example-biomass-output">Example Biomass Output</h2>
 <p>The smoke test for <code>pymizer</code> currently produces output shaped like this:</p>
 <div class="highlight"><pre><span></span><code>species     Community

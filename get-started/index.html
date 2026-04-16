@@ -495,6 +495,50 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#inspect-the-model-state" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Inspect The Model State
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#filter-common-summaries" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Filter Common Summaries
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#edit-and-rerun-models" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Edit And Rerun Models
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steady-state-workflows" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Steady-State Workflows
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#built-in-datasets" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -935,6 +979,50 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#inspect-the-model-state" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Inspect The Model State
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#filter-common-summaries" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Filter Common Summaries
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#edit-and-rerun-models" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Edit And Rerun Models
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steady-state-workflows" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Steady-State Workflows
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#built-in-datasets" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1028,6 +1116,102 @@ model and run a short projection:</p>
 <ul>
 <li><code>sim.times()</code> returns a NumPy array of saved years</li>
 <li><code>sim.biomass()</code> returns a labelled <code>pandas.DataFrame</code></li>
+</ul>
+<h2 id="inspect-the-model-state">Inspect The Model State</h2>
+<p>Once a model is loaded or created, you can inspect both the initial state and
+the projected state without dropping into raw R objects:</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">pymizer</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">mz</span>
+
+<span class="n">params</span> <span class="o">=</span> <span class="n">mz</span><span class="o">.</span><span class="n">new_community_params</span><span class="p">(</span><span class="n">no_w</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">sim</span> <span class="o">=</span> <span class="n">params</span><span class="o">.</span><span class="n">project</span><span class="p">(</span><span class="n">t_max</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">dt</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">t_save</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">progress_bar</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="n">initial_n</span> <span class="o">=</span> <span class="n">params</span><span class="o">.</span><span class="n">initial_n</span><span class="p">()</span>
+<span class="n">initial_resource</span> <span class="o">=</span> <span class="n">params</span><span class="o">.</span><span class="n">initial_n_resource</span><span class="p">()</span>
+<span class="n">pred_rate</span> <span class="o">=</span> <span class="n">sim</span><span class="o">.</span><span class="n">pred_rate</span><span class="p">()</span>
+<span class="n">pred_mort</span> <span class="o">=</span> <span class="n">sim</span><span class="o">.</span><span class="n">pred_mort</span><span class="p">()</span>
+</code></pre></div>
+<p>Typical return types are:</p>
+<ul>
+<li><code>initial_n</code>: <code>xarray.DataArray</code> with dimensions <code>("sp", "w")</code></li>
+<li><code>initial_resource</code>: <code>pandas.Series</code> indexed by resource size</li>
+<li><code>pred_rate</code>: <code>xarray.DataArray</code> with dimensions <code>("sp", "w_prey")</code></li>
+<li><code>pred_mort</code>: <code>xarray.DataArray</code> with dimensions <code>("time", "sp", "w")</code></li>
+</ul>
+<h2 id="filter-common-summaries">Filter Common Summaries</h2>
+<p>Many summary methods accept the same species and size-range filters used by the
+R package:</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">pymizer</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">mz</span>
+
+<span class="n">species</span> <span class="o">=</span> <span class="n">mz</span><span class="o">.</span><span class="n">load_dataset</span><span class="p">(</span><span class="s2">&quot;NS_species_params&quot;</span><span class="p">)</span>
+<span class="n">interaction</span> <span class="o">=</span> <span class="n">mz</span><span class="o">.</span><span class="n">load_dataset</span><span class="p">(</span><span class="s2">&quot;NS_interaction&quot;</span><span class="p">)</span>
+<span class="n">params</span> <span class="o">=</span> <span class="n">mz</span><span class="o">.</span><span class="n">new_multispecies_params</span><span class="p">(</span><span class="n">species_params</span><span class="o">=</span><span class="n">species</span><span class="p">,</span> <span class="n">interaction</span><span class="o">=</span><span class="n">interaction</span><span class="p">)</span>
+<span class="n">sim</span> <span class="o">=</span> <span class="n">params</span><span class="o">.</span><span class="n">project</span><span class="p">(</span><span class="n">t_max</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">dt</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">t_save</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">effort</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">progress_bar</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="n">cod_haddock_growth</span> <span class="o">=</span> <span class="n">params</span><span class="o">.</span><span class="n">growth_curves</span><span class="p">(</span><span class="n">species</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Cod&quot;</span><span class="p">,</span> <span class="s2">&quot;Haddock&quot;</span><span class="p">],</span> <span class="n">max_age</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+<span class="n">medium_biomass</span> <span class="o">=</span> <span class="n">sim</span><span class="o">.</span><span class="n">biomass</span><span class="p">(</span><span class="n">min_w</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">max_w</span><span class="o">=</span><span class="mi">1000</span><span class="p">)</span>
+<span class="n">cod_haddock_weight</span> <span class="o">=</span> <span class="n">params</span><span class="o">.</span><span class="n">mean_weight</span><span class="p">(</span><span class="n">species</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Cod&quot;</span><span class="p">,</span> <span class="s2">&quot;Haddock&quot;</span><span class="p">],</span> <span class="n">min_w</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">max_w</span><span class="o">=</span><span class="mi">1000</span><span class="p">)</span>
+</code></pre></div>
+<p>Supported filter arguments vary by method, but the common ones are:</p>
+<ul>
+<li><code>species=</code></li>
+<li><code>min_w=</code> and <code>max_w=</code></li>
+<li><code>min_l=</code> and <code>max_l=</code></li>
+<li>method-specific options such as <code>use_cutoff=</code>, <code>threshold_w=</code>, and <code>biomass=</code></li>
+</ul>
+<h2 id="edit-and-rerun-models">Edit And Rerun Models</h2>
+<p><code>pymizer</code> now supports the common “load, tweak, rerun” workflow directly from
+Python. The editing methods follow the <code>mizer</code> pattern and return a new
+<code>MizerParams</code> object rather than mutating the existing one.</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">pymizer</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">mz</span>
+
+<span class="n">params</span> <span class="o">=</span> <span class="n">mz</span><span class="o">.</span><span class="n">load_dataset</span><span class="p">(</span><span class="s2">&quot;NS_params&quot;</span><span class="p">)</span>
+
+<span class="n">interaction</span> <span class="o">=</span> <span class="n">params</span><span class="o">.</span><span class="n">interaction_matrix</span><span class="p">()</span>
+<span class="n">interaction</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.0</span>
+
+<span class="n">updated</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">params</span>
+    <span class="o">.</span><span class="n">set_interaction</span><span class="p">(</span><span class="n">interaction</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">set_metadata</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s2">&quot;North Sea example&quot;</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Edited from Python&quot;</span><span class="p">)</span>
+<span class="p">)</span>
+
+<span class="n">sim</span> <span class="o">=</span> <span class="n">updated</span><span class="o">.</span><span class="n">project</span><span class="p">(</span><span class="n">t_max</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">dt</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">t_save</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">effort</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">progress_bar</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</code></pre></div>
+<p>Useful editing methods include:</p>
+<ul>
+<li><code>set_interaction()</code></li>
+<li><code>set_resource()</code></li>
+<li><code>set_initial_values()</code></li>
+<li><code>set_metadata()</code></li>
+<li><code>set_reproduction()</code></li>
+<li><code>set_search_volume()</code></li>
+<li><code>set_max_intake_rate()</code></li>
+<li><code>set_metabolic_rate()</code></li>
+<li><code>set_pred_kernel()</code></li>
+</ul>
+<h2 id="steady-state-workflows">Steady-State Workflows</h2>
+<p>The wrapper also exposes the steady-state search helpers from <code>mizer</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">pymizer</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">mz</span>
+
+<span class="n">params</span> <span class="o">=</span> <span class="n">mz</span><span class="o">.</span><span class="n">load_dataset</span><span class="p">(</span><span class="s2">&quot;NS_params&quot;</span><span class="p">)</span>
+
+<span class="n">steady_params</span> <span class="o">=</span> <span class="n">params</span><span class="o">.</span><span class="n">project_to_steady</span><span class="p">(</span>
+    <span class="n">t_per</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>
+    <span class="n">t_max</span><span class="o">=</span><span class="mf">5.0</span><span class="p">,</span>
+    <span class="n">dt</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span>
+    <span class="n">progress_bar</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">info_level</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">single_species_params</span> <span class="o">=</span> <span class="n">params</span><span class="o">.</span><span class="n">steady_single_species</span><span class="p">(</span><span class="n">keep</span><span class="o">=</span><span class="s2">&quot;biomass&quot;</span><span class="p">)</span>
+</code></pre></div>
+<p>Available helpers are:</p>
+<ul>
+<li><code>project_to_steady()</code> for the lower-level convergence search</li>
+<li><code>steady()</code> for the higher-level workflow that holds reproduction and
+  resource dynamics constant during the search</li>
+<li><code>steady_single_species()</code> for solving selected species against the current
+  rates</li>
 </ul>
 <h2 id="built-in-datasets">Built-in Datasets</h2>
 <p>The wrapper can also load datasets shipped with the R package:</p>

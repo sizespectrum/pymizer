@@ -699,6 +699,39 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#key-wrapper-surfaces" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Key Wrapper Surfaces
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#common-return-types" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Common Return Types
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#common-analysis-patterns" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Common Analysis Patterns
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#design-notes" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -874,6 +907,39 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#key-wrapper-surfaces" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Key Wrapper Surfaces
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#common-return-types" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Common Return Types
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#common-analysis-patterns" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Common Analysis Patterns
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#design-notes" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -916,6 +982,36 @@
 <li><a href="model/">Model API</a>: model constructors and wrapper classes</li>
 <li><a href="datasets/">Dataset API</a>: list and load packaged example datasets</li>
 <li><a href="bridge/">R Bridge API</a>: lower-level access to the embedded R environment</li>
+</ul>
+<h2 id="key-wrapper-surfaces">Key Wrapper Surfaces</h2>
+<p>The current <code>pymizer</code> API is centred around three parts of the workflow:</p>
+<ul>
+<li>model construction with <code>new_community_params()</code>, <code>new_multispecies_params()</code>,
+  <code>new_single_species_params()</code>, and <code>read_params()</code></li>
+<li>simulation with <code>MizerParams.project()</code></li>
+<li>inspection through <code>MizerParams</code> and <code>MizerSim</code> methods that return
+  <code>pandas</code>, <code>numpy</code>, or <code>xarray</code> objects</li>
+</ul>
+<h2 id="common-return-types">Common Return Types</h2>
+<ul>
+<li>tabular summaries such as <code>sim.biomass()</code> and <code>sim.abundance()</code> return
+  <code>pandas.DataFrame</code></li>
+<li>state spectra such as <code>params.initial_n()</code> and <code>sim.pred_rate()</code> return
+  <code>xarray.DataArray</code> by default</li>
+<li>one-dimensional indicator outputs such as <code>params.mean_weight()</code> or
+  <code>params.initial_n_resource()</code> return Python scalars or <code>pandas.Series</code></li>
+</ul>
+<h2 id="common-analysis-patterns">Common Analysis Patterns</h2>
+<ul>
+<li>use <code>params.initial_n()</code> and <code>params.initial_n_resource()</code> to inspect the
+  starting state before a projection</li>
+<li>use <code>sim.biomass()</code>, <code>sim.abundance()</code>, and <code>sim.ssb()</code> for time-by-species
+  summaries</li>
+<li>use <code>sim.pred_rate()</code>, <code>sim.pred_mort()</code>, <code>sim.feeding_level()</code>, and
+  <code>sim.diet()</code> for size-resolved diagnostics</li>
+<li>use filter arguments such as <code>species=</code>, <code>min_w=</code>, <code>max_w=</code>, <code>min_l=</code>, and
+  <code>max_l=</code> on supported summary methods to stay within Python for common
+  exploratory analysis</li>
 </ul>
 <h2 id="design-notes">Design Notes</h2>
 <p>The public API deliberately stays narrower than the full R package:</p>
