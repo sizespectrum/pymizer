@@ -293,5 +293,40 @@ python -m twine check dist/*
 
 ## Publish To GitHub Pages
 
-Once the site has been rendered into `docs/_site/`, publish it using your preferred
-Quarto or GitHub Pages workflow.
+For the `pymizer` site, the simplest publish path is to let Quarto render the
+site and push the output to the `gh-pages` branch for you.
+
+First, make sure the GitHub repository is configured to serve Pages from the
+`gh-pages` branch:
+
+1. Open the repository on GitHub.
+2. Go to `Settings` -> `Pages`.
+3. Set the source to `Deploy from a branch`.
+4. Choose the `gh-pages` branch and the `/ (root)` folder.
+
+Then publish from your local checkout:
+
+```bash
+source .venv/bin/activate
+quartodoc build --config docs/_quarto.yml
+QUARTO_PYTHON="$(pwd)/.venv/bin/python" quarto publish gh-pages docs
+```
+
+Quarto will:
+
+- render the site from `docs/`
+- create or update the `gh-pages` branch
+- push the rendered `_site/` output to GitHub Pages
+
+If you prefer to inspect the rendered site before publishing, render first and
+then publish:
+
+```bash
+source .venv/bin/activate
+quartodoc build --config docs/_quarto.yml
+QUARTO_PYTHON="$(pwd)/.venv/bin/python" quarto render docs
+QUARTO_PYTHON="$(pwd)/.venv/bin/python" quarto publish gh-pages docs
+```
+
+After the push completes, GitHub Pages will usually update the public site
+within a minute or two.
