@@ -2,6 +2,10 @@ project:
   type: website
   output-dir: _site
 
+# 1. Enable the interlinks filter for auto-linking
+filters:
+  - quartodoc
+
 metadata-files:
   - api/_sidebar.yml
 
@@ -62,6 +66,7 @@ quartodoc:
   package: pymizer
   dir: api
   title: API Reference
+  render_interlinks: true
   parser: google
   sidebar: api/_sidebar.yml
   css: api/_styles-quartodoc.css
