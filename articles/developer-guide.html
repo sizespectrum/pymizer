@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>bridge – pymizer</title>
+<title>developer-guide – pymizer</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -19,6 +19,41 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -176,12 +211,15 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#r-bridge-api" id="toc-r-bridge-api" class="nav-link active" data-scroll-target="#r-bridge-api">R Bridge API</a>
+  <li><a href="#developer-guide" id="toc-developer-guide" class="nav-link active" data-scroll-target="#developer-guide">Developer Guide</a>
   <ul class="collapse">
-  <li><a href="#generated-api-pages" id="toc-generated-api-pages" class="nav-link" data-scroll-target="#generated-api-pages">Generated API Pages</a></li>
+  <li><a href="#development-install" id="toc-development-install" class="nav-link" data-scroll-target="#development-install">Development Install</a></li>
+  <li><a href="#build-the-docs" id="toc-build-the-docs" class="nav-link" data-scroll-target="#build-the-docs">Build The Docs</a></li>
+  <li><a href="#build-and-check-distributions" id="toc-build-and-check-distributions" class="nav-link" data-scroll-target="#build-and-check-distributions">Build And Check Distributions</a></li>
+  <li><a href="#publish-to-github-pages" id="toc-publish-to-github-pages" class="nav-link" data-scroll-target="#publish-to-github-pages">Publish To GitHub Pages</a></li>
   </ul></li>
   </ul>
-<div class="toc-actions"><ul><li><a href="https://github.com/sizespectrum/pymizer/blob/main/reference/bridge.md" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/sizespectrum/pymizer/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+<div class="toc-actions"><ul><li><a href="https://github.com/sizespectrum/pymizer/blob/main/articles/developer-guide.md" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/sizespectrum/pymizer/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
@@ -189,26 +227,71 @@ ul.task-list li input[type="checkbox"] {
 
 
 
-<section id="r-bridge-api" class="level1">
-<h1>R Bridge API</h1>
-<p>The bridge API covers the lower-level runtime layer that connects Python to the embedded R session.</p>
-<p>Most users only need:</p>
+<section id="developer-guide" class="level1">
+<h1>Developer Guide</h1>
+<p>This guide collects the repository-maintainer workflows for <code>pymizer</code>: local development installs, documentation builds, package checks, and GitHub Pages publishing.</p>
+<section id="development-install" class="level2">
+<h2 class="anchored" data-anchor-id="development-install">Development Install</h2>
+<p>From the repository root:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> <span class="at">-m</span> venv python/.venv</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">python/.venv/bin/python</span> <span class="at">-m</span> pip install <span class="at">--upgrade</span> pip</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="ex">python/.venv/bin/python</span> <span class="at">-m</span> pip install <span class="at">-e</span> <span class="st">'./python[dev]'</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Install the R package separately:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"mizer"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>For CI environments, install Python and R first, then install <code>mizer</code>, and only after that install <code>pymizer</code> with <code>pip</code>.</p>
+</section>
+<section id="build-the-docs" class="level2">
+<h2 class="anchored" data-anchor-id="build-the-docs">Build The Docs</h2>
+<p>This website is built with Quarto, and the API reference pages are generated by <code>quartodoc</code> from the Python package source:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="bu">source</span> python/.venv/bin/activate</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> python</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="ex">quartodoc</span> build <span class="at">--config</span> docs/_quarto.yml</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="va">QUARTO_PYTHON</span><span class="op">=</span><span class="st">"</span><span class="va">$(</span><span class="bu">pwd</span><span class="va">)</span><span class="st">/.venv/bin/python"</span> <span class="ex">quarto</span> render docs</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>For live preview during editing:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="bu">source</span> python/.venv/bin/activate</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> python</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="ex">quartodoc</span> build <span class="at">--config</span> docs/_quarto.yml <span class="at">--watch</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="va">QUARTO_PYTHON</span><span class="op">=</span><span class="st">"</span><span class="va">$(</span><span class="bu">pwd</span><span class="va">)</span><span class="st">/.venv/bin/python"</span> <span class="ex">quarto</span> preview docs</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><code>quartodoc build</code> reads <a href="../home/gustav/Git/mizer/python/docs/_quarto.yml">docs/_quarto.yml</a> and writes the generated API pages into <code>docs/api/</code>. Quarto then renders the hand-written <code>.md</code> and <code>.qmd</code> pages alongside that generated reference.</p>
+<p>Those generated <code>docs/api/</code> files are local build artifacts, so rerun <code>quartodoc build</code> whenever you need to preview, render, or publish the site.</p>
+<p>Set <code>QUARTO_PYTHON</code> to the repository virtualenv so executable articles run against the same Python, <code>rpy2</code>, and R-backed <code>pymizer</code> environment as the library itself.</p>
+</section>
+<section id="build-and-check-distributions" class="level2">
+<h2 class="anchored" data-anchor-id="build-and-check-distributions">Build And Check Distributions</h2>
+<p>Before publishing, build both package formats and run the metadata checks:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="bu">source</span> python/.venv/bin/activate</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> python</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> <span class="at">-m</span> build</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> <span class="at">-m</span> twine check dist/<span class="pp">*</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="publish-to-github-pages" class="level2">
+<h2 class="anchored" data-anchor-id="publish-to-github-pages">Publish To GitHub Pages</h2>
+<p>For the <code>pymizer</code> site, the simplest publish path is to let Quarto render the site and push the output to the <code>gh-pages</code> branch for you.</p>
+<p>First, make sure the GitHub repository is configured to serve Pages from the <code>gh-pages</code> branch:</p>
+<ol type="1">
+<li>Open the repository on GitHub.</li>
+<li>Go to <code>Settings</code> -&gt; <code>Pages</code>.</li>
+<li>Set the source to <code>Deploy from a branch</code>.</li>
+<li>Choose the <code>gh-pages</code> branch and the <code>/ (root)</code> folder.</li>
+</ol>
+<p>Then publish from your local checkout:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="bu">source</span> python/.venv/bin/activate</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> python</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="ex">quartodoc</span> build <span class="at">--config</span> docs/_quarto.yml</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="va">QUARTO_PYTHON</span><span class="op">=</span><span class="st">"</span><span class="va">$(</span><span class="bu">pwd</span><span class="va">)</span><span class="st">/.venv/bin/python"</span> <span class="ex">quarto</span> publish gh-pages docs</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Quarto will:</p>
 <ul>
-<li><code>get_environment()</code> to inspect the shared bridge instance</li>
-<li><code>runtime_diagnostics()</code> to troubleshoot setup problems</li>
-<li><code>evaluate_versions()</code> and <code>CompatibilityReport</code> to reason about supported runtime combinations</li>
+<li>render the site from <code>docs/</code></li>
+<li>create or update the <code>gh-pages</code> branch</li>
+<li>push the rendered <code>_site/</code> output to GitHub Pages</li>
 </ul>
-<p>You can also use <code>MizerREnvironment</code> directly when you need to inspect raw R objects or call additional exported <code>mizer</code> functions.</p>
-<section id="generated-api-pages" class="level2">
-<h2 class="anchored" data-anchor-id="generated-api-pages">Generated API Pages</h2>
-<p>For signatures, runtime compatibility details, and lower-level class reference pages, see:</p>
-<ul>
-<li><a href="../api/CompatibilityReport.html">CompatibilityReport</a></li>
-<li><a href="../api/MizerREnvironment.html">MizerREnvironment</a></li>
-<li><a href="../api/evaluate_versions.html">evaluate_versions</a></li>
-<li><a href="../api/get_environment.html">get_environment</a></li>
-<li><a href="../api/runtime_diagnostics.html">runtime_diagnostics</a></li>
-</ul>
+<p>If you prefer to inspect the rendered site before publishing, render first and then publish:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="bu">source</span> python/.venv/bin/activate</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> python</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="ex">quartodoc</span> build <span class="at">--config</span> docs/_quarto.yml</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="va">QUARTO_PYTHON</span><span class="op">=</span><span class="st">"</span><span class="va">$(</span><span class="bu">pwd</span><span class="va">)</span><span class="st">/.venv/bin/python"</span> <span class="ex">quarto</span> render docs</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="va">QUARTO_PYTHON</span><span class="op">=</span><span class="st">"</span><span class="va">$(</span><span class="bu">pwd</span><span class="va">)</span><span class="st">/.venv/bin/python"</span> <span class="ex">quarto</span> publish gh-pages docs</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>After the push completes, GitHub Pages will usually update the public site within a minute or two.</p>
 
 
 </section>
@@ -620,4 +703,4 @@ ul.task-list li input[type="checkbox"] {
 
 
 
-<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/sizespectrum/pymizer/blob/main/reference/bridge.md" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/sizespectrum/pymizer/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/sizespectrum/pymizer/blob/main/articles/developer-guide.md" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/sizespectrum/pymizer/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>

@@ -98,10 +98,6 @@ ul.task-list li input[type="checkbox"] {
     <a class="nav-link" href="./get-started.html"> 
 <span class="menu-text">Get Started</span></a>
   </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="./roadmap.html"> 
-<span class="menu-text">Roadmap</span></a>
-  </li>  
   <li class="nav-item dropdown ">
     <a class="nav-link dropdown-toggle" href="#" id="nav-menu-articles" role="link" data-bs-toggle="dropdown" aria-expanded="false">
  <span class="menu-text">Articles</span>
@@ -122,6 +118,14 @@ ul.task-list li input[type="checkbox"] {
         <li>
     <a class="dropdown-item" href="./articles/analysis-and-plotting.html">
  <span class="dropdown-text">Analysis And Plotting</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./articles/development-notes.html">
+ <span class="dropdown-text">Development Notes</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./articles/developer-guide.html">
+ <span class="dropdown-text">Developer Guide</span></a>
   </li>  
     </ul>
   </li>
@@ -191,23 +195,19 @@ ul.task-list li input[type="checkbox"] {
 <section id="section" class="level2">
 <h2 class="anchored" data-anchor-id="section">0.1.0</h2>
 <ul>
-<li>Initial <code>pymizer</code> proof-of-concept package added under <code>python/</code></li>
-<li>Added wrappers for <code>MizerParams</code>, <code>MizerSim</code>, model constructors, and simulation output accessors</li>
-<li>Added built-in dataset access from Python</li>
-<li>Added a Quarto documentation site with articles and API reference</li>
+<li>First public <code>pymizer</code> release as a standalone Python package wrapping the R <code>mizer</code> package</li>
+<li>Added wrappers for <code>MizerParams</code>, <code>MizerSim</code>, model constructors, steady workflows, and common simulation output accessors</li>
+<li>Added built-in dataset access from Python, including the bundled North Sea helper</li>
+<li>Added parameter editing workflows for the common “load, tweak, rerun” modelling pattern</li>
+<li>Added packaging metadata, installation guidance, and wheel/source distribution checks for publishing</li>
+<li>Added Python tests, CI coverage, example regression tests, and documentation-build checks</li>
+<li>Added advanced bridge helpers for raw R evaluation, generic <code>.rds</code> round-tripping, and controlled rate-function registration</li>
+<li>Added notebook-friendly ergonomics such as concise wrapper reprs, <code>biomass_tidy()</code>, and <code>plot_biomass()</code></li>
+<li>Added a Quarto documentation site with articles, developer guidance, and generated API reference</li>
 </ul>
 </section>
 <section id="unreleased" class="level2">
 <h2 class="anchored" data-anchor-id="unreleased">Unreleased</h2>
-<ul>
-<li>Added packaging metadata and install guidance for publishing <code>pymizer</code> as a standalone Python package</li>
-<li>Added documented support targets for Python, R, and operating systems</li>
-<li>Added source and wheel distribution build checks for release verification</li>
-<li>Added converter, failure-mode, and example regression tests for the Python wrapper</li>
-<li>Added GitHub Actions coverage for Python tests and documentation builds</li>
-<li>Added advanced bridge helpers for raw R evaluation, generic <code>.rds</code> round-tripping, and controlled rate-function registration</li>
-<li>Added notebook-friendly wrapper reprs plus <code>biomass_tidy()</code> and <code>plot_biomass()</code> helpers for quick Python-side exploration</li>
-</ul>
 
 
 </section>
