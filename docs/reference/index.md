@@ -1,12 +1,18 @@
-# Reference
+# Reference Overview
 
-The `pymizer` reference is organised into a few small modules.
+The `pymizer` reference now has two layers:
 
-## Main API
+- high-level guide pages in this `reference/` section
+- generated API pages under [API Reference](../api/index.qmd), built from the
+  package source with `quartodoc`
+
+## Guide Pages
 
 - [Model API](model.md): model constructors and wrapper classes
 - [Dataset API](datasets.md): list and load packaged example datasets
 - [R Bridge API](bridge.md): lower-level access to the embedded R environment
+- [API Reference](../api/index.qmd): generated signatures and docstrings for the
+  public Python surface
 
 ## Key Wrapper Surfaces
 
@@ -46,3 +52,6 @@ The public API deliberately stays narrower than the full R package:
 - constructor functions are exposed at top level
 - `MizerParams` and `MizerSim` provide the most common workflows
 - raw R objects remain accessible through the `.r` property when needed
+
+For full signatures and class pages, use the generated
+[API Reference](../api/index.qmd).

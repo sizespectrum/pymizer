@@ -1,12 +1,19 @@
-# Community Model
+---
+title: Community Model
+jupyter: python3
+execute:
+  echo: true
+  warning: false
+---
 
-This example mirrors the lightest-weight path through the wrapper: create a
-community model in Python, run a projection in R through `mizer`, and bring the
-results back into Python objects.
+This executable article mirrors the lightest-weight path through the wrapper:
+create a community model in Python, run a projection in R through `mizer`, and
+bring the results back into Python objects.
 
 ## Create And Project
 
-```python
+```{python}
+#| output: false
 import pymizer as mz
 
 params = mz.new_community_params(no_w=20)
@@ -18,59 +25,84 @@ sim = params.project(
 )
 ```
 
-## Inspect Outputs
+The projection returns a wrapped `MizerSim` object that we can query directly
+from Python:
 
-```python
+```{python}
 times = sim.times()
 biomass = sim.biomass()
+
+print(times)
+print()
+print(biomass.to_string())
+```
+
+## Inspect Outputs
+
+The returned objects are chosen to feel natural in Python:
+
+```{python}
 abundance = sim.abundance()
 resource = sim.n_resource()
 initial_n = params.initial_n()
 initial_resource = params.initial_n_resource()
 pred_rate = sim.pred_rate()
+
+for name, value in [
+    ("times", times),
+    ("biomass", biomass),
+    ("abundance", abundance),
+    ("resource", resource),
+    ("initial_n", initial_n),
+    ("initial_resource", initial_resource),
+    ("pred_rate", pred_rate),
+]:
+    print(f"{name}: {type(value).__name__}")
 ```
 
-The returned objects are chosen to feel natural in Python:
+A quick look at the resource spectrum from the first saved time step:
 
-- `times` is a NumPy array
-- `biomass` and `abundance` are labelled `pandas.DataFrame` objects
-- `resource` is an `xarray.DataArray` by default
-- `initial_n` and `pred_rate` are labelled `xarray.DataArray` objects
-- `initial_resource` is a `pandas.Series`
+```{python}
+print(resource.isel(time=0).to_pandas().head().to_string())
+```
 
 ## Focus On A Size Range
 
 The high-level summary methods can also be narrowed to a size range without
 leaving Python:
 
-```python
+```{python}
 community_biomass = sim.biomass(min_w=1, max_w=1000)
 community_abundance = sim.abundance(min_w=1, max_w=1000)
 mean_weight = params.mean_weight(min_w=1, max_w=1000)
 large_fish = params.proportion_of_large_fish(threshold_w=100)
-```
 
-That makes it easy to move between broad summaries and size-resolved arrays in
-the same notebook.
+def show(value):
+    print(value.to_string() if hasattr(value, "to_string") else value)
+
+print(community_biomass.to_string())
+print()
+print(community_abundance.to_string())
+print()
+show(mean_weight)
+print()
+show(large_fish)
+```
 
 ## Edit And Reuse A Model
 
 The wrapper preserves the `mizer` pattern where parameter edits return a new
 model object:
 
-```python
+```{python}
+#| output: false
 edited = params.set_metadata(
     title="Community demo",
     description="Edited from Python",
 )
 
 steady_ready = edited.set_initial_values(sim)
-```
 
-For more structural changes, inspect the current values first and then set an
-updated copy:
-
-```python
 search_vol = params.search_volume(as_xarray=False).copy()
 search_vol[:] = search_vol * 1.05
 
@@ -83,9 +115,11 @@ This pattern also applies to `set_interaction()`, `set_reproduction()`,
 ## Steady-State Helpers
 
 For steady-state-oriented workflows, `pymizer` exposes the `mizer` helpers
-directly:
+directly. These heavier examples are left unevaluated in the prototype so the
+rendered article stays fast:
 
-```python
+```{python}
+#| eval: false
 steady_params = params.project_to_steady(
     t_per=0.5,
     t_max=0.5,
@@ -97,7 +131,8 @@ steady_params = params.project_to_steady(
 
 For larger packaged models such as `NS_params`, you can also use:
 
-```python
+```{python}
+#| eval: false
 ns_params = mz.load_dataset("NS_params")
 ns_steady = ns_params.steady(
     t_per=1.5,
@@ -108,21 +143,6 @@ ns_steady = ns_params.steady(
 )
 ```
 
-## Example Biomass Output
-
-The smoke test for `pymizer` currently produces output shaped like this:
-
-```text
-species     Community
-time
-0        34926.721959
-1        46146.578715
-2        50503.969482
-3        52101.198790
-4        52906.953622
-5        53493.609873
-```
-
 ## Notes
 
 - The model construction and projection are still performed by the R `mizer`
@@ -130,3 +150,7 @@ time
 - The Python layer mainly handles conversion, object wrapping, and ergonomics.
 - When debugging environment problems, it is worth checking both Python and R
   package availability.
+
+This first executable article keeps the code path small on purpose. Once the
+Quarto workflow is in place, the same pattern can be extended to the larger
+North Sea and plotting articles.

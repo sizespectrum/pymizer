@@ -53,21 +53,27 @@ This reports:
 ## Development install
 
 ```bash
-pip install -e ./python
+python -m pip install -e '.[docs]'
 ```
 
 ## Documentation
 
-The Python package has a MkDocs-based documentation site under `python/docs/`.
+The documentation site is built with Quarto and `quartodoc`.
 
 ```bash
-python/.venv/bin/pip install -e './python[docs]'
-python/.venv/bin/mkdocs serve -f python/mkdocs.yml
+source .venv/bin/activate
+quartodoc build --config docs/_quarto.yml
+QUARTO_PYTHON="$(pwd)/.venv/bin/python" quarto preview docs
 ```
 
-To publish the site to GitHub Pages from your local machine:
+The generated `docs/api/` reference pages are build artifacts and are not meant
+to be committed. Regenerate them locally with `quartodoc build` before preview,
+render, or publish.
+
+To render the static site into `docs/_site/` from your local machine:
 
 ```bash
-cd python
-mkdocs gh-deploy
+source .venv/bin/activate
+quartodoc build --config docs/_quarto.yml
+QUARTO_PYTHON="$(pwd)/.venv/bin/python" quarto render docs
 ```

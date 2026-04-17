@@ -1,0 +1,98 @@
+project:
+  type: website
+  output-dir: _site
+
+metadata-files:
+  - api/_sidebar.yml
+
+execute:
+  freeze: auto
+  warning: false
+
+format:
+  html:
+    theme: cosmo
+    toc: true
+    css:
+      - api/_styles-quartodoc.css
+
+website:
+  title: pymizer
+  site-url: https://sizespectrum.github.io/pymizer/
+  repo-url: https://github.com/sizespectrum/pymizer
+  repo-actions:
+    - source
+    - issue
+  navbar:
+    left:
+      - href: index.md
+        text: Home
+      - href: get-started.md
+        text: Get Started
+      - href: roadmap.md
+        text: Roadmap
+      - text: Articles
+        menu:
+          - href: articles/community-model.qmd
+            text: Community Model
+          - href: articles/datasets.md
+            text: Datasets
+          - href: articles/north-sea-model.md
+            text: North Sea Model
+          - href: articles/analysis-and-plotting.md
+            text: Analysis And Plotting
+      - text: Reference
+        menu:
+          - href: reference/index.md
+            text: Reference Overview
+          - href: reference/model.md
+            text: Model Guide
+          - href: reference/datasets.md
+            text: Dataset Guide
+          - href: reference/bridge.md
+            text: R Bridge Guide
+          - href: api/index.qmd
+            text: API Reference
+      - href: news.md
+        text: News
+
+quartodoc:
+  package: pymizer
+  dir: api
+  title: API Reference
+  parser: google
+  sidebar: api/_sidebar.yml
+  css: api/_styles-quartodoc.css
+  sections:
+    - title: Constructors
+      desc: Create or load wrapped mizer model objects from Python.
+      contents:
+        - new_community_params
+        - new_multispecies_params
+        - new_single_species_params
+        - read_params
+    - title: Model Wrappers
+      desc: Inspect, edit, and project model state through Python-native wrappers.
+      contents:
+        - MizerParams
+        - MizerSim
+        - NorthSeaExample
+    - title: Datasets
+      desc: Discover and load the built-in example data shipped with mizer.
+      contents:
+        - list_datasets
+        - load_dataset
+        - load_north_sea
+    - title: R Bridge
+      desc: Lower-level helpers for environment management and runtime diagnostics.
+      contents:
+        - CompatibilityReport
+        - MizerREnvironment
+        - evaluate_versions
+        - get_environment
+        - runtime_diagnostics
+    - title: Validation
+      desc: Validate Python-side inputs before constructing or editing models.
+      contents:
+        - validate_interaction_matrix
+        - validate_species_params

@@ -13,4 +13,11 @@ Use them to:
 These helpers are a convenient way to try `pymizer` without preparing your own
 input files first.
 
-::: pymizer.datasets
+## Generated API Pages
+
+For signatures, return types, and docstrings, see:
+
+- [NorthSeaExample](../api/NorthSeaExample.qmd)
+- [list_datasets](../api/list_datasets.qmd)
+- [load_dataset](../api/load_dataset.qmd)
+- [load_north_sea](../api/load_north_sea.qmd)

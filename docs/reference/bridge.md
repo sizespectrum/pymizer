@@ -13,4 +13,13 @@ Most users only need:
 You can also use `MizerREnvironment` directly when you need to inspect raw R
 objects or call additional exported `mizer` functions.
 
-::: pymizer._bridge
+## Generated API Pages
+
+For signatures, runtime compatibility details, and lower-level class reference
+pages, see:
+
+- [CompatibilityReport](../api/CompatibilityReport.qmd)
+- [MizerREnvironment](../api/MizerREnvironment.qmd)
+- [evaluate_versions](../api/evaluate_versions.qmd)
+- [get_environment](../api/get_environment.qmd)
+- [runtime_diagnostics](../api/runtime_diagnostics.qmd)

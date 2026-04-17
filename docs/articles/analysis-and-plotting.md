@@ -102,8 +102,8 @@ rerun the model.
 
 ## Runnable Example
 
-A runnable version of this workflow is included in
-[examples/north_sea_analysis.py](/home/gustav/Git/mizer/python/examples/north_sea_analysis.py).
+A runnable version of this workflow lives in
+`examples/north_sea_analysis.py`.
 
 The script:
 

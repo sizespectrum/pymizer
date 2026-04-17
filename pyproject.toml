@@ -25,9 +25,10 @@ Homepage = "https://github.com/sizespectrum/mizer"
 
 [project.optional-dependencies]
 docs = [
-    "mkdocs>=1.6",
-    "mkdocs-material>=9.5",
-    "mkdocstrings[python]>=0.25",
+    "ipykernel>=6",
+    "nbclient>=0.10",
+    "nbformat>=5.10",
+    "quartodoc>=0.11",
 ]
 
 [tool.hatch.build.targets.wheel]

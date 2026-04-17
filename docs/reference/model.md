@@ -68,4 +68,13 @@ Many summary methods accept arguments such as `species=`, `min_w=`, `max_w=`,
 - spectra and size-resolved arrays return `xarray.DataArray`
 - one-dimensional indicators return `float` or `pandas.Series`
 
-::: pymizer.model
+## Generated API Pages
+
+For full signatures, docstrings, and class reference pages, see:
+
+- [MizerParams](../api/MizerParams.qmd)
+- [MizerSim](../api/MizerSim.qmd)
+- [new_community_params](../api/new_community_params.qmd)
+- [new_multispecies_params](../api/new_multispecies_params.qmd)
+- [new_single_species_params](../api/new_single_species_params.qmd)
+- [read_params](../api/read_params.qmd)

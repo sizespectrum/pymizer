@@ -46,6 +46,7 @@ are not yet wrapped in a Python-native way.
 ## Site Guide
 
 - [Get Started](get-started.md) shows installation and the first simulation.
-- [Articles](articles/community-model.md) provides worked examples.
-- [Reference](reference/index.md) documents the Python API.
+- [Articles](articles/community-model.qmd) provides worked examples.
+- [Reference Overview](reference/index.md) summarises the public Python API.
+- [API Reference](api/index.qmd) is generated from the package source with `quartodoc`.
 - [News](news.md) summarises recent changes to the wrapper.
