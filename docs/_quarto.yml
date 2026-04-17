@@ -41,6 +41,8 @@ website:
             text: North Sea Model
           - href: articles/analysis-and-plotting.md
             text: Analysis And Plotting
+          - href: articles/developer-guide.md
+            text: Developer Guide
       - text: Reference
         menu:
           - href: reference/index.md
