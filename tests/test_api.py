@@ -21,6 +21,17 @@ def test_public_api_imports():
 
 
 @pytest.mark.integration
+def test_runtime_diagnostics_reports_ready_bridge():
+    pymizer = importlib.import_module("pymizer")
+
+    diagnostics = pymizer.runtime_diagnostics()
+
+    assert diagnostics["rpy2_import_ok"] is True
+    assert diagnostics["compatibility"] is True
+    assert diagnostics["versions"]["mizer"]
+
+
+@pytest.mark.integration
 def test_community_model_projection():
     pymizer = importlib.import_module("pymizer")
     params = pymizer.new_community_params(no_w=20)

@@ -60,6 +60,9 @@ def to_dataframe_2d(value: Any, index_name: str | None = None, column_name: str 
 def dimnames(value: Any) -> list[list[str] | None]:
     """Extract dimnames from an R array."""
     names = robjects.r["dimnames"](value)
+    if names is robjects.NULL:
+        dims = robjects.r["dim"](value)
+        return [None] * len(dims)
     result: list[list[str] | None] = []
     for item in names:
         if item is robjects.NULL:

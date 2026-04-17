@@ -14,3 +14,6 @@
   standalone Python package
 - Added documented support targets for Python, R, and operating systems
 - Added source and wheel distribution build checks for release verification
+- Added converter, failure-mode, and example regression tests for the Python
+  wrapper
+- Added GitHub Actions coverage for Python tests and documentation builds

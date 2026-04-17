@@ -83,4 +83,5 @@ include = [
 testpaths = ["tests"]
 markers = [
     "integration: tests that exercise the live R bridge",
+    "docs: tests that exercise documentation generation",
 ]
