@@ -33,6 +33,18 @@ def test_runtime_diagnostics_reports_ready_bridge():
 
 
 @pytest.mark.integration
+def test_wrapped_objects_have_concise_repr():
+    pymizer = importlib.import_module("pymizer")
+    params = pymizer.new_community_params(no_w=20)
+    sim = params.project(t_max=1, dt=0.1, t_save=1, progress_bar=False)
+
+    assert repr(params).startswith("MizerParams(")
+    assert "species=" in repr(params)
+    assert repr(sim).startswith("MizerSim(")
+    assert "times=" in repr(sim)
+
+
+@pytest.mark.integration
 def test_community_model_projection():
     pymizer = importlib.import_module("pymizer")
     params = pymizer.new_community_params(no_w=20)
@@ -178,6 +190,28 @@ def test_sim_extended_analysis_methods():
     assert mean_weight.index.tolist() == ["0.0", "1.0"]
     assert large_fish.index.tolist() == ["0.0", "1.0"]
     assert {"slope", "intercept", "r2"} == set(slope.columns)
+
+
+@pytest.mark.integration
+def test_biomass_tidy_and_plot_helpers():
+    import matplotlib.pyplot as plt
+
+    pymizer = importlib.import_module("pymizer")
+    species = pymizer.load_dataset("NS_species_params")
+    interaction = pymizer.load_dataset("NS_interaction")
+    params = pymizer.new_multispecies_params(species_params=species, interaction=interaction)
+    sim = params.project(t_max=1, dt=0.1, t_save=1, effort=0, progress_bar=False)
+
+    tidy = sim.biomass_tidy(species=["Cod", "Haddock"])
+    ax = sim.plot_biomass(species=["Cod", "Haddock"])
+
+    assert tidy.columns.tolist() == ["time", "species", "biomass"]
+    assert set(tidy["species"]) == {"Cod", "Haddock"}
+    assert tidy["time"].tolist()[:2] == [0, 1]
+    assert ax.get_ylabel() == "biomass"
+    assert ax.get_title() == "Biomass Through Time"
+    assert len(ax.lines) == 2
+    plt.close(ax.figure)
 
 
 @pytest.mark.integration

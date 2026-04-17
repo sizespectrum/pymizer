@@ -39,6 +39,10 @@ The current `pymizer` API is centred around three parts of the workflow:
   starting state before a projection
 - use `sim.biomass()`, `sim.abundance()`, and `sim.ssb()` for time-by-species
   summaries
+- use `sim.biomass_tidy()` when you want long-form pandas output for plotting
+  libraries or grouped notebook analysis
+- use `sim.plot_biomass()` for a quick matplotlib view before dropping down to
+  pandas or seaborn
 - use `sim.pred_rate()`, `sim.pred_mort()`, `sim.feeding_level()`, and
   `sim.diet()` for size-resolved diagnostics
 - use filter arguments such as `species=`, `min_w=`, `max_w=`, `min_l=`, and
@@ -55,6 +59,8 @@ The public API deliberately stays narrower than the full R package:
 - advanced workflows can use `read_rds()`, `MizerREnvironment.eval()`, and
   `MizerParams.set_rate_functions()` when the core wrapper surface is not
   quite enough
+- plotting support stays intentionally small and is meant to complement, not
+  replace, direct use of pandas, xarray, and matplotlib
 
 For full signatures and class pages, use the generated
 [API Reference](../api/index.qmd).

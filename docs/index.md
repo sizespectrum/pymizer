@@ -39,6 +39,8 @@ The wrapper currently supports:
 - round-tripping generic `.rds` files with `read_rds()`
 - running simulations through `MizerParams.project()`
 - accessing common outputs from `MizerSim`
+- quick notebook helpers such as `MizerSim.biomass_tidy()` and
+  `MizerSim.plot_biomass()`
 - listing and loading built-in `mizer` datasets
 
 Advanced features are still intentionally narrow, but `pymizer` now includes

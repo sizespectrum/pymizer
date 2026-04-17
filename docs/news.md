@@ -19,3 +19,5 @@
 - Added GitHub Actions coverage for Python tests and documentation builds
 - Added advanced bridge helpers for raw R evaluation, generic `.rds`
   round-tripping, and controlled rate-function registration
+- Added notebook-friendly wrapper reprs plus `biomass_tidy()` and
+  `plot_biomass()` helpers for quick Python-side exploration

@@ -106,6 +106,30 @@ def _series_with_float_index(value: Any, *, name: str | None = None, index_name:
     return series
 
 
+def _select_species_columns(frame: pd.DataFrame, species: str | list[str] | tuple[str, ...] | None) -> pd.DataFrame:
+    """Return a DataFrame restricted to the requested species columns."""
+    if species is None:
+        return frame
+    selected = [species] if isinstance(species, str) else [str(item) for item in species]
+    missing = [name for name in selected if name not in frame.columns]
+    if missing:
+        raise ValueError(
+            "Requested species not present in the result: "
+            f"{', '.join(missing)}. Available species: {', '.join(str(col) for col in frame.columns)}."
+        )
+    return frame.loc[:, selected]
+
+
+def _melt_time_by_species(frame: pd.DataFrame, *, value_name: str) -> pd.DataFrame:
+    """Convert a time-by-species DataFrame to tidy long form."""
+    tidy = frame.reset_index().melt(id_vars="time", var_name="species", value_name=value_name)
+    try:
+        tidy["time"] = pd.to_numeric(tidy["time"])
+    except (TypeError, ValueError):
+        pass
+    return tidy
+
+
 def _growth_curves_to_frame(value: Any, species_order: str | list[str] | tuple[str, ...] | None = None) -> pd.DataFrame:
     """Convert an R species x age matrix to a labelled pandas DataFrame."""
     frame = to_dataframe_2d(value, index_name="species", column_name="age")
@@ -163,6 +187,15 @@ class MizerParams:
     def r(self) -> Any:
         """Access the underlying R object."""
         return self._r_obj
+
+    def __repr__(self) -> str:
+        try:
+            n_species = int(self.biomass().shape[0])
+        except Exception:
+            n_species = -1
+        if n_species >= 0:
+            return f"MizerParams(species={n_species})"
+        return "MizerParams()"
 
     def copy(self) -> "MizerParams":
         """Return another wrapper for the same underlying object."""
@@ -959,6 +992,15 @@ class MizerSim:
         """Access the underlying R object."""
         return self._r_obj
 
+    def __repr__(self) -> str:
+        try:
+            biomass = self.biomass()
+            n_times = int(biomass.shape[0])
+            n_species = int(biomass.shape[1])
+            return f"MizerSim(times={n_times}, species={n_species})"
+        except Exception:
+            return "MizerSim()"
+
     def params(self) -> MizerParams:
         """Return the `MizerParams` used to create the simulation."""
         params = self._env.call("getParams", self._r_obj)
@@ -1007,6 +1049,71 @@ class MizerSim:
             index_name="time",
             column_name="species",
         )
+
+    def biomass_tidy(
+        self,
+        *,
+        species: str | list[str] | tuple[str, ...] | None = None,
+        use_cutoff: bool = False,
+        min_w: float | list[float] | None = None,
+        max_w: float | list[float] | None = None,
+        min_l: float | list[float] | None = None,
+        max_l: float | list[float] | None = None,
+    ) -> pd.DataFrame:
+        """Return biomass through time in tidy long-form pandas format.
+
+        The returned DataFrame has ``time``, ``species``, and ``biomass``
+        columns, which makes it easy to use with seaborn-style APIs or custom
+        notebook analysis pipelines.
+        """
+        frame = self.biomass(
+            use_cutoff=use_cutoff,
+            min_w=min_w,
+            max_w=max_w,
+            min_l=min_l,
+            max_l=max_l,
+        )
+        return _melt_time_by_species(_select_species_columns(frame, species), value_name="biomass")
+
+    def plot_biomass(
+        self,
+        *,
+        species: str | list[str] | tuple[str, ...] | None = None,
+        use_cutoff: bool = False,
+        min_w: float | list[float] | None = None,
+        max_w: float | list[float] | None = None,
+        min_l: float | list[float] | None = None,
+        max_l: float | list[float] | None = None,
+        ax: Any | None = None,
+        **kwargs: Any,
+    ) -> Any:
+        """Plot biomass through time with matplotlib and return the axes.
+
+        This is an opinionated convenience wrapper around ``sim.biomass()`` for
+        quick notebook exploration. For more control, call ``biomass()`` or
+        ``biomass_tidy()`` directly and build the plot yourself.
+        """
+        try:
+            import matplotlib.pyplot as plt
+        except ImportError as exc:  # pragma: no cover - optional at runtime
+            raise ImportError("matplotlib is required for plot_biomass().") from exc
+
+        frame = self.biomass(
+            use_cutoff=use_cutoff,
+            min_w=min_w,
+            max_w=max_w,
+            min_l=min_l,
+            max_l=max_l,
+        )
+        frame = _select_species_columns(frame, species)
+        if ax is None:
+            _, ax = plt.subplots()
+        frame.plot(ax=ax, **kwargs)
+        ax.set_xlabel("time")
+        ax.set_ylabel("biomass")
+        if not ax.get_title():
+            ax.set_title("Biomass Through Time")
+        return ax
 
     def abundance(
         self,

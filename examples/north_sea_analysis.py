@@ -19,8 +19,7 @@ def main() -> None:
     biomass = sim.biomass()
     pred_mort = sim.pred_mort()
     large_fish = sim.proportion_of_large_fish()
-
-    biomass_long = biomass.reset_index().melt(id_vars="time", var_name="species", value_name="biomass")
+    biomass_long = sim.biomass_tidy(species=["Cod", "Haddock", "Herring"])
 
     print(biomass.iloc[:2, :3])
     print(biomass_long.head())
@@ -30,13 +29,10 @@ def main() -> None:
     out_dir = Path("examples/output")
     out_dir.mkdir(parents=True, exist_ok=True)
 
-    fig, ax = plt.subplots(figsize=(8, 4))
-    biomass[["Cod", "Haddock", "Herring"]].plot(ax=ax)
-    ax.set_ylabel("Biomass")
-    ax.set_title("North Sea Biomass Through Time")
-    fig.tight_layout()
-    fig.savefig(out_dir / "north_sea_biomass.png", dpi=150)
-    plt.close(fig)
+    ax = sim.plot_biomass(species=["Cod", "Haddock", "Herring"], figsize=(8, 4))
+    ax.figure.tight_layout()
+    ax.figure.savefig(out_dir / "north_sea_biomass.png", dpi=150)
+    plt.close(ax.figure)
 
     fig, ax = plt.subplots(figsize=(8, 4))
     pred_mort.sel(sp="Cod").isel(time=0).plot(ax=ax)

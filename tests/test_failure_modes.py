@@ -78,3 +78,13 @@ def test_set_rate_functions_rejects_missing_r_function():
 
     with pytest.raises(ValueError, match="was not found in the active R session"):
         params.set_rate_functions(RDD="definitely_not_an_r_function")
+
+
+def test_biomass_helpers_reject_missing_species():
+    import pymizer as mz
+
+    params = mz.new_community_params(no_w=20)
+    sim = params.project(t_max=1, dt=0.1, t_save=1, progress_bar=False)
+
+    with pytest.raises(ValueError, match="Requested species not present"):
+        sim.biomass_tidy(species="Cod")
