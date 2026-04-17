@@ -2,16 +2,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.9.36">
+<meta name="generator" content="quarto-1.8.27">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
 <title>get-started – pymizer</title>
 <style>
-/* Default styles provided by pandoc.
-** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
-*/
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
 div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -70,14 +67,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <meta name="quarto:offset" content="./">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-845c23b38eaddc0f92fda52bfe77a8c8.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-1fa7afb8afaaa382e9a0f875c6e0556d.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-3140c81cfcadec7f5ae217b4a52acd52.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -212,7 +210,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#get-started" id="toc-get-started" class="nav-link active" data-scroll-target="#get-started">Get Started</a>
   <ul class="collapse">
   <li><a href="#requirements" id="toc-requirements" class="nav-link" data-scroll-target="#requirements">Requirements</a></li>
+  <li><a href="#packaging-model" id="toc-packaging-model" class="nav-link" data-scroll-target="#packaging-model">Packaging model</a></li>
   <li><a href="#install" id="toc-install" class="nav-link" data-scroll-target="#install">Install</a></li>
+  <li><a href="#support-matrix" id="toc-support-matrix" class="nav-link" data-scroll-target="#support-matrix">Support Matrix</a></li>
   <li><a href="#first-simulation" id="toc-first-simulation" class="nav-link" data-scroll-target="#first-simulation">First Simulation</a></li>
   <li><a href="#inspect-the-model-state" id="toc-inspect-the-model-state" class="nav-link" data-scroll-target="#inspect-the-model-state">Inspect The Model State</a></li>
   <li><a href="#filter-common-summaries" id="toc-filter-common-summaries" class="nav-link" data-scroll-target="#filter-common-summaries">Filter Common Summaries</a></li>
@@ -220,6 +220,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#steady-state-workflows" id="toc-steady-state-workflows" class="nav-link" data-scroll-target="#steady-state-workflows">Steady-State Workflows</a></li>
   <li><a href="#built-in-datasets" id="toc-built-in-datasets" class="nav-link" data-scroll-target="#built-in-datasets">Built-in Datasets</a></li>
   <li><a href="#build-the-docs" id="toc-build-the-docs" class="nav-link" data-scroll-target="#build-the-docs">Build The Docs</a></li>
+  <li><a href="#build-and-check-distributions" id="toc-build-and-check-distributions" class="nav-link" data-scroll-target="#build-and-check-distributions">Build And Check Distributions</a></li>
   <li><a href="#publish-to-github-pages" id="toc-publish-to-github-pages" class="nav-link" data-scroll-target="#publish-to-github-pages">Publish To GitHub Pages</a></li>
   </ul></li>
   </ul>
@@ -240,31 +241,65 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>Python 3.10 or later</li>
 <li>R installed and available on your path</li>
 <li>the <code>mizer</code> R package installed in your R library</li>
+<li><code>rpy2</code> able to initialise against that R installation</li>
 </ul>
+</section>
+<section id="packaging-model" class="level2">
+<h2 class="anchored" data-anchor-id="packaging-model">Packaging model</h2>
+<p><code>pymizer</code> is published as a Python package, but it deliberately leaves R dependency management to the user or environment manager. Installing <code>pymizer</code> does not attempt to install the R package <code>mizer</code> automatically.</p>
+<p>The recommended sequence is:</p>
+<ol type="1">
+<li>install R</li>
+<li>install the R package <code>mizer</code></li>
+<li>install <code>pymizer</code> into the Python environment that should talk to that R runtime</li>
+</ol>
 </section>
 <section id="install" class="level2">
 <h2 class="anchored" data-anchor-id="install">Install</h2>
 <p>For development from this repository:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> <span class="at">-m</span> venv python/.venv</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">python/.venv/bin/pip</span> install <span class="at">-e</span> ./python</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>To install documentation tooling as well:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python/.venv/bin/pip</span> install <span class="at">-e</span> <span class="st">'./python[docs]'</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">python/.venv/bin/python</span> <span class="at">-m</span> pip install <span class="at">--upgrade</span> pip</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="ex">python/.venv/bin/python</span> <span class="at">-m</span> pip install <span class="at">-e</span> <span class="st">'./python[dev]'</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Install the R package separately:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"mizer"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>For a regular virtualenv or venv install:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> <span class="at">-m</span> venv .venv</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="bu">.</span> .venv/bin/activate</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> <span class="at">-m</span> pip install <span class="at">--upgrade</span> pip</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> <span class="at">-m</span> pip install pymizer</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>For Conda or Mamba environments:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">mamba</span> create <span class="at">-n</span> pymizer python=3.11 r-base r-essentials</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="ex">mamba</span> activate pymizer</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> <span class="at">-m</span> pip install pymizer</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="ex">R</span> <span class="at">-q</span> <span class="at">-e</span> <span class="st">'install.packages("mizer", repos="https://cloud.r-project.org")'</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>For CI environments, install Python and R first, then install <code>mizer</code>, and only after that install <code>pymizer</code> with <code>pip</code>.</p>
+</section>
+<section id="support-matrix" class="level2">
+<h2 class="anchored" data-anchor-id="support-matrix">Support Matrix</h2>
+<p>The current support target is:</p>
+<ul>
+<li>Linux with Python 3.10 to 3.12 and a current CRAN R release</li>
+<li>macOS with Python 3.10 to 3.12 is expected to work with the same setup</li>
+<li>Windows is not currently in the supported matrix</li>
+<li><code>mizer</code> 2.5.0 or later</li>
+</ul>
+<p>Use <code>runtime_diagnostics()</code> if you need to confirm what stack <code>pymizer</code> detected on your machine.</p>
 </section>
 <section id="first-simulation" class="level2">
 <h2 class="anchored" data-anchor-id="first-simulation">First Simulation</h2>
 <p>The simplest way to confirm the bridge is working is to build a small community model and run a short projection:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pymizer <span class="im">as</span> mz</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>params <span class="op">=</span> mz.new_community_params(no_w<span class="op">=</span><span class="dv">20</span>)</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>sim <span class="op">=</span> params.project(</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    t_max<span class="op">=</span><span class="dv">5</span>,</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    dt<span class="op">=</span><span class="fl">0.1</span>,</span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    t_save<span class="op">=</span><span class="dv">1</span>,</span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    progress_bar<span class="op">=</span><span class="va">False</span>,</span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(sim.times())</span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(sim.biomass())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pymizer <span class="im">as</span> mz</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>params <span class="op">=</span> mz.new_community_params(no_w<span class="op">=</span><span class="dv">20</span>)</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>sim <span class="op">=</span> params.project(</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    t_max<span class="op">=</span><span class="dv">5</span>,</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    dt<span class="op">=</span><span class="fl">0.1</span>,</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    t_save<span class="op">=</span><span class="dv">1</span>,</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>    progress_bar<span class="op">=</span><span class="va">False</span>,</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(sim.times())</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(sim.biomass())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Expected result:</p>
 <ul>
 <li><code>sim.times()</code> returns a NumPy array of saved years</li>
@@ -274,15 +309,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="inspect-the-model-state" class="level2">
 <h2 class="anchored" data-anchor-id="inspect-the-model-state">Inspect The Model State</h2>
 <p>Once a model is loaded or created, you can inspect both the initial state and the projected state without dropping into raw R objects:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pymizer <span class="im">as</span> mz</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>params <span class="op">=</span> mz.new_community_params(no_w<span class="op">=</span><span class="dv">20</span>)</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>sim <span class="op">=</span> params.project(t_max<span class="op">=</span><span class="dv">5</span>, dt<span class="op">=</span><span class="fl">0.1</span>, t_save<span class="op">=</span><span class="dv">1</span>, progress_bar<span class="op">=</span><span class="va">False</span>)</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>initial_n <span class="op">=</span> params.initial_n()</span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>initial_resource <span class="op">=</span> params.initial_n_resource()</span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>pred_rate <span class="op">=</span> sim.pred_rate()</span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>pred_mort <span class="op">=</span> sim.pred_mort()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pymizer <span class="im">as</span> mz</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>params <span class="op">=</span> mz.new_community_params(no_w<span class="op">=</span><span class="dv">20</span>)</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>sim <span class="op">=</span> params.project(t_max<span class="op">=</span><span class="dv">5</span>, dt<span class="op">=</span><span class="fl">0.1</span>, t_save<span class="op">=</span><span class="dv">1</span>, progress_bar<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>initial_n <span class="op">=</span> params.initial_n()</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>initial_resource <span class="op">=</span> params.initial_n_resource()</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>pred_rate <span class="op">=</span> sim.pred_rate()</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>pred_mort <span class="op">=</span> sim.pred_mort()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Typical return types are:</p>
 <ul>
 <li><code>initial_n</code>: <code>xarray.DataArray</code> with dimensions <code>("sp", "w")</code></li>
@@ -294,16 +329,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="filter-common-summaries" class="level2">
 <h2 class="anchored" data-anchor-id="filter-common-summaries">Filter Common Summaries</h2>
 <p>Many summary methods accept the same species and size-range filters used by the R package:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pymizer <span class="im">as</span> mz</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>species <span class="op">=</span> mz.load_dataset(<span class="st">"NS_species_params"</span>)</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>interaction <span class="op">=</span> mz.load_dataset(<span class="st">"NS_interaction"</span>)</span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>params <span class="op">=</span> mz.new_multispecies_params(species_params<span class="op">=</span>species, interaction<span class="op">=</span>interaction)</span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>sim <span class="op">=</span> params.project(t_max<span class="op">=</span><span class="dv">1</span>, dt<span class="op">=</span><span class="fl">0.1</span>, t_save<span class="op">=</span><span class="dv">1</span>, effort<span class="op">=</span><span class="dv">0</span>, progress_bar<span class="op">=</span><span class="va">False</span>)</span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>cod_haddock_growth <span class="op">=</span> params.growth_curves(species<span class="op">=</span>[<span class="st">"Cod"</span>, <span class="st">"Haddock"</span>], max_age<span class="op">=</span><span class="dv">5</span>)</span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>medium_biomass <span class="op">=</span> sim.biomass(min_w<span class="op">=</span><span class="dv">10</span>, max_w<span class="op">=</span><span class="dv">1000</span>)</span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>cod_haddock_weight <span class="op">=</span> params.mean_weight(species<span class="op">=</span>[<span class="st">"Cod"</span>, <span class="st">"Haddock"</span>], min_w<span class="op">=</span><span class="dv">10</span>, max_w<span class="op">=</span><span class="dv">1000</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pymizer <span class="im">as</span> mz</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>species <span class="op">=</span> mz.load_dataset(<span class="st">"NS_species_params"</span>)</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>interaction <span class="op">=</span> mz.load_dataset(<span class="st">"NS_interaction"</span>)</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>params <span class="op">=</span> mz.new_multispecies_params(species_params<span class="op">=</span>species, interaction<span class="op">=</span>interaction)</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>sim <span class="op">=</span> params.project(t_max<span class="op">=</span><span class="dv">1</span>, dt<span class="op">=</span><span class="fl">0.1</span>, t_save<span class="op">=</span><span class="dv">1</span>, effort<span class="op">=</span><span class="dv">0</span>, progress_bar<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>cod_haddock_growth <span class="op">=</span> params.growth_curves(species<span class="op">=</span>[<span class="st">"Cod"</span>, <span class="st">"Haddock"</span>], max_age<span class="op">=</span><span class="dv">5</span>)</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>medium_biomass <span class="op">=</span> sim.biomass(min_w<span class="op">=</span><span class="dv">10</span>, max_w<span class="op">=</span><span class="dv">1000</span>)</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>cod_haddock_weight <span class="op">=</span> params.mean_weight(species<span class="op">=</span>[<span class="st">"Cod"</span>, <span class="st">"Haddock"</span>], min_w<span class="op">=</span><span class="dv">10</span>, max_w<span class="op">=</span><span class="dv">1000</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Supported filter arguments vary by method, but the common ones are:</p>
 <ul>
 <li><code>species=</code></li>
@@ -315,20 +350,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="edit-and-rerun-models" class="level2">
 <h2 class="anchored" data-anchor-id="edit-and-rerun-models">Edit And Rerun Models</h2>
 <p><code>pymizer</code> now supports the common “load, tweak, rerun” workflow directly from Python. The editing methods follow the <code>mizer</code> pattern and return a new <code>MizerParams</code> object rather than mutating the existing one.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pymizer <span class="im">as</span> mz</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>params <span class="op">=</span> mz.load_dataset(<span class="st">"NS_params"</span>)</span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>interaction <span class="op">=</span> params.interaction_matrix()</span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>interaction.iloc[<span class="dv">0</span>, <span class="dv">1</span>] <span class="op">=</span> <span class="fl">0.0</span></span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>updated <span class="op">=</span> (</span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>    params</span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>    .set_interaction(interaction)</span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>    .set_metadata(title<span class="op">=</span><span class="st">"North Sea example"</span>, description<span class="op">=</span><span class="st">"Edited from Python"</span>)</span>
-<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>sim <span class="op">=</span> updated.project(t_max<span class="op">=</span><span class="dv">2</span>, dt<span class="op">=</span><span class="fl">0.1</span>, t_save<span class="op">=</span><span class="dv">1</span>, effort<span class="op">=</span><span class="dv">0</span>, progress_bar<span class="op">=</span><span class="va">False</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pymizer <span class="im">as</span> mz</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>params <span class="op">=</span> mz.load_dataset(<span class="st">"NS_params"</span>)</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>interaction <span class="op">=</span> params.interaction_matrix()</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>interaction.iloc[<span class="dv">0</span>, <span class="dv">1</span>] <span class="op">=</span> <span class="fl">0.0</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>updated <span class="op">=</span> (</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>    params</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>    .set_interaction(interaction)</span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>    .set_metadata(title<span class="op">=</span><span class="st">"North Sea example"</span>, description<span class="op">=</span><span class="st">"Edited from Python"</span>)</span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>sim <span class="op">=</span> updated.project(t_max<span class="op">=</span><span class="dv">2</span>, dt<span class="op">=</span><span class="fl">0.1</span>, t_save<span class="op">=</span><span class="dv">1</span>, effort<span class="op">=</span><span class="dv">0</span>, progress_bar<span class="op">=</span><span class="va">False</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Useful editing methods include:</p>
 <ul>
 <li><code>set_interaction()</code></li>
@@ -345,19 +380,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="steady-state-workflows" class="level2">
 <h2 class="anchored" data-anchor-id="steady-state-workflows">Steady-State Workflows</h2>
 <p>The wrapper also exposes the steady-state search helpers from <code>mizer</code>:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pymizer <span class="im">as</span> mz</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>params <span class="op">=</span> mz.load_dataset(<span class="st">"NS_params"</span>)</span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>steady_params <span class="op">=</span> params.project_to_steady(</span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>    t_per<span class="op">=</span><span class="fl">1.0</span>,</span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>    t_max<span class="op">=</span><span class="fl">5.0</span>,</span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>    dt<span class="op">=</span><span class="fl">0.1</span>,</span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>    progress_bar<span class="op">=</span><span class="va">False</span>,</span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>    info_level<span class="op">=</span><span class="dv">0</span>,</span>
-<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>single_species_params <span class="op">=</span> params.steady_single_species(keep<span class="op">=</span><span class="st">"biomass"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pymizer <span class="im">as</span> mz</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>params <span class="op">=</span> mz.load_dataset(<span class="st">"NS_params"</span>)</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>steady_params <span class="op">=</span> params.project_to_steady(</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>    t_per<span class="op">=</span><span class="fl">1.0</span>,</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>    t_max<span class="op">=</span><span class="fl">5.0</span>,</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>    dt<span class="op">=</span><span class="fl">0.1</span>,</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>    progress_bar<span class="op">=</span><span class="va">False</span>,</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>    info_level<span class="op">=</span><span class="dv">0</span>,</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>single_species_params <span class="op">=</span> params.steady_single_species(keep<span class="op">=</span><span class="st">"biomass"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Available helpers are:</p>
 <ul>
 <li><code>project_to_steady()</code> for the lower-level convergence search</li>
@@ -368,15 +403,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="built-in-datasets" class="level2">
 <h2 class="anchored" data-anchor-id="built-in-datasets">Built-in Datasets</h2>
 <p>The wrapper can also load datasets shipped with the R package:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pymizer <span class="im">as</span> mz</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(mz.list_datasets())</span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>north_sea <span class="op">=</span> mz.load_north_sea()</span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>species <span class="op">=</span> mz.load_dataset(<span class="st">"NS_species_params"</span>)</span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>interaction <span class="op">=</span> mz.load_dataset(<span class="st">"NS_interaction"</span>)</span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>params <span class="op">=</span> mz.load_dataset(<span class="st">"NS_params"</span>)</span>
-<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>sim <span class="op">=</span> mz.load_dataset(<span class="st">"NS_sim"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pymizer <span class="im">as</span> mz</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(mz.list_datasets())</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>north_sea <span class="op">=</span> mz.load_north_sea()</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>species <span class="op">=</span> mz.load_dataset(<span class="st">"NS_species_params"</span>)</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>interaction <span class="op">=</span> mz.load_dataset(<span class="st">"NS_interaction"</span>)</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>params <span class="op">=</span> mz.load_dataset(<span class="st">"NS_params"</span>)</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>sim <span class="op">=</span> mz.load_dataset(<span class="st">"NS_sim"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Returned types depend on the dataset:</p>
 <ul>
 <li>tabular datasets become <code>pandas.DataFrame</code></li>
@@ -384,12 +419,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><code>NS_sim</code> becomes <code>pymizer.MizerSim</code></li>
 </ul>
 <p>For most users, the easiest way to start with a realistic model is the bundled North Sea helper:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pymizer <span class="im">as</span> mz</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>north_sea <span class="op">=</span> mz.load_north_sea()</span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>params <span class="op">=</span> north_sea.params</span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>sim <span class="op">=</span> north_sea.params.project(t_max<span class="op">=</span><span class="dv">1</span>, dt<span class="op">=</span><span class="fl">0.1</span>, t_save<span class="op">=</span><span class="dv">1</span>, effort<span class="op">=</span><span class="dv">0</span>, progress_bar<span class="op">=</span><span class="va">False</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pymizer <span class="im">as</span> mz</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>north_sea <span class="op">=</span> mz.load_north_sea()</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>params <span class="op">=</span> north_sea.params</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>sim <span class="op">=</span> north_sea.params.project(t_max<span class="op">=</span><span class="dv">1</span>, dt<span class="op">=</span><span class="fl">0.1</span>, t_save<span class="op">=</span><span class="dv">1</span>, effort<span class="op">=</span><span class="dv">0</span>, progress_bar<span class="op">=</span><span class="va">False</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>This returns the matching built-in pieces together:</p>
 <ul>
 <li><code>north_sea.species_params</code></li>
@@ -402,20 +437,50 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="build-the-docs" class="level2">
 <h2 class="anchored" data-anchor-id="build-the-docs">Build The Docs</h2>
 <p>This website is built with Quarto, and the API reference pages are generated by <code>quartodoc</code> from the Python package source:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> <span class="at">-m</span> pip install <span class="at">-e</span> <span class="st">'.[docs]'</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="bu">source</span> .venv/bin/activate</span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="ex">quartodoc</span> build <span class="at">--config</span> docs/_quarto.yml</span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="va">QUARTO_PYTHON</span><span class="op">=</span><span class="st">"</span><span class="va">$(</span><span class="bu">pwd</span><span class="va">)</span><span class="st">/.venv/bin/python"</span> <span class="ex">quarto</span> render docs</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> <span class="at">-m</span> pip install <span class="at">-e</span> <span class="st">'.[dev]'</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="bu">source</span> .venv/bin/activate</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="ex">quartodoc</span> build <span class="at">--config</span> docs/_quarto.yml</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="va">QUARTO_PYTHON</span><span class="op">=</span><span class="st">"</span><span class="va">$(</span><span class="bu">pwd</span><span class="va">)</span><span class="st">/.venv/bin/python"</span> <span class="ex">quarto</span> render docs</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>For live preview during editing:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="bu">source</span> .venv/bin/activate</span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="ex">quartodoc</span> build <span class="at">--config</span> docs/_quarto.yml <span class="at">--watch</span></span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="va">QUARTO_PYTHON</span><span class="op">=</span><span class="st">"</span><span class="va">$(</span><span class="bu">pwd</span><span class="va">)</span><span class="st">/.venv/bin/python"</span> <span class="ex">quarto</span> preview docs</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="bu">source</span> .venv/bin/activate</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="ex">quartodoc</span> build <span class="at">--config</span> docs/_quarto.yml <span class="at">--watch</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="va">QUARTO_PYTHON</span><span class="op">=</span><span class="st">"</span><span class="va">$(</span><span class="bu">pwd</span><span class="va">)</span><span class="st">/.venv/bin/python"</span> <span class="ex">quarto</span> preview docs</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p><code>quartodoc build</code> reads <a href="./home/gustav/Git/pymizer/docs/_quarto.yml">docs/_quarto.yml</a> and writes the generated API pages into <code>docs/api/</code>. Quarto then renders the hand-written <code>.md</code> and <code>.qmd</code> pages alongside that generated reference.</p>
+<p>Those generated <code>docs/api/</code> files are local build artifacts, so rerun <code>quartodoc build</code> whenever you need to preview, render, or publish the site.</p>
 <p>Set <code>QUARTO_PYTHON</code> to the repository virtualenv so executable articles run against the same Python, <code>rpy2</code>, and R-backed <code>pymizer</code> environment as the library itself.</p>
+</section>
+<section id="build-and-check-distributions" class="level2">
+<h2 class="anchored" data-anchor-id="build-and-check-distributions">Build And Check Distributions</h2>
+<p>Before publishing, build both package formats and run the metadata checks:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> <span class="at">-m</span> build</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> <span class="at">-m</span> twine check dist/<span class="pp">*</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="publish-to-github-pages" class="level2">
 <h2 class="anchored" data-anchor-id="publish-to-github-pages">Publish To GitHub Pages</h2>
-<p>Once the site has been rendered into <code>docs/_site/</code>, publish it using your preferred Quarto or GitHub Pages workflow.</p>
+<p>For the <code>pymizer</code> site, the simplest publish path is to let Quarto render the site and push the output to the <code>gh-pages</code> branch for you.</p>
+<p>First, make sure the GitHub repository is configured to serve Pages from the <code>gh-pages</code> branch:</p>
+<ol type="1">
+<li>Open the repository on GitHub.</li>
+<li>Go to <code>Settings</code> -&gt; <code>Pages</code>.</li>
+<li>Set the source to <code>Deploy from a branch</code>.</li>
+<li>Choose the <code>gh-pages</code> branch and the <code>/ (root)</code> folder.</li>
+</ol>
+<p>Then publish from your local checkout:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="bu">source</span> .venv/bin/activate</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="ex">quartodoc</span> build <span class="at">--config</span> docs/_quarto.yml</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="va">QUARTO_PYTHON</span><span class="op">=</span><span class="st">"</span><span class="va">$(</span><span class="bu">pwd</span><span class="va">)</span><span class="st">/.venv/bin/python"</span> <span class="ex">quarto</span> publish gh-pages docs</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Quarto will:</p>
+<ul>
+<li>render the site from <code>docs/</code></li>
+<li>create or update the <code>gh-pages</code> branch</li>
+<li>push the rendered <code>_site/</code> output to GitHub Pages</li>
+</ul>
+<p>If you prefer to inspect the rendered site before publishing, render first and then publish:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="bu">source</span> .venv/bin/activate</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="ex">quartodoc</span> build <span class="at">--config</span> docs/_quarto.yml</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="va">QUARTO_PYTHON</span><span class="op">=</span><span class="st">"</span><span class="va">$(</span><span class="bu">pwd</span><span class="va">)</span><span class="st">/.venv/bin/python"</span> <span class="ex">quarto</span> render docs</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="va">QUARTO_PYTHON</span><span class="op">=</span><span class="st">"</span><span class="va">$(</span><span class="bu">pwd</span><span class="va">)</span><span class="st">/.venv/bin/python"</span> <span class="ex">quarto</span> publish gh-pages docs</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>After the push completes, GitHub Pages will usually update the public site within a minute or two.</p>
 
 
 </section>

@@ -2,16 +2,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.9.36">
+<meta name="generator" content="quarto-1.8.27">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
 <title>mizerrenvironment – pymizer</title>
 <style>
-/* Default styles provided by pandoc.
-** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
-*/
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
 div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -70,14 +67,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <meta name="quarto:offset" content="../">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-845c23b38eaddc0f92fda52bfe77a8c8.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-1fa7afb8afaaa382e9a0f875c6e0556d.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-3140c81cfcadec7f5ae217b4a52acd52.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -255,6 +253,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text">read_params</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../api/read_rds.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">read_rds</span></a>
+  </div>
+</li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
@@ -396,13 +400,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul class="collapse">
   <li><a href="#pymizer.MizerREnvironment.call" id="toc-pymizer.MizerREnvironment.call" class="nav-link" data-scroll-target="#pymizer.MizerREnvironment.call">call</a></li>
   <li><a href="#pymizer.MizerREnvironment.class_name" id="toc-pymizer.MizerREnvironment.class_name" class="nav-link" data-scroll-target="#pymizer.MizerREnvironment.class_name">class_name</a></li>
+  <li><a href="#pymizer.MizerREnvironment.clone" id="toc-pymizer.MizerREnvironment.clone" class="nav-link" data-scroll-target="#pymizer.MizerREnvironment.clone">clone</a></li>
   <li><a href="#pymizer.MizerREnvironment.compatibility_report" id="toc-pymizer.MizerREnvironment.compatibility_report" class="nav-link" data-scroll-target="#pymizer.MizerREnvironment.compatibility_report">compatibility_report</a></li>
   <li><a href="#pymizer.MizerREnvironment.dataframe_from_r" id="toc-pymizer.MizerREnvironment.dataframe_from_r" class="nav-link" data-scroll-target="#pymizer.MizerREnvironment.dataframe_from_r">dataframe_from_r</a></li>
+  <li><a href="#pymizer.MizerREnvironment.eval" id="toc-pymizer.MizerREnvironment.eval" class="nav-link" data-scroll-target="#pymizer.MizerREnvironment.eval">eval</a></li>
+  <li><a href="#pymizer.MizerREnvironment.function_exists" id="toc-pymizer.MizerREnvironment.function_exists" class="nav-link" data-scroll-target="#pymizer.MizerREnvironment.function_exists">function_exists</a></li>
   <li><a href="#pymizer.MizerREnvironment.is_s4" id="toc-pymizer.MizerREnvironment.is_s4" class="nav-link" data-scroll-target="#pymizer.MizerREnvironment.is_s4">is_s4</a></li>
   <li><a href="#pymizer.MizerREnvironment.read_rds" id="toc-pymizer.MizerREnvironment.read_rds" class="nav-link" data-scroll-target="#pymizer.MizerREnvironment.read_rds">read_rds</a></li>
   <li><a href="#pymizer.MizerREnvironment.save_rds" id="toc-pymizer.MizerREnvironment.save_rds" class="nav-link" data-scroll-target="#pymizer.MizerREnvironment.save_rds">save_rds</a></li>
   <li><a href="#pymizer.MizerREnvironment.slot_names" id="toc-pymizer.MizerREnvironment.slot_names" class="nav-link" data-scroll-target="#pymizer.MizerREnvironment.slot_names">slot_names</a></li>
   <li><a href="#pymizer.MizerREnvironment.versions" id="toc-pymizer.MizerREnvironment.versions" class="nav-link" data-scroll-target="#pymizer.MizerREnvironment.versions">versions</a></li>
+  <li><a href="#pymizer.MizerREnvironment.wrap" id="toc-pymizer.MizerREnvironment.wrap" class="nav-link" data-scroll-target="#pymizer.MizerREnvironment.wrap">wrap</a></li>
   </ul></li>
   </ul></li>
   </ul>
@@ -445,32 +453,48 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>Return the first class name for an R object.</td>
 </tr>
 <tr class="odd">
+<td><a href="#pymizer.MizerREnvironment.clone">clone</a></td>
+<td>Return a deep copy of an R object via serialize/unserialize.</td>
+</tr>
+<tr class="even">
 <td><a href="#pymizer.MizerREnvironment.compatibility_report">compatibility_report</a></td>
 <td>Return a compatibility report for the active runtime environment.</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><a href="#pymizer.MizerREnvironment.dataframe_from_r">dataframe_from_r</a></td>
 <td>Convert an R object to a pandas DataFrame via <code>as.data.frame()</code>.</td>
 </tr>
+<tr class="even">
+<td><a href="#pymizer.MizerREnvironment.eval">eval</a></td>
+<td>Evaluate arbitrary R code in a temporary environment.</td>
+</tr>
 <tr class="odd">
+<td><a href="#pymizer.MizerREnvironment.function_exists">function_exists</a></td>
+<td>Return whether a function name resolves in the active R session.</td>
+</tr>
+<tr class="even">
 <td><a href="#pymizer.MizerREnvironment.is_s4">is_s4</a></td>
 <td>Return whether an object is an S4 object.</td>
 </tr>
-<tr class="even">
-<td><a href="#pymizer.MizerREnvironment.read_rds">read_rds</a></td>
-<td>Read an <code>.rds</code> file and return the raw R object.</td>
-</tr>
 <tr class="odd">
+<td><a href="#pymizer.MizerREnvironment.read_rds">read_rds</a></td>
+<td>Read an <code>.rds</code> file and optionally wrap recognised mizer objects.</td>
+</tr>
+<tr class="even">
 <td><a href="#pymizer.MizerREnvironment.save_rds">save_rds</a></td>
 <td>Save an R object to an <code>.rds</code> file.</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><a href="#pymizer.MizerREnvironment.slot_names">slot_names</a></td>
 <td>Return slot names for an S4 object.</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><a href="#pymizer.MizerREnvironment.versions">versions</a></td>
 <td>Return version information for the active Python and R bridge stack.</td>
+</tr>
+<tr class="odd">
+<td><a href="#pymizer.MizerREnvironment.wrap">wrap</a></td>
+<td>Wrap recognised raw R objects as <code>pymizer</code> model classes.</td>
 </tr>
 </tbody>
 </table>
@@ -566,42 +590,133 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>MizerREnvironment.class_name(obj)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Return the first class name for an R object.</p>
 </section>
+<section id="pymizer.MizerREnvironment.clone" class="level3">
+<h3 class="anchored" data-anchor-id="pymizer.MizerREnvironment.clone">clone</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>MizerREnvironment.clone(obj)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Return a deep copy of an R object via serialize/unserialize.</p>
+</section>
 <section id="pymizer.MizerREnvironment.compatibility_report" class="level3">
 <h3 class="anchored" data-anchor-id="pymizer.MizerREnvironment.compatibility_report">compatibility_report</h3>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>MizerREnvironment.compatibility_report()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>MizerREnvironment.compatibility_report()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Return a compatibility report for the active runtime environment.</p>
 </section>
 <section id="pymizer.MizerREnvironment.dataframe_from_r" class="level3">
 <h3 class="anchored" data-anchor-id="pymizer.MizerREnvironment.dataframe_from_r">dataframe_from_r</h3>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>MizerREnvironment.dataframe_from_r(obj)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>MizerREnvironment.dataframe_from_r(obj)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Convert an R object to a pandas DataFrame via <code>as.data.frame()</code>.</p>
+</section>
+<section id="pymizer.MizerREnvironment.eval" class="level3">
+<h3 class="anchored" data-anchor-id="pymizer.MizerREnvironment.eval">eval</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>MizerREnvironment.<span class="bu">eval</span>(code, <span class="op">/</span>, <span class="op">**</span>bindings)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Evaluate arbitrary R code in a temporary environment.</p>
+<section id="parameters-1" class="level4 doc-section doc-section-parameters">
+<h4 class="doc-section doc-section-parameters anchored" data-anchor-id="parameters-1">Parameters</h4>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 4%">
+<col style="width: 2%">
+<col style="width: 88%">
+<col style="width: 4%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>code</td>
+<td>str</td>
+<td>R code to evaluate.</td>
+<td><em>required</em></td>
+</tr>
+<tr class="even">
+<td>**bindings</td>
+<td>Any</td>
+<td>Temporary variables exposed to the evaluation environment. Python arrays and pandas objects are converted to R using the active <code>rpy2</code> converters. Wrapped <code>pymizer</code> objects contribute their underlying R object via the <code>.r</code> property automatically.</td>
+<td><code>{}</code></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="returns-1" class="level4 doc-section doc-section-returns">
+<h4 class="doc-section doc-section-returns anchored" data-anchor-id="returns-1">Returns</h4>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 80%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td></td>
+<td>Any</td>
+<td>The raw R object returned by the final expression in <code>code</code>.</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="raises-1" class="level4 doc-section doc-section-raises">
+<h4 class="doc-section doc-section-raises anchored" data-anchor-id="raises-1">Raises</h4>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td></td>
+<td>MizerError</td>
+<td>If the code cannot be parsed or evaluated.</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="pymizer.MizerREnvironment.function_exists" class="level3">
+<h3 class="anchored" data-anchor-id="pymizer.MizerREnvironment.function_exists">function_exists</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>MizerREnvironment.function_exists(name)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Return whether a function name resolves in the active R session.</p>
 </section>
 <section id="pymizer.MizerREnvironment.is_s4" class="level3">
 <h3 class="anchored" data-anchor-id="pymizer.MizerREnvironment.is_s4">is_s4</h3>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>MizerREnvironment.is_s4(obj)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>MizerREnvironment.is_s4(obj)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Return whether an object is an S4 object.</p>
 </section>
 <section id="pymizer.MizerREnvironment.read_rds" class="level3">
 <h3 class="anchored" data-anchor-id="pymizer.MizerREnvironment.read_rds">read_rds</h3>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>MizerREnvironment.read_rds(path)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Read an <code>.rds</code> file and return the raw R object.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>MizerREnvironment.read_rds(path, <span class="op">*</span>, wrap<span class="op">=</span><span class="va">False</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Read an <code>.rds</code> file and optionally wrap recognised mizer objects.</p>
 </section>
 <section id="pymizer.MizerREnvironment.save_rds" class="level3">
 <h3 class="anchored" data-anchor-id="pymizer.MizerREnvironment.save_rds">save_rds</h3>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>MizerREnvironment.save_rds(obj, path)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>MizerREnvironment.save_rds(obj, path)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Save an R object to an <code>.rds</code> file.</p>
 </section>
 <section id="pymizer.MizerREnvironment.slot_names" class="level3">
 <h3 class="anchored" data-anchor-id="pymizer.MizerREnvironment.slot_names">slot_names</h3>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>MizerREnvironment.slot_names(obj)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>MizerREnvironment.slot_names(obj)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Return slot names for an S4 object.</p>
 </section>
 <section id="pymizer.MizerREnvironment.versions" class="level3">
 <h3 class="anchored" data-anchor-id="pymizer.MizerREnvironment.versions">versions</h3>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>MizerREnvironment.versions()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>MizerREnvironment.versions()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Return version information for the active Python and R bridge stack.</p>
-<section id="returns-1" class="level4 doc-section doc-section-returns">
-<h4 class="doc-section doc-section-returns anchored" data-anchor-id="returns-1">Returns</h4>
+<section id="returns-2" class="level4 doc-section doc-section-returns">
+<h4 class="doc-section doc-section-returns anchored" data-anchor-id="returns-2">Returns</h4>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 9%">
@@ -628,9 +743,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tr>
 </tbody>
 </table>
-
-
 </section>
+</section>
+<section id="pymizer.MizerREnvironment.wrap" class="level3">
+<h3 class="anchored" data-anchor-id="pymizer.MizerREnvironment.wrap">wrap</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>MizerREnvironment.wrap(obj)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Wrap recognised raw R objects as <code>pymizer</code> model classes.</p>
+
+
 </section>
 </section>
 </section>

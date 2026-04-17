@@ -2,16 +2,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.9.36">
+<meta name="generator" content="quarto-1.8.27">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
 <title>mizerparams – pymizer</title>
 <style>
-/* Default styles provided by pandoc.
-** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
-*/
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
 div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -70,14 +67,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <meta name="quarto:offset" content="../">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-845c23b38eaddc0f92fda52bfe77a8c8.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-1fa7afb8afaaa382e9a0f875c6e0556d.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-3140c81cfcadec7f5ae217b4a52acd52.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -255,6 +253,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text">read_params</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../api/read_rds.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">read_rds</span></a>
+  </div>
+</li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
@@ -417,7 +421,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#pymizer.MizerParams.project" id="toc-pymizer.MizerParams.project" class="nav-link" data-scroll-target="#pymizer.MizerParams.project">project</a></li>
   <li><a href="#pymizer.MizerParams.project_to_steady" id="toc-pymizer.MizerParams.project_to_steady" class="nav-link" data-scroll-target="#pymizer.MizerParams.project_to_steady">project_to_steady</a></li>
   <li><a href="#pymizer.MizerParams.proportion_of_large_fish" id="toc-pymizer.MizerParams.proportion_of_large_fish" class="nav-link" data-scroll-target="#pymizer.MizerParams.proportion_of_large_fish">proportion_of_large_fish</a></li>
+  <li><a href="#pymizer.MizerParams.rate_functions" id="toc-pymizer.MizerParams.rate_functions" class="nav-link" data-scroll-target="#pymizer.MizerParams.rate_functions">rate_functions</a></li>
   <li><a href="#pymizer.MizerParams.save" id="toc-pymizer.MizerParams.save" class="nav-link" data-scroll-target="#pymizer.MizerParams.save">save</a></li>
+  <li><a href="#pymizer.MizerParams.save_rds" id="toc-pymizer.MizerParams.save_rds" class="nav-link" data-scroll-target="#pymizer.MizerParams.save_rds">save_rds</a></li>
   <li><a href="#pymizer.MizerParams.search_volume" id="toc-pymizer.MizerParams.search_volume" class="nav-link" data-scroll-target="#pymizer.MizerParams.search_volume">search_volume</a></li>
   <li><a href="#pymizer.MizerParams.set_fishing" id="toc-pymizer.MizerParams.set_fishing" class="nav-link" data-scroll-target="#pymizer.MizerParams.set_fishing">set_fishing</a></li>
   <li><a href="#pymizer.MizerParams.set_initial_values" id="toc-pymizer.MizerParams.set_initial_values" class="nav-link" data-scroll-target="#pymizer.MizerParams.set_initial_values">set_initial_values</a></li>
@@ -426,6 +432,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#pymizer.MizerParams.set_metabolic_rate" id="toc-pymizer.MizerParams.set_metabolic_rate" class="nav-link" data-scroll-target="#pymizer.MizerParams.set_metabolic_rate">set_metabolic_rate</a></li>
   <li><a href="#pymizer.MizerParams.set_metadata" id="toc-pymizer.MizerParams.set_metadata" class="nav-link" data-scroll-target="#pymizer.MizerParams.set_metadata">set_metadata</a></li>
   <li><a href="#pymizer.MizerParams.set_pred_kernel" id="toc-pymizer.MizerParams.set_pred_kernel" class="nav-link" data-scroll-target="#pymizer.MizerParams.set_pred_kernel">set_pred_kernel</a></li>
+  <li><a href="#pymizer.MizerParams.set_rate_functions" id="toc-pymizer.MizerParams.set_rate_functions" class="nav-link" data-scroll-target="#pymizer.MizerParams.set_rate_functions">set_rate_functions</a></li>
   <li><a href="#pymizer.MizerParams.set_reproduction" id="toc-pymizer.MizerParams.set_reproduction" class="nav-link" data-scroll-target="#pymizer.MizerParams.set_reproduction">set_reproduction</a></li>
   <li><a href="#pymizer.MizerParams.set_resource" id="toc-pymizer.MizerParams.set_resource" class="nav-link" data-scroll-target="#pymizer.MizerParams.set_resource">set_resource</a></li>
   <li><a href="#pymizer.MizerParams.set_search_volume" id="toc-pymizer.MizerParams.set_search_volume" class="nav-link" data-scroll-target="#pymizer.MizerParams.set_search_volume">set_search_volume</a></li>
@@ -575,8 +582,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>Return the proportion of large fish in the initial state.</td>
 </tr>
 <tr class="odd">
+<td><a href="#pymizer.MizerParams.rate_functions">rate_functions</a></td>
+<td>Return the registered R rate-function names from <code>params@rates_funcs</code>.</td>
+</tr>
+<tr class="even">
 <td><a href="#pymizer.MizerParams.save">save</a></td>
 <td>Save the params object using <code>saveParams()</code>.</td>
+</tr>
+<tr class="odd">
+<td><a href="#pymizer.MizerParams.save_rds">save_rds</a></td>
+<td>Serialise the wrapped params object as a generic <code>.rds</code> file.</td>
 </tr>
 <tr class="even">
 <td><a href="#pymizer.MizerParams.search_volume">search_volume</a></td>
@@ -611,38 +626,42 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>Return a new params object with an updated predation kernel.</td>
 </tr>
 <tr class="even">
+<td><a href="#pymizer.MizerParams.set_rate_functions">set_rate_functions</a></td>
+<td>Return a new params object with selected <code>rates_funcs</code> entries updated.</td>
+</tr>
+<tr class="odd">
 <td><a href="#pymizer.MizerParams.set_reproduction">set_reproduction</a></td>
 <td>Return a new params object with updated reproduction settings.</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><a href="#pymizer.MizerParams.set_resource">set_resource</a></td>
 <td>Return a new params object with updated resource settings.</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><a href="#pymizer.MizerParams.set_search_volume">set_search_volume</a></td>
 <td>Return a new params object with updated search volume.</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><a href="#pymizer.MizerParams.ssb">ssb</a></td>
 <td>Return spawning stock biomass in the initial state as a pandas Series.</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><a href="#pymizer.MizerParams.steady">steady</a></td>
 <td>Run <code>mizer::steady()</code> and return params or a simulation.</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><a href="#pymizer.MizerParams.steady_single_species">steady_single_species</a></td>
 <td>Run <code>mizer::steadySingleSpecies()</code> for selected species.</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><a href="#pymizer.MizerParams.summary">summary</a></td>
 <td>Return the text representation of <code>summary(params)</code>.</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><a href="#pymizer.MizerParams.trophic_level">trophic_level</a></td>
 <td>Return trophic level at size in the initial state.</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><a href="#pymizer.MizerParams.trophic_level_by_species">trophic_level_by_species</a></td>
 <td>Return the species-level trophic level in the initial state.</td>
 </tr>
@@ -1602,24 +1621,34 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </table>
 </section>
 </section>
+<section id="pymizer.MizerParams.rate_functions" class="level3">
+<h3 class="anchored" data-anchor-id="pymizer.MizerParams.rate_functions">rate_functions</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>MizerParams.rate_functions()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Return the registered R rate-function names from <code>params@rates_funcs</code>.</p>
+</section>
 <section id="pymizer.MizerParams.save" class="level3">
 <h3 class="anchored" data-anchor-id="pymizer.MizerParams.save">save</h3>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>MizerParams.save(path)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>MizerParams.save(path)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Save the params object using <code>saveParams()</code>.</p>
+</section>
+<section id="pymizer.MizerParams.save_rds" class="level3">
+<h3 class="anchored" data-anchor-id="pymizer.MizerParams.save_rds">save_rds</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>MizerParams.save_rds(path)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Serialise the wrapped params object as a generic <code>.rds</code> file.</p>
 </section>
 <section id="pymizer.MizerParams.search_volume" class="level3">
 <h3 class="anchored" data-anchor-id="pymizer.MizerParams.search_volume">search_volume</h3>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>MizerParams.search_volume(as_xarray<span class="op">=</span><span class="va">True</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>MizerParams.search_volume(as_xarray<span class="op">=</span><span class="va">True</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Return search volume by species and size.</p>
 </section>
 <section id="pymizer.MizerParams.set_fishing" class="level3">
 <h3 class="anchored" data-anchor-id="pymizer.MizerParams.set_fishing">set_fishing</h3>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>MizerParams.set_fishing(<span class="op">**</span>kwargs)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>MizerParams.set_fishing(<span class="op">**</span>kwargs)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Call <code>setFishing()</code> and wrap the returned params object.</p>
 </section>
 <section id="pymizer.MizerParams.set_initial_values" class="level3">
 <h3 class="anchored" data-anchor-id="pymizer.MizerParams.set_initial_values">set_initial_values</h3>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>MizerParams.set_initial_values(sim, <span class="op">*</span>, time_range<span class="op">=</span><span class="va">None</span>, geometric_mean<span class="op">=</span><span class="va">False</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>MizerParams.set_initial_values(sim, <span class="op">*</span>, time_range<span class="op">=</span><span class="va">None</span>, geometric_mean<span class="op">=</span><span class="va">False</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Return a new params object with initial values copied from a simulation.</p>
 <section id="parameters-11" class="level4 doc-section doc-section-parameters">
 <h4 class="doc-section doc-section-parameters anchored" data-anchor-id="parameters-11">Parameters</h4>
@@ -1662,13 +1691,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="examples-5" class="level4 doc-section doc-section-examples">
 <h4 class="doc-section doc-section-examples anchored" data-anchor-id="examples-5">Examples</h4>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>sim <span class="op">=</span> params.project(t_max<span class="op">=</span><span class="dv">5</span>, dt<span class="op">=</span><span class="fl">0.1</span>, t_save<span class="op">=</span><span class="dv">1</span>, progress_bar<span class="op">=</span><span class="va">False</span>)</span>
-<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>updated <span class="op">=</span> params.set_initial_values(sim)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>sim <span class="op">=</span> params.project(t_max<span class="op">=</span><span class="dv">5</span>, dt<span class="op">=</span><span class="fl">0.1</span>, t_save<span class="op">=</span><span class="dv">1</span>, progress_bar<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>updated <span class="op">=</span> params.set_initial_values(sim)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 </section>
 <section id="pymizer.MizerParams.set_interaction" class="level3">
 <h3 class="anchored" data-anchor-id="pymizer.MizerParams.set_interaction">set_interaction</h3>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>MizerParams.set_interaction(interaction)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>MizerParams.set_interaction(interaction)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Return a new params object with an updated interaction matrix.</p>
 <section id="parameters-12" class="level4 doc-section doc-section-parameters">
 <h4 class="doc-section doc-section-parameters anchored" data-anchor-id="parameters-12">Parameters</h4>
@@ -1700,36 +1729,36 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="pymizer.MizerParams.set_max_intake_rate" class="level3">
 <h3 class="anchored" data-anchor-id="pymizer.MizerParams.set_max_intake_rate">set_max_intake_rate</h3>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>MizerParams.set_max_intake_rate(intake_max<span class="op">=</span><span class="va">None</span>, <span class="op">*</span>, reset<span class="op">=</span><span class="va">False</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>MizerParams.set_max_intake_rate(intake_max<span class="op">=</span><span class="va">None</span>, <span class="op">*</span>, reset<span class="op">=</span><span class="va">False</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Return a new params object with updated maximum intake rate.</p>
 </section>
 <section id="pymizer.MizerParams.set_metabolic_rate" class="level3">
 <h3 class="anchored" data-anchor-id="pymizer.MizerParams.set_metabolic_rate">set_metabolic_rate</h3>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>MizerParams.set_metabolic_rate(metab<span class="op">=</span><span class="va">None</span>, <span class="op">*</span>, p<span class="op">=</span><span class="va">None</span>, reset<span class="op">=</span><span class="va">False</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>MizerParams.set_metabolic_rate(metab<span class="op">=</span><span class="va">None</span>, <span class="op">*</span>, p<span class="op">=</span><span class="va">None</span>, reset<span class="op">=</span><span class="va">False</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Return a new params object with updated metabolic rate.</p>
 </section>
 <section id="pymizer.MizerParams.set_metadata" class="level3">
 <h3 class="anchored" data-anchor-id="pymizer.MizerParams.set_metadata">set_metadata</h3>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>MizerParams.set_metadata(</span>
-<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>    title<span class="op">=</span><span class="va">None</span>,</span>
-<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>    description<span class="op">=</span><span class="va">None</span>,</span>
-<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a>    authors<span class="op">=</span><span class="va">None</span>,</span>
-<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a>    url<span class="op">=</span><span class="va">None</span>,</span>
-<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a>    doi<span class="op">=</span><span class="va">None</span>,</span>
-<span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a>    <span class="op">**</span>extra_fields,</span>
-<span id="cb37-8"><a href="#cb37-8" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb39"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>MizerParams.set_metadata(</span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>    title<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>    description<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a>    authors<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a>    url<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a>    doi<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb39-7"><a href="#cb39-7" aria-hidden="true" tabindex="-1"></a>    <span class="op">**</span>extra_fields,</span>
+<span id="cb39-8"><a href="#cb39-8" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Return a new params object with updated metadata.</p>
 <section id="examples-6" class="level4 doc-section doc-section-examples">
 <h4 class="doc-section doc-section-examples anchored" data-anchor-id="examples-6">Examples</h4>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>updated <span class="op">=</span> params.set_metadata(</span>
-<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>    title<span class="op">=</span><span class="st">"North Sea example"</span>,</span>
-<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>    description<span class="op">=</span><span class="st">"Python wrapper demo"</span>,</span>
-<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb40"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>updated <span class="op">=</span> params.set_metadata(</span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>    title<span class="op">=</span><span class="st">"North Sea example"</span>,</span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>    description<span class="op">=</span><span class="st">"Python wrapper demo"</span>,</span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 </section>
 <section id="pymizer.MizerParams.set_pred_kernel" class="level3">
 <h3 class="anchored" data-anchor-id="pymizer.MizerParams.set_pred_kernel">set_pred_kernel</h3>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb39"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>MizerParams.set_pred_kernel(pred_kernel<span class="op">=</span><span class="va">None</span>, <span class="op">*</span>, reset<span class="op">=</span><span class="va">False</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb41"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>MizerParams.set_pred_kernel(pred_kernel<span class="op">=</span><span class="va">None</span>, <span class="op">*</span>, reset<span class="op">=</span><span class="va">False</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Return a new params object with an updated predation kernel.</p>
 <section id="parameters-13" class="level4 doc-section doc-section-parameters">
 <h4 class="doc-section doc-section-parameters anchored" data-anchor-id="parameters-13">Parameters</h4>
@@ -1765,14 +1794,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </table>
 </section>
 </section>
+<section id="pymizer.MizerParams.set_rate_functions" class="level3">
+<h3 class="anchored" data-anchor-id="pymizer.MizerParams.set_rate_functions">set_rate_functions</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb42"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>MizerParams.set_rate_functions(<span class="op">**</span>rate_functions)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Return a new params object with selected <code>rates_funcs</code> entries updated.</p>
+<p>Each keyword must match an existing name in <code>params@rates_funcs</code> and each value must be the name of an R function visible in the current R session. This gives advanced users controlled access to existing extension hooks without supporting Python callbacks.</p>
+</section>
 <section id="pymizer.MizerParams.set_reproduction" class="level3">
 <h3 class="anchored" data-anchor-id="pymizer.MizerParams.set_reproduction">set_reproduction</h3>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb40"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>MizerParams.set_reproduction(</span>
-<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>    maturity<span class="op">=</span><span class="va">None</span>,</span>
-<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>    repro_prop<span class="op">=</span><span class="va">None</span>,</span>
-<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a>    reset<span class="op">=</span><span class="va">False</span>,</span>
-<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a>    rdd<span class="op">=</span><span class="va">None</span>,</span>
-<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb43"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>MizerParams.set_reproduction(</span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>    maturity<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>    repro_prop<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a>    reset<span class="op">=</span><span class="va">False</span>,</span>
+<span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a>    rdd<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb43-6"><a href="#cb43-6" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Return a new params object with updated reproduction settings.</p>
 <section id="parameters-14" class="level4 doc-section doc-section-parameters">
 <h4 class="doc-section doc-section-parameters anchored" data-anchor-id="parameters-14">Parameters</h4>
@@ -1822,16 +1857,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="pymizer.MizerParams.set_resource" class="level3">
 <h3 class="anchored" data-anchor-id="pymizer.MizerParams.set_resource">set_resource</h3>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb41"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>MizerParams.set_resource(</span>
-<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>    resource_rate<span class="op">=</span><span class="va">None</span>,</span>
-<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>    resource_capacity<span class="op">=</span><span class="va">None</span>,</span>
-<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a>    resource_level<span class="op">=</span><span class="va">None</span>,</span>
-<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a>    resource_dynamics<span class="op">=</span><span class="va">None</span>,</span>
-<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a>    lambda_<span class="op">=</span><span class="va">None</span>,</span>
-<span id="cb41-7"><a href="#cb41-7" aria-hidden="true" tabindex="-1"></a>    n<span class="op">=</span><span class="va">None</span>,</span>
-<span id="cb41-8"><a href="#cb41-8" aria-hidden="true" tabindex="-1"></a>    w_pp_cutoff<span class="op">=</span><span class="va">None</span>,</span>
-<span id="cb41-9"><a href="#cb41-9" aria-hidden="true" tabindex="-1"></a>    balance<span class="op">=</span><span class="va">None</span>,</span>
-<span id="cb41-10"><a href="#cb41-10" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb44"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>MizerParams.set_resource(</span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>    resource_rate<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a>    resource_capacity<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a>    resource_level<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a>    resource_dynamics<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb44-6"><a href="#cb44-6" aria-hidden="true" tabindex="-1"></a>    lambda_<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb44-7"><a href="#cb44-7" aria-hidden="true" tabindex="-1"></a>    n<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb44-8"><a href="#cb44-8" aria-hidden="true" tabindex="-1"></a>    w_pp_cutoff<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb44-9"><a href="#cb44-9" aria-hidden="true" tabindex="-1"></a>    balance<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb44-10"><a href="#cb44-10" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Return a new params object with updated resource settings.</p>
 <section id="parameters-15" class="level4 doc-section doc-section-parameters">
 <h4 class="doc-section doc-section-parameters anchored" data-anchor-id="parameters-15">Parameters</h4>
@@ -1904,40 +1939,40 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="examples-7" class="level4 doc-section doc-section-examples">
 <h4 class="doc-section doc-section-examples anchored" data-anchor-id="examples-7">Examples</h4>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb42"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>updated <span class="op">=</span> params.set_resource(</span>
-<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>    resource_dynamics<span class="op">=</span><span class="st">"resource_constant"</span>,</span>
-<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>    balance<span class="op">=</span><span class="va">False</span>,</span>
-<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb45"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>updated <span class="op">=</span> params.set_resource(</span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>    resource_dynamics<span class="op">=</span><span class="st">"resource_constant"</span>,</span>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a>    balance<span class="op">=</span><span class="va">False</span>,</span>
+<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 </section>
 <section id="pymizer.MizerParams.set_search_volume" class="level3">
 <h3 class="anchored" data-anchor-id="pymizer.MizerParams.set_search_volume">set_search_volume</h3>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb43"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>MizerParams.set_search_volume(search_vol<span class="op">=</span><span class="va">None</span>, <span class="op">*</span>, reset<span class="op">=</span><span class="va">False</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb46"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>MizerParams.set_search_volume(search_vol<span class="op">=</span><span class="va">None</span>, <span class="op">*</span>, reset<span class="op">=</span><span class="va">False</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Return a new params object with updated search volume.</p>
 </section>
 <section id="pymizer.MizerParams.ssb" class="level3">
 <h3 class="anchored" data-anchor-id="pymizer.MizerParams.ssb">ssb</h3>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb44"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>MizerParams.ssb()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb47"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>MizerParams.ssb()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Return spawning stock biomass in the initial state as a pandas Series.</p>
 </section>
 <section id="pymizer.MizerParams.steady" class="level3">
 <h3 class="anchored" data-anchor-id="pymizer.MizerParams.steady">steady</h3>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb45"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>MizerParams.steady(</span>
-<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>    t_per<span class="op">=</span><span class="fl">1.5</span>,</span>
-<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a>    t_max<span class="op">=</span><span class="dv">100</span>,</span>
-<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a>    dt<span class="op">=</span><span class="fl">0.1</span>,</span>
-<span id="cb45-5"><a href="#cb45-5" aria-hidden="true" tabindex="-1"></a>    tol<span class="op">=</span><span class="va">None</span>,</span>
-<span id="cb45-6"><a href="#cb45-6" aria-hidden="true" tabindex="-1"></a>    return_sim<span class="op">=</span><span class="va">False</span>,</span>
-<span id="cb45-7"><a href="#cb45-7" aria-hidden="true" tabindex="-1"></a>    preserve<span class="op">=</span><span class="st">'reproduction_level'</span>,</span>
-<span id="cb45-8"><a href="#cb45-8" aria-hidden="true" tabindex="-1"></a>    progress_bar<span class="op">=</span><span class="va">False</span>,</span>
-<span id="cb45-9"><a href="#cb45-9" aria-hidden="true" tabindex="-1"></a>    info_level<span class="op">=</span><span class="dv">3</span>,</span>
-<span id="cb45-10"><a href="#cb45-10" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb48"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>MizerParams.steady(</span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>    t_per<span class="op">=</span><span class="fl">1.5</span>,</span>
+<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a>    t_max<span class="op">=</span><span class="dv">100</span>,</span>
+<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a>    dt<span class="op">=</span><span class="fl">0.1</span>,</span>
+<span id="cb48-5"><a href="#cb48-5" aria-hidden="true" tabindex="-1"></a>    tol<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb48-6"><a href="#cb48-6" aria-hidden="true" tabindex="-1"></a>    return_sim<span class="op">=</span><span class="va">False</span>,</span>
+<span id="cb48-7"><a href="#cb48-7" aria-hidden="true" tabindex="-1"></a>    preserve<span class="op">=</span><span class="st">'reproduction_level'</span>,</span>
+<span id="cb48-8"><a href="#cb48-8" aria-hidden="true" tabindex="-1"></a>    progress_bar<span class="op">=</span><span class="va">False</span>,</span>
+<span id="cb48-9"><a href="#cb48-9" aria-hidden="true" tabindex="-1"></a>    info_level<span class="op">=</span><span class="dv">3</span>,</span>
+<span id="cb48-10"><a href="#cb48-10" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Run <code>mizer::steady()</code> and return params or a simulation.</p>
 <p>This uses the higher-level <code>mizer</code> steady-state workflow that holds reproduction and resource dynamics constant during the search.</p>
 </section>
 <section id="pymizer.MizerParams.steady_single_species" class="level3">
 <h3 class="anchored" data-anchor-id="pymizer.MizerParams.steady_single_species">steady_single_species</h3>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb46"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>MizerParams.steady_single_species(species<span class="op">=</span><span class="va">None</span>, <span class="op">*</span>, keep<span class="op">=</span><span class="st">'egg'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb49"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>MizerParams.steady_single_species(species<span class="op">=</span><span class="va">None</span>, <span class="op">*</span>, keep<span class="op">=</span><span class="st">'egg'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Run <code>mizer::steadySingleSpecies()</code> for selected species.</p>
 <section id="parameters-16" class="level4 doc-section doc-section-parameters">
 <h4 class="doc-section doc-section-parameters anchored" data-anchor-id="parameters-16">Parameters</h4>
@@ -1975,17 +2010,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="pymizer.MizerParams.summary" class="level3">
 <h3 class="anchored" data-anchor-id="pymizer.MizerParams.summary">summary</h3>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb47"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>MizerParams.summary()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb50"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>MizerParams.summary()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Return the text representation of <code>summary(params)</code>.</p>
 </section>
 <section id="pymizer.MizerParams.trophic_level" class="level3">
 <h3 class="anchored" data-anchor-id="pymizer.MizerParams.trophic_level">trophic_level</h3>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb48"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>MizerParams.trophic_level(as_xarray<span class="op">=</span><span class="va">True</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb51"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>MizerParams.trophic_level(as_xarray<span class="op">=</span><span class="va">True</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Return trophic level at size in the initial state.</p>
 </section>
 <section id="pymizer.MizerParams.trophic_level_by_species" class="level3">
 <h3 class="anchored" data-anchor-id="pymizer.MizerParams.trophic_level_by_species">trophic_level_by_species</h3>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb49"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>MizerParams.trophic_level_by_species()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb52"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>MizerParams.trophic_level_by_species()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Return the species-level trophic level in the initial state.</p>
 
 

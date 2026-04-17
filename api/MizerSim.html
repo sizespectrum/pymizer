@@ -2,16 +2,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.9.36">
+<meta name="generator" content="quarto-1.8.27">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
 <title>mizersim – pymizer</title>
 <style>
-/* Default styles provided by pandoc.
-** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
-*/
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
 div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -70,14 +67,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <meta name="quarto:offset" content="../">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-845c23b38eaddc0f92fda52bfe77a8c8.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-1fa7afb8afaaa382e9a0f875c6e0556d.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-3140c81cfcadec7f5ae217b4a52acd52.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -255,6 +253,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text">read_params</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../api/read_rds.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">read_rds</span></a>
+  </div>
+</li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
@@ -397,6 +401,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul class="collapse">
   <li><a href="#pymizer.MizerSim.abundance" id="toc-pymizer.MizerSim.abundance" class="nav-link" data-scroll-target="#pymizer.MizerSim.abundance">abundance</a></li>
   <li><a href="#pymizer.MizerSim.biomass" id="toc-pymizer.MizerSim.biomass" class="nav-link" data-scroll-target="#pymizer.MizerSim.biomass">biomass</a></li>
+  <li><a href="#pymizer.MizerSim.biomass_tidy" id="toc-pymizer.MizerSim.biomass_tidy" class="nav-link" data-scroll-target="#pymizer.MizerSim.biomass_tidy">biomass_tidy</a></li>
   <li><a href="#pymizer.MizerSim.community_slope" id="toc-pymizer.MizerSim.community_slope" class="nav-link" data-scroll-target="#pymizer.MizerSim.community_slope">community_slope</a></li>
   <li><a href="#pymizer.MizerSim.diet" id="toc-pymizer.MizerSim.diet" class="nav-link" data-scroll-target="#pymizer.MizerSim.diet">diet</a></li>
   <li><a href="#pymizer.MizerSim.f_mort" id="toc-pymizer.MizerSim.f_mort" class="nav-link" data-scroll-target="#pymizer.MizerSim.f_mort">f_mort</a></li>
@@ -410,9 +415,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#pymizer.MizerSim.n" id="toc-pymizer.MizerSim.n" class="nav-link" data-scroll-target="#pymizer.MizerSim.n">n</a></li>
   <li><a href="#pymizer.MizerSim.n_resource" id="toc-pymizer.MizerSim.n_resource" class="nav-link" data-scroll-target="#pymizer.MizerSim.n_resource">n_resource</a></li>
   <li><a href="#pymizer.MizerSim.params" id="toc-pymizer.MizerSim.params" class="nav-link" data-scroll-target="#pymizer.MizerSim.params">params</a></li>
+  <li><a href="#pymizer.MizerSim.plot_biomass" id="toc-pymizer.MizerSim.plot_biomass" class="nav-link" data-scroll-target="#pymizer.MizerSim.plot_biomass">plot_biomass</a></li>
   <li><a href="#pymizer.MizerSim.pred_mort" id="toc-pymizer.MizerSim.pred_mort" class="nav-link" data-scroll-target="#pymizer.MizerSim.pred_mort">pred_mort</a></li>
   <li><a href="#pymizer.MizerSim.pred_rate" id="toc-pymizer.MizerSim.pred_rate" class="nav-link" data-scroll-target="#pymizer.MizerSim.pred_rate">pred_rate</a></li>
   <li><a href="#pymizer.MizerSim.proportion_of_large_fish" id="toc-pymizer.MizerSim.proportion_of_large_fish" class="nav-link" data-scroll-target="#pymizer.MizerSim.proportion_of_large_fish">proportion_of_large_fish</a></li>
+  <li><a href="#pymizer.MizerSim.save_rds" id="toc-pymizer.MizerSim.save_rds" class="nav-link" data-scroll-target="#pymizer.MizerSim.save_rds">save_rds</a></li>
   <li><a href="#pymizer.MizerSim.ssb" id="toc-pymizer.MizerSim.ssb" class="nav-link" data-scroll-target="#pymizer.MizerSim.ssb">ssb</a></li>
   <li><a href="#pymizer.MizerSim.times" id="toc-pymizer.MizerSim.times" class="nav-link" data-scroll-target="#pymizer.MizerSim.times">times</a></li>
   <li><a href="#pymizer.MizerSim.trophic_level" id="toc-pymizer.MizerSim.trophic_level" class="nav-link" data-scroll-target="#pymizer.MizerSim.trophic_level">trophic_level</a></li>
@@ -479,56 +486,64 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>Return biomass through time as a pandas DataFrame.</td>
 </tr>
 <tr class="odd">
+<td><a href="#pymizer.MizerSim.biomass_tidy">biomass_tidy</a></td>
+<td>Return biomass through time in tidy long-form pandas format.</td>
+</tr>
+<tr class="even">
 <td><a href="#pymizer.MizerSim.community_slope">community_slope</a></td>
 <td>Return the fitted community size-spectrum slope through time.</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><a href="#pymizer.MizerSim.diet">diet</a></td>
 <td>Return diet composition at the final simulated state.</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><a href="#pymizer.MizerSim.f_mort">f_mort</a></td>
 <td>Return fishing mortality through time.</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><a href="#pymizer.MizerSim.f_mort_gear">f_mort_gear</a></td>
 <td>Return gear-resolved fishing mortality through time.</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><a href="#pymizer.MizerSim.feeding_level">feeding_level</a></td>
 <td>Return feeding levels through time.</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><a href="#pymizer.MizerSim.growth_curves">growth_curves</a></td>
 <td>Return growth curves evaluated from the final simulation state.</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><a href="#pymizer.MizerSim.initial_n">initial_n</a></td>
 <td>Return the initial fish abundance density spectrum used by the simulation.</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><a href="#pymizer.MizerSim.initial_n_resource">initial_n_resource</a></td>
 <td>Return the initial resource spectrum used by the simulation.</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><a href="#pymizer.MizerSim.mean_max_weight">mean_max_weight</a></td>
 <td>Return the mean maximum weight through time.</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><a href="#pymizer.MizerSim.mean_weight">mean_weight</a></td>
 <td>Return mean community weight through time.</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><a href="#pymizer.MizerSim.n">n</a></td>
 <td>Return the species abundance array.</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><a href="#pymizer.MizerSim.n_resource">n_resource</a></td>
 <td>Return the resource abundance array.</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><a href="#pymizer.MizerSim.params">params</a></td>
 <td>Return the <code>MizerParams</code> used to create the simulation.</td>
+</tr>
+<tr class="odd">
+<td><a href="#pymizer.MizerSim.plot_biomass">plot_biomass</a></td>
+<td>Plot biomass through time with matplotlib and return the axes.</td>
 </tr>
 <tr class="even">
 <td><a href="#pymizer.MizerSim.pred_mort">pred_mort</a></td>
@@ -543,26 +558,30 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>Return the proportion of large fish through time.</td>
 </tr>
 <tr class="odd">
+<td><a href="#pymizer.MizerSim.save_rds">save_rds</a></td>
+<td>Serialise the wrapped simulation object as a generic <code>.rds</code> file.</td>
+</tr>
+<tr class="even">
 <td><a href="#pymizer.MizerSim.ssb">ssb</a></td>
 <td>Return spawning stock biomass through time as a pandas DataFrame.</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><a href="#pymizer.MizerSim.times">times</a></td>
 <td>Return saved times as a NumPy array.</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><a href="#pymizer.MizerSim.trophic_level">trophic_level</a></td>
 <td>Return trophic level at size at the final simulated state.</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><a href="#pymizer.MizerSim.trophic_level_by_species">trophic_level_by_species</a></td>
 <td>Return the species-level trophic level at the final simulated state.</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><a href="#pymizer.MizerSim.yield_">yield_</a></td>
 <td>Return fisheries yield through time as a pandas DataFrame.</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><a href="#pymizer.MizerSim.yield_gear">yield_gear</a></td>
 <td>Return gear-resolved fisheries yield through time.</td>
 </tr>
@@ -635,42 +654,55 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </table>
 </section>
 </section>
-<section id="pymizer.MizerSim.community_slope" class="level3">
-<h3 class="anchored" data-anchor-id="pymizer.MizerSim.community_slope">community_slope</h3>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>MizerSim.community_slope(</span>
+<section id="pymizer.MizerSim.biomass_tidy" class="level3">
+<h3 class="anchored" data-anchor-id="pymizer.MizerSim.biomass_tidy">biomass_tidy</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>MizerSim.biomass_tidy(</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    species<span class="op">=</span><span class="va">None</span>,</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    biomass<span class="op">=</span><span class="va">True</span>,</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    use_cutoff<span class="op">=</span><span class="va">False</span>,</span>
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    min_w<span class="op">=</span><span class="va">None</span>,</span>
 <span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    max_w<span class="op">=</span><span class="va">None</span>,</span>
 <span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    min_l<span class="op">=</span><span class="va">None</span>,</span>
 <span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    max_l<span class="op">=</span><span class="va">None</span>,</span>
 <span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Return biomass through time in tidy long-form pandas format.</p>
+<p>The returned DataFrame has <code>time</code>, <code>species</code>, and <code>biomass</code> columns, which makes it easy to use with seaborn-style APIs or custom notebook analysis pipelines.</p>
+</section>
+<section id="pymizer.MizerSim.community_slope" class="level3">
+<h3 class="anchored" data-anchor-id="pymizer.MizerSim.community_slope">community_slope</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>MizerSim.community_slope(</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    species<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    biomass<span class="op">=</span><span class="va">True</span>,</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    min_w<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    max_w<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>    min_l<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>    max_l<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Return the fitted community size-spectrum slope through time.</p>
 </section>
 <section id="pymizer.MizerSim.diet" class="level3">
 <h3 class="anchored" data-anchor-id="pymizer.MizerSim.diet">diet</h3>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>MizerSim.diet(proportion<span class="op">=</span><span class="va">True</span>, as_xarray<span class="op">=</span><span class="va">True</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>MizerSim.diet(proportion<span class="op">=</span><span class="va">True</span>, as_xarray<span class="op">=</span><span class="va">True</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Return diet composition at the final simulated state.</p>
 <p>This method evaluates diet on a params object rebuilt from the final simulated state.</p>
 </section>
 <section id="pymizer.MizerSim.f_mort" class="level3">
 <h3 class="anchored" data-anchor-id="pymizer.MizerSim.f_mort">f_mort</h3>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>MizerSim.f_mort(as_xarray<span class="op">=</span><span class="va">True</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>MizerSim.f_mort(as_xarray<span class="op">=</span><span class="va">True</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Return fishing mortality through time.</p>
 </section>
 <section id="pymizer.MizerSim.f_mort_gear" class="level3">
 <h3 class="anchored" data-anchor-id="pymizer.MizerSim.f_mort_gear">f_mort_gear</h3>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>MizerSim.f_mort_gear(as_xarray<span class="op">=</span><span class="va">True</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>MizerSim.f_mort_gear(as_xarray<span class="op">=</span><span class="va">True</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Return gear-resolved fishing mortality through time.</p>
 </section>
 <section id="pymizer.MizerSim.feeding_level" class="level3">
 <h3 class="anchored" data-anchor-id="pymizer.MizerSim.feeding_level">feeding_level</h3>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>MizerSim.feeding_level(as_xarray<span class="op">=</span><span class="va">True</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>MizerSim.feeding_level(as_xarray<span class="op">=</span><span class="va">True</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Return feeding levels through time.</p>
 </section>
 <section id="pymizer.MizerSim.growth_curves" class="level3">
 <h3 class="anchored" data-anchor-id="pymizer.MizerSim.growth_curves">growth_curves</h3>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>MizerSim.growth_curves(species<span class="op">=</span><span class="va">None</span>, max_age<span class="op">=</span><span class="dv">20</span>, percentage<span class="op">=</span><span class="va">False</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>MizerSim.growth_curves(species<span class="op">=</span><span class="va">None</span>, max_age<span class="op">=</span><span class="dv">20</span>, percentage<span class="op">=</span><span class="va">False</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Return growth curves evaluated from the final simulation state.</p>
 <section id="parameters-1" class="level4 doc-section doc-section-parameters">
 <h4 class="doc-section doc-section-parameters anchored" data-anchor-id="parameters-1">Parameters</h4>
@@ -714,41 +746,41 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="pymizer.MizerSim.initial_n" class="level3">
 <h3 class="anchored" data-anchor-id="pymizer.MizerSim.initial_n">initial_n</h3>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>MizerSim.initial_n(as_xarray<span class="op">=</span><span class="va">True</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>MizerSim.initial_n(as_xarray<span class="op">=</span><span class="va">True</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Return the initial fish abundance density spectrum used by the simulation.</p>
 </section>
 <section id="pymizer.MizerSim.initial_n_resource" class="level3">
 <h3 class="anchored" data-anchor-id="pymizer.MizerSim.initial_n_resource">initial_n_resource</h3>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>MizerSim.initial_n_resource()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>MizerSim.initial_n_resource()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Return the initial resource spectrum used by the simulation.</p>
 </section>
 <section id="pymizer.MizerSim.mean_max_weight" class="level3">
 <h3 class="anchored" data-anchor-id="pymizer.MizerSim.mean_max_weight">mean_max_weight</h3>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>MizerSim.mean_max_weight(</span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>    measure<span class="op">=</span><span class="st">'both'</span>,</span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>    <span class="op">*</span>,</span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>    species<span class="op">=</span><span class="va">None</span>,</span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>    min_w<span class="op">=</span><span class="va">None</span>,</span>
-<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>    max_w<span class="op">=</span><span class="va">None</span>,</span>
-<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>    min_l<span class="op">=</span><span class="va">None</span>,</span>
-<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>    max_l<span class="op">=</span><span class="va">None</span>,</span>
-<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>MizerSim.mean_max_weight(</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>    measure<span class="op">=</span><span class="st">'both'</span>,</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>    <span class="op">*</span>,</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>    species<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>    min_w<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>    max_w<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>    min_l<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>    max_l<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Return the mean maximum weight through time.</p>
 </section>
 <section id="pymizer.MizerSim.mean_weight" class="level3">
 <h3 class="anchored" data-anchor-id="pymizer.MizerSim.mean_weight">mean_weight</h3>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>MizerSim.mean_weight(</span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>    species<span class="op">=</span><span class="va">None</span>,</span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>    min_w<span class="op">=</span><span class="va">None</span>,</span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>    max_w<span class="op">=</span><span class="va">None</span>,</span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>    min_l<span class="op">=</span><span class="va">None</span>,</span>
-<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>    max_l<span class="op">=</span><span class="va">None</span>,</span>
-<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>MizerSim.mean_weight(</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>    species<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>    min_w<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>    max_w<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>    min_l<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>    max_l<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Return mean community weight through time.</p>
 </section>
 <section id="pymizer.MizerSim.n" class="level3">
 <h3 class="anchored" data-anchor-id="pymizer.MizerSim.n">n</h3>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>MizerSim.n(as_xarray<span class="op">=</span><span class="va">True</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>MizerSim.n(as_xarray<span class="op">=</span><span class="va">True</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Return the species abundance array.</p>
 <section id="parameters-2" class="level4 doc-section doc-section-parameters">
 <h4 class="doc-section doc-section-parameters anchored" data-anchor-id="parameters-2">Parameters</h4>
@@ -780,7 +812,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="pymizer.MizerSim.n_resource" class="level3">
 <h3 class="anchored" data-anchor-id="pymizer.MizerSim.n_resource">n_resource</h3>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>MizerSim.n_resource(as_xarray<span class="op">=</span><span class="va">True</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>MizerSim.n_resource(as_xarray<span class="op">=</span><span class="va">True</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Return the resource abundance array.</p>
 <section id="parameters-3" class="level4 doc-section doc-section-parameters">
 <h4 class="doc-section doc-section-parameters anchored" data-anchor-id="parameters-3">Parameters</h4>
@@ -812,62 +844,82 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="pymizer.MizerSim.params" class="level3">
 <h3 class="anchored" data-anchor-id="pymizer.MizerSim.params">params</h3>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>MizerSim.params()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>MizerSim.params()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Return the <code>MizerParams</code> used to create the simulation.</p>
+</section>
+<section id="pymizer.MizerSim.plot_biomass" class="level3">
+<h3 class="anchored" data-anchor-id="pymizer.MizerSim.plot_biomass">plot_biomass</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>MizerSim.plot_biomass(</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>    species<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>    use_cutoff<span class="op">=</span><span class="va">False</span>,</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>    min_w<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>    max_w<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>    min_l<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>    max_l<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>    ax<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>    <span class="op">**</span>kwargs,</span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Plot biomass through time with matplotlib and return the axes.</p>
+<p>This is an opinionated convenience wrapper around <code>sim.biomass()</code> for quick notebook exploration. For more control, call <code>biomass()</code> or <code>biomass_tidy()</code> directly and build the plot yourself.</p>
 </section>
 <section id="pymizer.MizerSim.pred_mort" class="level3">
 <h3 class="anchored" data-anchor-id="pymizer.MizerSim.pred_mort">pred_mort</h3>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>MizerSim.pred_mort(as_xarray<span class="op">=</span><span class="va">True</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>MizerSim.pred_mort(as_xarray<span class="op">=</span><span class="va">True</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Return predation mortality through time.</p>
 </section>
 <section id="pymizer.MizerSim.pred_rate" class="level3">
 <h3 class="anchored" data-anchor-id="pymizer.MizerSim.pred_rate">pred_rate</h3>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>MizerSim.pred_rate(as_xarray<span class="op">=</span><span class="va">True</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>MizerSim.pred_rate(as_xarray<span class="op">=</span><span class="va">True</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Return predation rate at the final simulated state.</p>
 <p>This uses <code>setInitialValues(getParams(sim), sim)</code> under the hood so that the predation rate is evaluated on the final simulated state.</p>
 </section>
 <section id="pymizer.MizerSim.proportion_of_large_fish" class="level3">
 <h3 class="anchored" data-anchor-id="pymizer.MizerSim.proportion_of_large_fish">proportion_of_large_fish</h3>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>MizerSim.proportion_of_large_fish(</span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>    species<span class="op">=</span><span class="va">None</span>,</span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>    threshold_w<span class="op">=</span><span class="dv">100</span>,</span>
-<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>    threshold_l<span class="op">=</span><span class="va">None</span>,</span>
-<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>    biomass_proportion<span class="op">=</span><span class="va">True</span>,</span>
-<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>    min_w<span class="op">=</span><span class="va">None</span>,</span>
-<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>    max_w<span class="op">=</span><span class="va">None</span>,</span>
-<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>    min_l<span class="op">=</span><span class="va">None</span>,</span>
-<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>    max_l<span class="op">=</span><span class="va">None</span>,</span>
-<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>MizerSim.proportion_of_large_fish(</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>    species<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>    threshold_w<span class="op">=</span><span class="dv">100</span>,</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>    threshold_l<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>    biomass_proportion<span class="op">=</span><span class="va">True</span>,</span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>    min_w<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>    max_w<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>    min_l<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>    max_l<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Return the proportion of large fish through time.</p>
+</section>
+<section id="pymizer.MizerSim.save_rds" class="level3">
+<h3 class="anchored" data-anchor-id="pymizer.MizerSim.save_rds">save_rds</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>MizerSim.save_rds(path)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Serialise the wrapped simulation object as a generic <code>.rds</code> file.</p>
 </section>
 <section id="pymizer.MizerSim.ssb" class="level3">
 <h3 class="anchored" data-anchor-id="pymizer.MizerSim.ssb">ssb</h3>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>MizerSim.ssb()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>MizerSim.ssb()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Return spawning stock biomass through time as a pandas DataFrame.</p>
 </section>
 <section id="pymizer.MizerSim.times" class="level3">
 <h3 class="anchored" data-anchor-id="pymizer.MizerSim.times">times</h3>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>MizerSim.times()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>MizerSim.times()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Return saved times as a NumPy array.</p>
 </section>
 <section id="pymizer.MizerSim.trophic_level" class="level3">
 <h3 class="anchored" data-anchor-id="pymizer.MizerSim.trophic_level">trophic_level</h3>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>MizerSim.trophic_level(as_xarray<span class="op">=</span><span class="va">True</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>MizerSim.trophic_level(as_xarray<span class="op">=</span><span class="va">True</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Return trophic level at size at the final simulated state.</p>
 </section>
 <section id="pymizer.MizerSim.trophic_level_by_species" class="level3">
 <h3 class="anchored" data-anchor-id="pymizer.MizerSim.trophic_level_by_species">trophic_level_by_species</h3>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>MizerSim.trophic_level_by_species()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>MizerSim.trophic_level_by_species()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Return the species-level trophic level at the final simulated state.</p>
 </section>
 <section id="pymizer.MizerSim.yield_" class="level3">
 <h3 class="anchored" data-anchor-id="pymizer.MizerSim.yield_">yield_</h3>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>MizerSim.yield_()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>MizerSim.yield_()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Return fisheries yield through time as a pandas DataFrame.</p>
 </section>
 <section id="pymizer.MizerSim.yield_gear" class="level3">
 <h3 class="anchored" data-anchor-id="pymizer.MizerSim.yield_gear">yield_gear</h3>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>MizerSim.yield_gear(as_xarray<span class="op">=</span><span class="va">True</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>MizerSim.yield_gear(as_xarray<span class="op">=</span><span class="va">True</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Return gear-resolved fisheries yield through time.</p>
 
 

@@ -2,16 +2,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.9.36">
+<meta name="generator" content="quarto-1.8.27">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
 <title>index – pymizer</title>
 <style>
-/* Default styles provided by pandoc.
-** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
-*/
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
 div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -35,14 +32,15 @@ ul.task-list li input[type="checkbox"] {
 <meta name="quarto:offset" content="../">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-845c23b38eaddc0f92fda52bfe77a8c8.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-1fa7afb8afaaa382e9a0f875c6e0556d.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-3140c81cfcadec7f5ae217b4a52acd52.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -229,6 +227,8 @@ ul.task-list li input[type="checkbox"] {
 <ul>
 <li>use <code>params.initial_n()</code> and <code>params.initial_n_resource()</code> to inspect the starting state before a projection</li>
 <li>use <code>sim.biomass()</code>, <code>sim.abundance()</code>, and <code>sim.ssb()</code> for time-by-species summaries</li>
+<li>use <code>sim.biomass_tidy()</code> when you want long-form pandas output for plotting libraries or grouped notebook analysis</li>
+<li>use <code>sim.plot_biomass()</code> for a quick matplotlib view before dropping down to pandas or seaborn</li>
 <li>use <code>sim.pred_rate()</code>, <code>sim.pred_mort()</code>, <code>sim.feeding_level()</code>, and <code>sim.diet()</code> for size-resolved diagnostics</li>
 <li>use filter arguments such as <code>species=</code>, <code>min_w=</code>, <code>max_w=</code>, <code>min_l=</code>, and <code>max_l=</code> on supported summary methods to stay within Python for common exploratory analysis</li>
 </ul>
@@ -240,6 +240,8 @@ ul.task-list li input[type="checkbox"] {
 <li>constructor functions are exposed at top level</li>
 <li><code>MizerParams</code> and <code>MizerSim</code> provide the most common workflows</li>
 <li>raw R objects remain accessible through the <code>.r</code> property when needed</li>
+<li>advanced workflows can use <code>read_rds()</code>, <code>MizerREnvironment.eval()</code>, and <code>MizerParams.set_rate_functions()</code> when the core wrapper surface is not quite enough</li>
+<li>plotting support stays intentionally small and is meant to complement, not replace, direct use of pandas, xarray, and matplotlib</li>
 </ul>
 <p>For full signatures and class pages, use the generated <a href="../api/index.html">API Reference</a>.</p>
 
