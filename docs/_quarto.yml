@@ -29,8 +29,6 @@ website:
         text: Home
       - href: get-started.md
         text: Get Started
-      - href: roadmap.md
-        text: Roadmap
       - text: Articles
         menu:
           - href: articles/community-model.qmd
@@ -41,6 +39,8 @@ website:
             text: North Sea Model
           - href: articles/analysis-and-plotting.md
             text: Analysis And Plotting
+          - href: articles/development-notes.md
+            text: Development Notes
           - href: articles/developer-guide.md
             text: Developer Guide
       - text: Reference

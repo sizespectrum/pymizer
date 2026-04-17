@@ -1,7 +1,7 @@
-# Roadmap
+# Development Notes
 
-This page tracks the planned development of `pymizer`, the Python wrapper for
-the R `mizer` package.
+This page summarises the development of `pymizer`, the Python wrapper for the
+R `mizer` package, and the design principles behind the current wrapper.
 
 The current package already supports:
 
@@ -11,8 +11,9 @@ The current package already supports:
 - loading built-in `mizer` datasets from Python
 - building a dedicated documentation website
 
-The next stages should focus on turning the current proof of concept into a
-more robust and maintainable bridge for real analysis workflows.
+The package has evolved from an early proof of concept into a more usable
+bridge for real analysis workflows, and these notes capture the major stages
+of that progression.
 
 ## Guiding Principles
 
