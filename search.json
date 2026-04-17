@@ -1,0 +1,1159 @@
+[
+  {
+    "objectID": "api/index.html",
+    "href": "api/index.html",
+    "title": "API Reference",
+    "section": "",
+    "text": "Create or load wrapped mizer model objects from Python.\n\n\n\nnew_community_params\nCreate a simple community model.\n\n\nnew_multispecies_params\nCreate a multispecies model from Python data structures.\n\n\nnew_single_species_params\nCreate a single-species model.\n\n\nread_params\nLoad a saved params object with mizer::readParams().\n\n\n\n\n\n\nInspect, edit, and project model state through Python-native wrappers.\n\n\n\nMizerParams\nPython wrapper around an R MizerParams object.\n\n\nMizerSim\nPython wrapper around an R MizerSim object.\n\n\nNorthSeaExample\nConvenience bundle for the built-in North Sea example datasets.\n\n\n\n\n\n\nDiscover and load the built-in example data shipped with mizer.\n\n\n\nlist_datasets\nList datasets shipped with the R mizer package.\n\n\nload_dataset\nLoad a built-in mizer dataset and convert it to a Python-friendly type.\n\n\nload_north_sea\nLoad the matching built-in North Sea example datasets together.\n\n\n\n\n\n\nLower-level helpers for environment management and runtime diagnostics.\n\n\n\nCompatibilityReport\nCompatibility report for the active Python and R runtime stack.\n\n\nMizerREnvironment\nThin wrapper around the embedded R session used by pymizer.\n\n\nevaluate_versions\nEvaluate detected versions against the supported minimum versions.\n\n\nget_environment\nReturn the singleton R environment used by pymizer.\n\n\nruntime_diagnostics\nReturn environment diagnostics without requiring access to internals.\n\n\n\n\n\n\nValidate Python-side inputs before constructing or editing models.\n\n\n\nvalidate_interaction_matrix\nValidate an interaction matrix against the supplied species names.\n\n\nvalidate_species_params\nValidate a species parameter table before handing it to R.",
+    "crumbs": [
+      "API Reference"
+    ]
+  },
+  {
+    "objectID": "api/index.html#constructors",
+    "href": "api/index.html#constructors",
+    "title": "API Reference",
+    "section": "",
+    "text": "Create or load wrapped mizer model objects from Python.\n\n\n\nnew_community_params\nCreate a simple community model.\n\n\nnew_multispecies_params\nCreate a multispecies model from Python data structures.\n\n\nnew_single_species_params\nCreate a single-species model.\n\n\nread_params\nLoad a saved params object with mizer::readParams().",
+    "crumbs": [
+      "API Reference"
+    ]
+  },
+  {
+    "objectID": "api/index.html#model-wrappers",
+    "href": "api/index.html#model-wrappers",
+    "title": "API Reference",
+    "section": "",
+    "text": "Inspect, edit, and project model state through Python-native wrappers.\n\n\n\nMizerParams\nPython wrapper around an R MizerParams object.\n\n\nMizerSim\nPython wrapper around an R MizerSim object.\n\n\nNorthSeaExample\nConvenience bundle for the built-in North Sea example datasets.",
+    "crumbs": [
+      "API Reference"
+    ]
+  },
+  {
+    "objectID": "api/index.html#datasets",
+    "href": "api/index.html#datasets",
+    "title": "API Reference",
+    "section": "",
+    "text": "Discover and load the built-in example data shipped with mizer.\n\n\n\nlist_datasets\nList datasets shipped with the R mizer package.\n\n\nload_dataset\nLoad a built-in mizer dataset and convert it to a Python-friendly type.\n\n\nload_north_sea\nLoad the matching built-in North Sea example datasets together.",
+    "crumbs": [
+      "API Reference"
+    ]
+  },
+  {
+    "objectID": "api/index.html#r-bridge",
+    "href": "api/index.html#r-bridge",
+    "title": "API Reference",
+    "section": "",
+    "text": "Lower-level helpers for environment management and runtime diagnostics.\n\n\n\nCompatibilityReport\nCompatibility report for the active Python and R runtime stack.\n\n\nMizerREnvironment\nThin wrapper around the embedded R session used by pymizer.\n\n\nevaluate_versions\nEvaluate detected versions against the supported minimum versions.\n\n\nget_environment\nReturn the singleton R environment used by pymizer.\n\n\nruntime_diagnostics\nReturn environment diagnostics without requiring access to internals.",
+    "crumbs": [
+      "API Reference"
+    ]
+  },
+  {
+    "objectID": "api/index.html#validation",
+    "href": "api/index.html#validation",
+    "title": "API Reference",
+    "section": "",
+    "text": "Validate Python-side inputs before constructing or editing models.\n\n\n\nvalidate_interaction_matrix\nValidate an interaction matrix against the supplied species names.\n\n\nvalidate_species_params\nValidate a species parameter table before handing it to R.",
+    "crumbs": [
+      "API Reference"
+    ]
+  },
+  {
+    "objectID": "api/read_params.html",
+    "href": "api/read_params.html",
+    "title": "read_params",
+    "section": "",
+    "text": "read_params(path, env=None)\nLoad a saved params object with mizer::readParams().\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\npath\nstr | Path\nPath to an .rds file created by saveParams().\nrequired\n\n\nenv\nMizerREnvironment | None\nOptional shared R environment wrapper.\nNone",
+    "crumbs": [
+      "Constructors",
+      "read_params"
+    ]
+  },
+  {
+    "objectID": "api/read_params.html#parameters",
+    "href": "api/read_params.html#parameters",
+    "title": "read_params",
+    "section": "",
+    "text": "Name\nType\nDescription\nDefault\n\n\n\n\npath\nstr | Path\nPath to an .rds file created by saveParams().\nrequired\n\n\nenv\nMizerREnvironment | None\nOptional shared R environment wrapper.\nNone",
+    "crumbs": [
+      "Constructors",
+      "read_params"
+    ]
+  },
+  {
+    "objectID": "api/MizerParams.html",
+    "href": "api/MizerParams.html",
+    "title": "MizerParams",
+    "section": "",
+    "text": "MizerParams(_r_obj, _env)\nPython wrapper around an R MizerParams object.\nMizerParams is the main model-configuration object in mizer. In Python it acts as the starting point for running projections and inspecting the initial state of a model.\n\n\nCreate a small community model and inspect its initial biomass:\nimport pymizer as mz\n\nparams = mz.new_community_params(no_w=20)\nbiomass = params.biomass()\n\n\n\n\n\n\nName\nDescription\n\n\n\n\nr\nAccess the underlying R object.\n\n\n\n\n\n\n\n\n\nName\nDescription\n\n\n\n\nabundance\nReturn species abundance in the initial state.\n\n\nbiomass\nReturn species biomass in the initial state.\n\n\ncommunity_slope\nReturn the fitted community size-spectrum slope in the initial state.\n\n\ncopy\nReturn another wrapper for the same underlying object.\n\n\ndiet\nReturn diet composition in the initial state.\n\n\nfeeding_level\nReturn feeding level in the initial state.\n\n\ngrowth_curves\nReturn species growth curves as a pandas DataFrame.\n\n\ninitial_n\nReturn the initial fish abundance density spectrum.\n\n\ninitial_n_resource\nReturn the initial resource spectrum.\n\n\ninteraction_matrix\nReturn the species interaction matrix.\n\n\nmaturity\nReturn the maturity ogive by species and size.\n\n\nmax_intake_rate\nReturn maximum intake rate by species and size.\n\n\nmean_max_weight\nReturn the mean maximum weight in the initial state.\n\n\nmean_weight\nReturn the mean community weight in the initial state.\n\n\nmetabolic_rate\nReturn metabolic rate by species and size.\n\n\nmetadata\nReturn model metadata as nested Python structures.\n\n\npred_kernel\nReturn the predation kernel by predator species, predator size, and prey size.\n\n\npred_mort\nReturn predation mortality in the initial state.\n\n\npred_rate\nReturn predation rate by predator species and prey size.\n\n\nproject\nRun mizer::project() and return a wrapped simulation result.\n\n\nproject_to_steady\nRun mizer::projectToSteady().\n\n\nproportion_of_large_fish\nReturn the proportion of large fish in the initial state.\n\n\nsave\nSave the params object using saveParams().\n\n\nsearch_volume\nReturn search volume by species and size.\n\n\nset_fishing\nCall setFishing() and wrap the returned params object.\n\n\nset_initial_values\nReturn a new params object with initial values copied from a simulation.\n\n\nset_interaction\nReturn a new params object with an updated interaction matrix.\n\n\nset_max_intake_rate\nReturn a new params object with updated maximum intake rate.\n\n\nset_metabolic_rate\nReturn a new params object with updated metabolic rate.\n\n\nset_metadata\nReturn a new params object with updated metadata.\n\n\nset_pred_kernel\nReturn a new params object with an updated predation kernel.\n\n\nset_reproduction\nReturn a new params object with updated reproduction settings.\n\n\nset_resource\nReturn a new params object with updated resource settings.\n\n\nset_search_volume\nReturn a new params object with updated search volume.\n\n\nssb\nReturn spawning stock biomass in the initial state as a pandas Series.\n\n\nsteady\nRun mizer::steady() and return params or a simulation.\n\n\nsteady_single_species\nRun mizer::steadySingleSpecies() for selected species.\n\n\nsummary\nReturn the text representation of summary(params).\n\n\ntrophic_level\nReturn trophic level at size in the initial state.\n\n\ntrophic_level_by_species\nReturn the species-level trophic level in the initial state.\n\n\n\n\n\nMizerParams.abundance(min_w=None, max_w=None, min_l=None, max_l=None)\nReturn species abundance in the initial state.\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nmin_w\nfloat | list[float] | None\nMinimum weight filter.\nNone\n\n\nmax_w\nfloat | list[float] | None\nMaximum weight filter.\nNone\n\n\nmin_l\nfloat | list[float] | None\nMinimum length filter.\nNone\n\n\nmax_l\nfloat | list[float] | None\nMaximum length filter.\nNone\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\n\npd.Series\nA pandas.Series indexed by species name.\n\n\n\n\n\n\n\nMizerParams.biomass(\n    use_cutoff=False,\n    min_w=None,\n    max_w=None,\n    min_l=None,\n    max_l=None,\n)\nReturn species biomass in the initial state.\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nuse_cutoff\nbool\nUse the biomass_cutoff species parameter when available.\nFalse\n\n\nmin_w\nfloat | list[float] | None\nMinimum weight filter.\nNone\n\n\nmax_w\nfloat | list[float] | None\nMaximum weight filter.\nNone\n\n\nmin_l\nfloat | list[float] | None\nMinimum length filter.\nNone\n\n\nmax_l\nfloat | list[float] | None\nMaximum length filter.\nNone\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\n\npd.Series\nA pandas.Series indexed by species name.\n\n\n\n\n\n\nbiomass = params.biomass(min_w=10, max_w=1000)\n\n\n\n\nMizerParams.community_slope(\n    species=None,\n    biomass=True,\n    min_w=None,\n    max_w=None,\n    min_l=None,\n    max_l=None,\n)\nReturn the fitted community size-spectrum slope in the initial state.\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\n\npd.DataFrame\nA one-row pandas.DataFrame with slope, intercept, and\n\n\n\npd.DataFrame\nr2 columns.\n\n\n\n\n\n\n\nMizerParams.copy()\nReturn another wrapper for the same underlying object.\n\n\n\nMizerParams.diet(proportion=True, as_xarray=True)\nReturn diet composition in the initial state.\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nproportion\nbool\nIf True, normalise prey contributions to proportions.\nTrue\n\n\nas_xarray\nbool\nWhen True, return an xarray.DataArray with dimensions (\"predator\", \"w\", \"prey\").\nTrue\n\n\n\n\n\n\n\nMizerParams.feeding_level(as_xarray=True)\nReturn feeding level in the initial state.\n\n\n\nMizerParams.growth_curves(species=None, max_age=20, percentage=False)\nReturn species growth curves as a pandas DataFrame.\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nspecies\nstr | list[str] | tuple[str, …] | None\nOptional species subset.\nNone\n\n\nmax_age\nfloat\nMaximum age to evaluate.\n20\n\n\npercentage\nbool\nReturn size as a percentage of w_max.\nFalse\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\n\npd.DataFrame\nA pandas.DataFrame indexed by species with age values as\n\n\n\npd.DataFrame\ncolumns.\n\n\n\n\n\n\n\nMizerParams.initial_n(as_xarray=True)\nReturn the initial fish abundance density spectrum.\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nas_xarray\nbool\nWhen True, return an xarray.DataArray with dimensions (\"sp\", \"w\"). Otherwise return a NumPy array.\nTrue\n\n\n\n\n\n\ninitial_n = params.initial_n()\ncod = initial_n.sel(sp=\"Cod\")\n\n\n\n\nMizerParams.initial_n_resource()\nReturn the initial resource spectrum.\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\n\npd.Series\nA pandas.Series indexed by resource size.\n\n\n\n\n\n\n\nMizerParams.interaction_matrix()\nReturn the species interaction matrix.\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\n\npd.DataFrame\nA pandas.DataFrame indexed by predator species with prey species\n\n\n\npd.DataFrame\nas columns.\n\n\n\n\n\n\n\nMizerParams.maturity(as_xarray=True)\nReturn the maturity ogive by species and size.\n\n\n\nMizerParams.max_intake_rate(as_xarray=True)\nReturn maximum intake rate by species and size.\n\n\n\nMizerParams.mean_max_weight(\n    measure='both',\n    *,\n    species=None,\n    min_w=None,\n    max_w=None,\n    min_l=None,\n    max_l=None,\n)\nReturn the mean maximum weight in the initial state.\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nmeasure\nstr\nOne of \"both\", \"numbers\", or \"biomass\".\n'both'\n\n\nspecies\nstr | list[str] | tuple[str, …] | None\nOptional species subset.\nNone\n\n\nmin_w\nfloat | list[float] | None\nMinimum weight filter.\nNone\n\n\nmax_w\nfloat | list[float] | None\nMaximum weight filter.\nNone\n\n\nmin_l\nfloat | list[float] | None\nMinimum length filter.\nNone\n\n\nmax_l\nfloat | list[float] | None\nMaximum length filter.\nNone\n\n\n\n\n\n\n\nMizerParams.mean_weight(\n    species=None,\n    min_w=None,\n    max_w=None,\n    min_l=None,\n    max_l=None,\n)\nReturn the mean community weight in the initial state.\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nspecies\nstr | list[str] | tuple[str, …] | None\nOptional species subset.\nNone\n\n\nmin_w\nfloat | list[float] | None\nMinimum weight filter.\nNone\n\n\nmax_w\nfloat | list[float] | None\nMaximum weight filter.\nNone\n\n\nmin_l\nfloat | list[float] | None\nMinimum length filter.\nNone\n\n\nmax_l\nfloat | list[float] | None\nMaximum length filter.\nNone\n\n\n\n\n\n\n\nMizerParams.metabolic_rate(as_xarray=True)\nReturn metabolic rate by species and size.\n\n\n\nMizerParams.metadata()\nReturn model metadata as nested Python structures.\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\n\ndict[str, Any]\nA Python dict containing metadata fields such as title,\n\n\n\ndict[str, Any]\ndescription, timestamps, and mizer version information.\n\n\n\n\n\n\n\nMizerParams.pred_kernel(as_xarray=True)\nReturn the predation kernel by predator species, predator size, and prey size.\n\n\n\nMizerParams.pred_mort(as_xarray=True)\nReturn predation mortality in the initial state.\n\n\n\nMizerParams.pred_rate(as_xarray=True, t=0)\nReturn predation rate by predator species and prey size.\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nas_xarray\nbool\nWhen True, return an xarray.DataArray with dimensions (\"sp\", \"w_prey\").\nTrue\n\n\nt\nfloat\nTime passed through to mizer::getPredRate().\n0\n\n\n\n\n\n\n\nMizerParams.project(\n    effort=None,\n    *,\n    t_max=100,\n    dt=0.1,\n    t_save=1,\n    t_start=0,\n    progress_bar=False,\n    **kwargs,\n)\nRun mizer::project() and return a wrapped simulation result.\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\neffort\nfloat | dict[str, float] | Any | None\nFishing effort passed through to mizer. A Python dict is converted to a named R numeric vector.\nNone\n\n\nt_max\nfloat\nProjection length in years.\n100\n\n\ndt\nfloat\nInternal integration time step.\n0.1\n\n\nt_save\nfloat\nInterval between saved output times.\n1\n\n\nt_start\nfloat\nStarting time recorded on the simulation output.\n0\n\n\nprogress_bar\nbool\nWhether mizer should show an R-side progress bar.\nFalse\n\n\n**kwargs\nAny\nAdditional arguments forwarded to mizer::project().\n{}\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\nA\n'MizerSim'\nclass:MizerSim wrapper around the R simulation object.\n\n\n\n\n\n\nimport pymizer as mz\n\nparams = mz.new_community_params(no_w=20)\nsim = params.project(t_max=5, dt=0.1, t_save=1, progress_bar=False)\n\n\n\n\nMizerParams.project_to_steady(\n    effort=None,\n    *,\n    t_per=1.5,\n    t_max=100,\n    dt=0.1,\n    tol=None,\n    return_sim=False,\n    progress_bar=False,\n    info_level=3,\n)\nRun mizer::projectToSteady().\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\neffort\nfloat | dict[str, float] | Any | None\nOptional fishing effort used throughout the search.\nNone\n\n\nt_per\nfloat\nTime between convergence checks.\n1.5\n\n\nt_max\nfloat\nMaximum search duration.\n100\n\n\ndt\nfloat\nIntegration time step.\n0.1\n\n\ntol\nfloat | None\nConvergence tolerance. Defaults to 0.1 * t_per.\nNone\n\n\nreturn_sim\nbool\nReturn a MizerSim with saved intermediate states.\nFalse\n\n\nprogress_bar\nbool\nShow an R-side progress bar.\nFalse\n\n\ninfo_level\nint\nVerbosity of R-side messages.\n3\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\n\n'MizerParams | MizerSim'\nEither a :class:MizerParams or :class:MizerSim, depending on\n\n\n\n'MizerParams | MizerSim'\nreturn_sim.\n\n\n\n\n\n\nsteady_params = params.project_to_steady(\n    t_per=1.0,\n    t_max=5.0,\n    dt=0.1,\n    progress_bar=False,\n    info_level=0,\n)\n\n\n\n\nMizerParams.proportion_of_large_fish(\n    species=None,\n    threshold_w=100,\n    threshold_l=None,\n    biomass_proportion=True,\n    min_w=None,\n    max_w=None,\n    min_l=None,\n    max_l=None,\n)\nReturn the proportion of large fish in the initial state.\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nspecies\nstr | list[str] | tuple[str, …] | None\nOptional species subset.\nNone\n\n\nthreshold_w\nfloat\nWeight threshold separating small and large fish.\n100\n\n\nthreshold_l\nfloat | None\nLength threshold separating small and large fish.\nNone\n\n\nbiomass_proportion\nbool\nUse biomass rather than numbers.\nTrue\n\n\nmin_w\nfloat | list[float] | None\nMinimum weight filter.\nNone\n\n\nmax_w\nfloat | list[float] | None\nMaximum weight filter.\nNone\n\n\nmin_l\nfloat | list[float] | None\nMinimum length filter.\nNone\n\n\nmax_l\nfloat | list[float] | None\nMaximum length filter.\nNone\n\n\n\n\n\n\n\nMizerParams.save(path)\nSave the params object using saveParams().\n\n\n\nMizerParams.search_volume(as_xarray=True)\nReturn search volume by species and size.\n\n\n\nMizerParams.set_fishing(**kwargs)\nCall setFishing() and wrap the returned params object.\n\n\n\nMizerParams.set_initial_values(sim, *, time_range=None, geometric_mean=False)\nReturn a new params object with initial values copied from a simulation.\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nsim\n'MizerSim'\nSimulation providing the source state.\nrequired\n\n\ntime_range\nAny | None\nOptional time range over which to average.\nNone\n\n\ngeometric_mean\nbool\nUse a geometric rather than arithmetic mean for abundance spectra.\nFalse\n\n\n\n\n\n\nsim = params.project(t_max=5, dt=0.1, t_save=1, progress_bar=False)\nupdated = params.set_initial_values(sim)\n\n\n\n\nMizerParams.set_interaction(interaction)\nReturn a new params object with an updated interaction matrix.\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\ninteraction\nAny\nSpecies interaction matrix as a pandas DataFrame, NumPy array, or other matrix-like object.\nrequired\n\n\n\n\n\n\n\nMizerParams.set_max_intake_rate(intake_max=None, *, reset=False)\nReturn a new params object with updated maximum intake rate.\n\n\n\nMizerParams.set_metabolic_rate(metab=None, *, p=None, reset=False)\nReturn a new params object with updated metabolic rate.\n\n\n\nMizerParams.set_metadata(\n    title=None,\n    description=None,\n    authors=None,\n    url=None,\n    doi=None,\n    **extra_fields,\n)\nReturn a new params object with updated metadata.\n\n\nupdated = params.set_metadata(\n    title=\"North Sea example\",\n    description=\"Python wrapper demo\",\n)\n\n\n\n\nMizerParams.set_pred_kernel(pred_kernel=None, *, reset=False)\nReturn a new params object with an updated predation kernel.\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\npred_kernel\nAny | None\nPredator x predator-size x prey-size array.\nNone\n\n\nreset\nbool\nRecompute from species parameters instead of using a custom kernel.\nFalse\n\n\n\n\n\n\n\nMizerParams.set_reproduction(\n    maturity=None,\n    repro_prop=None,\n    reset=False,\n    rdd=None,\n)\nReturn a new params object with updated reproduction settings.\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nmaturity\nAny | None\nSpecies-by-size maturity array.\nNone\n\n\nrepro_prop\nAny | None\nSpecies-by-size reproductive proportion array.\nNone\n\n\nreset\nbool\nRecompute from species parameters.\nFalse\n\n\nrdd\nstr | None\nName of the R density-dependence function to use.\nNone\n\n\n\n\n\n\n\nMizerParams.set_resource(\n    resource_rate=None,\n    resource_capacity=None,\n    resource_level=None,\n    resource_dynamics=None,\n    lambda_=None,\n    n=None,\n    w_pp_cutoff=None,\n    balance=None,\n)\nReturn a new params object with updated resource settings.\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nresource_rate\nAny | None\nResource growth-rate parameter or vector.\nNone\n\n\nresource_capacity\nAny | None\nResource carrying capacity parameter or vector.\nNone\n\n\nresource_level\nAny | None\nRatio of current resource to carrying capacity.\nNone\n\n\nresource_dynamics\nstr | None\nName of the resource dynamics function.\nNone\n\n\nlambda_\nfloat | None\nResource capacity power-law exponent.\nNone\n\n\nn\nfloat | None\nResource rate power-law exponent.\nNone\n\n\nw_pp_cutoff\nfloat | None\nUpper cutoff size for the resource power law.\nNone\n\n\nbalance\nbool | None\nWhether to rebalance the resource to the current state.\nNone\n\n\n\n\n\n\nupdated = params.set_resource(\n    resource_dynamics=\"resource_constant\",\n    balance=False,\n)\n\n\n\n\nMizerParams.set_search_volume(search_vol=None, *, reset=False)\nReturn a new params object with updated search volume.\n\n\n\nMizerParams.ssb()\nReturn spawning stock biomass in the initial state as a pandas Series.\n\n\n\nMizerParams.steady(\n    t_per=1.5,\n    t_max=100,\n    dt=0.1,\n    tol=None,\n    return_sim=False,\n    preserve='reproduction_level',\n    progress_bar=False,\n    info_level=3,\n)\nRun mizer::steady() and return params or a simulation.\nThis uses the higher-level mizer steady-state workflow that holds reproduction and resource dynamics constant during the search.\n\n\n\nMizerParams.steady_single_species(species=None, *, keep='egg')\nRun mizer::steadySingleSpecies() for selected species.\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nspecies\nstr | list[str] | tuple[str, …] | None\nOptional species subset.\nNone\n\n\nkeep\nstr\nQuantity to preserve. One of \"egg\", \"biomass\", or \"number\".\n'egg'\n\n\n\n\n\n\n\nMizerParams.summary()\nReturn the text representation of summary(params).\n\n\n\nMizerParams.trophic_level(as_xarray=True)\nReturn trophic level at size in the initial state.\n\n\n\nMizerParams.trophic_level_by_species()\nReturn the species-level trophic level in the initial state.",
+    "crumbs": [
+      "Model Wrappers",
+      "MizerParams"
+    ]
+  },
+  {
+    "objectID": "api/MizerParams.html#examples",
+    "href": "api/MizerParams.html#examples",
+    "title": "MizerParams",
+    "section": "",
+    "text": "Create a small community model and inspect its initial biomass:\nimport pymizer as mz\n\nparams = mz.new_community_params(no_w=20)\nbiomass = params.biomass()",
+    "crumbs": [
+      "Model Wrappers",
+      "MizerParams"
+    ]
+  },
+  {
+    "objectID": "api/MizerParams.html#attributes",
+    "href": "api/MizerParams.html#attributes",
+    "title": "MizerParams",
+    "section": "",
+    "text": "Name\nDescription\n\n\n\n\nr\nAccess the underlying R object.",
+    "crumbs": [
+      "Model Wrappers",
+      "MizerParams"
+    ]
+  },
+  {
+    "objectID": "api/MizerParams.html#methods",
+    "href": "api/MizerParams.html#methods",
+    "title": "MizerParams",
+    "section": "",
+    "text": "Name\nDescription\n\n\n\n\nabundance\nReturn species abundance in the initial state.\n\n\nbiomass\nReturn species biomass in the initial state.\n\n\ncommunity_slope\nReturn the fitted community size-spectrum slope in the initial state.\n\n\ncopy\nReturn another wrapper for the same underlying object.\n\n\ndiet\nReturn diet composition in the initial state.\n\n\nfeeding_level\nReturn feeding level in the initial state.\n\n\ngrowth_curves\nReturn species growth curves as a pandas DataFrame.\n\n\ninitial_n\nReturn the initial fish abundance density spectrum.\n\n\ninitial_n_resource\nReturn the initial resource spectrum.\n\n\ninteraction_matrix\nReturn the species interaction matrix.\n\n\nmaturity\nReturn the maturity ogive by species and size.\n\n\nmax_intake_rate\nReturn maximum intake rate by species and size.\n\n\nmean_max_weight\nReturn the mean maximum weight in the initial state.\n\n\nmean_weight\nReturn the mean community weight in the initial state.\n\n\nmetabolic_rate\nReturn metabolic rate by species and size.\n\n\nmetadata\nReturn model metadata as nested Python structures.\n\n\npred_kernel\nReturn the predation kernel by predator species, predator size, and prey size.\n\n\npred_mort\nReturn predation mortality in the initial state.\n\n\npred_rate\nReturn predation rate by predator species and prey size.\n\n\nproject\nRun mizer::project() and return a wrapped simulation result.\n\n\nproject_to_steady\nRun mizer::projectToSteady().\n\n\nproportion_of_large_fish\nReturn the proportion of large fish in the initial state.\n\n\nsave\nSave the params object using saveParams().\n\n\nsearch_volume\nReturn search volume by species and size.\n\n\nset_fishing\nCall setFishing() and wrap the returned params object.\n\n\nset_initial_values\nReturn a new params object with initial values copied from a simulation.\n\n\nset_interaction\nReturn a new params object with an updated interaction matrix.\n\n\nset_max_intake_rate\nReturn a new params object with updated maximum intake rate.\n\n\nset_metabolic_rate\nReturn a new params object with updated metabolic rate.\n\n\nset_metadata\nReturn a new params object with updated metadata.\n\n\nset_pred_kernel\nReturn a new params object with an updated predation kernel.\n\n\nset_reproduction\nReturn a new params object with updated reproduction settings.\n\n\nset_resource\nReturn a new params object with updated resource settings.\n\n\nset_search_volume\nReturn a new params object with updated search volume.\n\n\nssb\nReturn spawning stock biomass in the initial state as a pandas Series.\n\n\nsteady\nRun mizer::steady() and return params or a simulation.\n\n\nsteady_single_species\nRun mizer::steadySingleSpecies() for selected species.\n\n\nsummary\nReturn the text representation of summary(params).\n\n\ntrophic_level\nReturn trophic level at size in the initial state.\n\n\ntrophic_level_by_species\nReturn the species-level trophic level in the initial state.\n\n\n\n\n\nMizerParams.abundance(min_w=None, max_w=None, min_l=None, max_l=None)\nReturn species abundance in the initial state.\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nmin_w\nfloat | list[float] | None\nMinimum weight filter.\nNone\n\n\nmax_w\nfloat | list[float] | None\nMaximum weight filter.\nNone\n\n\nmin_l\nfloat | list[float] | None\nMinimum length filter.\nNone\n\n\nmax_l\nfloat | list[float] | None\nMaximum length filter.\nNone\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\n\npd.Series\nA pandas.Series indexed by species name.\n\n\n\n\n\n\n\nMizerParams.biomass(\n    use_cutoff=False,\n    min_w=None,\n    max_w=None,\n    min_l=None,\n    max_l=None,\n)\nReturn species biomass in the initial state.\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nuse_cutoff\nbool\nUse the biomass_cutoff species parameter when available.\nFalse\n\n\nmin_w\nfloat | list[float] | None\nMinimum weight filter.\nNone\n\n\nmax_w\nfloat | list[float] | None\nMaximum weight filter.\nNone\n\n\nmin_l\nfloat | list[float] | None\nMinimum length filter.\nNone\n\n\nmax_l\nfloat | list[float] | None\nMaximum length filter.\nNone\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\n\npd.Series\nA pandas.Series indexed by species name.\n\n\n\n\n\n\nbiomass = params.biomass(min_w=10, max_w=1000)\n\n\n\n\nMizerParams.community_slope(\n    species=None,\n    biomass=True,\n    min_w=None,\n    max_w=None,\n    min_l=None,\n    max_l=None,\n)\nReturn the fitted community size-spectrum slope in the initial state.\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\n\npd.DataFrame\nA one-row pandas.DataFrame with slope, intercept, and\n\n\n\npd.DataFrame\nr2 columns.\n\n\n\n\n\n\n\nMizerParams.copy()\nReturn another wrapper for the same underlying object.\n\n\n\nMizerParams.diet(proportion=True, as_xarray=True)\nReturn diet composition in the initial state.\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nproportion\nbool\nIf True, normalise prey contributions to proportions.\nTrue\n\n\nas_xarray\nbool\nWhen True, return an xarray.DataArray with dimensions (\"predator\", \"w\", \"prey\").\nTrue\n\n\n\n\n\n\n\nMizerParams.feeding_level(as_xarray=True)\nReturn feeding level in the initial state.\n\n\n\nMizerParams.growth_curves(species=None, max_age=20, percentage=False)\nReturn species growth curves as a pandas DataFrame.\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nspecies\nstr | list[str] | tuple[str, …] | None\nOptional species subset.\nNone\n\n\nmax_age\nfloat\nMaximum age to evaluate.\n20\n\n\npercentage\nbool\nReturn size as a percentage of w_max.\nFalse\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\n\npd.DataFrame\nA pandas.DataFrame indexed by species with age values as\n\n\n\npd.DataFrame\ncolumns.\n\n\n\n\n\n\n\nMizerParams.initial_n(as_xarray=True)\nReturn the initial fish abundance density spectrum.\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nas_xarray\nbool\nWhen True, return an xarray.DataArray with dimensions (\"sp\", \"w\"). Otherwise return a NumPy array.\nTrue\n\n\n\n\n\n\ninitial_n = params.initial_n()\ncod = initial_n.sel(sp=\"Cod\")\n\n\n\n\nMizerParams.initial_n_resource()\nReturn the initial resource spectrum.\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\n\npd.Series\nA pandas.Series indexed by resource size.\n\n\n\n\n\n\n\nMizerParams.interaction_matrix()\nReturn the species interaction matrix.\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\n\npd.DataFrame\nA pandas.DataFrame indexed by predator species with prey species\n\n\n\npd.DataFrame\nas columns.\n\n\n\n\n\n\n\nMizerParams.maturity(as_xarray=True)\nReturn the maturity ogive by species and size.\n\n\n\nMizerParams.max_intake_rate(as_xarray=True)\nReturn maximum intake rate by species and size.\n\n\n\nMizerParams.mean_max_weight(\n    measure='both',\n    *,\n    species=None,\n    min_w=None,\n    max_w=None,\n    min_l=None,\n    max_l=None,\n)\nReturn the mean maximum weight in the initial state.\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nmeasure\nstr\nOne of \"both\", \"numbers\", or \"biomass\".\n'both'\n\n\nspecies\nstr | list[str] | tuple[str, …] | None\nOptional species subset.\nNone\n\n\nmin_w\nfloat | list[float] | None\nMinimum weight filter.\nNone\n\n\nmax_w\nfloat | list[float] | None\nMaximum weight filter.\nNone\n\n\nmin_l\nfloat | list[float] | None\nMinimum length filter.\nNone\n\n\nmax_l\nfloat | list[float] | None\nMaximum length filter.\nNone\n\n\n\n\n\n\n\nMizerParams.mean_weight(\n    species=None,\n    min_w=None,\n    max_w=None,\n    min_l=None,\n    max_l=None,\n)\nReturn the mean community weight in the initial state.\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nspecies\nstr | list[str] | tuple[str, …] | None\nOptional species subset.\nNone\n\n\nmin_w\nfloat | list[float] | None\nMinimum weight filter.\nNone\n\n\nmax_w\nfloat | list[float] | None\nMaximum weight filter.\nNone\n\n\nmin_l\nfloat | list[float] | None\nMinimum length filter.\nNone\n\n\nmax_l\nfloat | list[float] | None\nMaximum length filter.\nNone\n\n\n\n\n\n\n\nMizerParams.metabolic_rate(as_xarray=True)\nReturn metabolic rate by species and size.\n\n\n\nMizerParams.metadata()\nReturn model metadata as nested Python structures.\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\n\ndict[str, Any]\nA Python dict containing metadata fields such as title,\n\n\n\ndict[str, Any]\ndescription, timestamps, and mizer version information.\n\n\n\n\n\n\n\nMizerParams.pred_kernel(as_xarray=True)\nReturn the predation kernel by predator species, predator size, and prey size.\n\n\n\nMizerParams.pred_mort(as_xarray=True)\nReturn predation mortality in the initial state.\n\n\n\nMizerParams.pred_rate(as_xarray=True, t=0)\nReturn predation rate by predator species and prey size.\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nas_xarray\nbool\nWhen True, return an xarray.DataArray with dimensions (\"sp\", \"w_prey\").\nTrue\n\n\nt\nfloat\nTime passed through to mizer::getPredRate().\n0\n\n\n\n\n\n\n\nMizerParams.project(\n    effort=None,\n    *,\n    t_max=100,\n    dt=0.1,\n    t_save=1,\n    t_start=0,\n    progress_bar=False,\n    **kwargs,\n)\nRun mizer::project() and return a wrapped simulation result.\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\neffort\nfloat | dict[str, float] | Any | None\nFishing effort passed through to mizer. A Python dict is converted to a named R numeric vector.\nNone\n\n\nt_max\nfloat\nProjection length in years.\n100\n\n\ndt\nfloat\nInternal integration time step.\n0.1\n\n\nt_save\nfloat\nInterval between saved output times.\n1\n\n\nt_start\nfloat\nStarting time recorded on the simulation output.\n0\n\n\nprogress_bar\nbool\nWhether mizer should show an R-side progress bar.\nFalse\n\n\n**kwargs\nAny\nAdditional arguments forwarded to mizer::project().\n{}\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\nA\n'MizerSim'\nclass:MizerSim wrapper around the R simulation object.\n\n\n\n\n\n\nimport pymizer as mz\n\nparams = mz.new_community_params(no_w=20)\nsim = params.project(t_max=5, dt=0.1, t_save=1, progress_bar=False)\n\n\n\n\nMizerParams.project_to_steady(\n    effort=None,\n    *,\n    t_per=1.5,\n    t_max=100,\n    dt=0.1,\n    tol=None,\n    return_sim=False,\n    progress_bar=False,\n    info_level=3,\n)\nRun mizer::projectToSteady().\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\neffort\nfloat | dict[str, float] | Any | None\nOptional fishing effort used throughout the search.\nNone\n\n\nt_per\nfloat\nTime between convergence checks.\n1.5\n\n\nt_max\nfloat\nMaximum search duration.\n100\n\n\ndt\nfloat\nIntegration time step.\n0.1\n\n\ntol\nfloat | None\nConvergence tolerance. Defaults to 0.1 * t_per.\nNone\n\n\nreturn_sim\nbool\nReturn a MizerSim with saved intermediate states.\nFalse\n\n\nprogress_bar\nbool\nShow an R-side progress bar.\nFalse\n\n\ninfo_level\nint\nVerbosity of R-side messages.\n3\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\n\n'MizerParams | MizerSim'\nEither a :class:MizerParams or :class:MizerSim, depending on\n\n\n\n'MizerParams | MizerSim'\nreturn_sim.\n\n\n\n\n\n\nsteady_params = params.project_to_steady(\n    t_per=1.0,\n    t_max=5.0,\n    dt=0.1,\n    progress_bar=False,\n    info_level=0,\n)\n\n\n\n\nMizerParams.proportion_of_large_fish(\n    species=None,\n    threshold_w=100,\n    threshold_l=None,\n    biomass_proportion=True,\n    min_w=None,\n    max_w=None,\n    min_l=None,\n    max_l=None,\n)\nReturn the proportion of large fish in the initial state.\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nspecies\nstr | list[str] | tuple[str, …] | None\nOptional species subset.\nNone\n\n\nthreshold_w\nfloat\nWeight threshold separating small and large fish.\n100\n\n\nthreshold_l\nfloat | None\nLength threshold separating small and large fish.\nNone\n\n\nbiomass_proportion\nbool\nUse biomass rather than numbers.\nTrue\n\n\nmin_w\nfloat | list[float] | None\nMinimum weight filter.\nNone\n\n\nmax_w\nfloat | list[float] | None\nMaximum weight filter.\nNone\n\n\nmin_l\nfloat | list[float] | None\nMinimum length filter.\nNone\n\n\nmax_l\nfloat | list[float] | None\nMaximum length filter.\nNone\n\n\n\n\n\n\n\nMizerParams.save(path)\nSave the params object using saveParams().\n\n\n\nMizerParams.search_volume(as_xarray=True)\nReturn search volume by species and size.\n\n\n\nMizerParams.set_fishing(**kwargs)\nCall setFishing() and wrap the returned params object.\n\n\n\nMizerParams.set_initial_values(sim, *, time_range=None, geometric_mean=False)\nReturn a new params object with initial values copied from a simulation.\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nsim\n'MizerSim'\nSimulation providing the source state.\nrequired\n\n\ntime_range\nAny | None\nOptional time range over which to average.\nNone\n\n\ngeometric_mean\nbool\nUse a geometric rather than arithmetic mean for abundance spectra.\nFalse\n\n\n\n\n\n\nsim = params.project(t_max=5, dt=0.1, t_save=1, progress_bar=False)\nupdated = params.set_initial_values(sim)\n\n\n\n\nMizerParams.set_interaction(interaction)\nReturn a new params object with an updated interaction matrix.\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\ninteraction\nAny\nSpecies interaction matrix as a pandas DataFrame, NumPy array, or other matrix-like object.\nrequired\n\n\n\n\n\n\n\nMizerParams.set_max_intake_rate(intake_max=None, *, reset=False)\nReturn a new params object with updated maximum intake rate.\n\n\n\nMizerParams.set_metabolic_rate(metab=None, *, p=None, reset=False)\nReturn a new params object with updated metabolic rate.\n\n\n\nMizerParams.set_metadata(\n    title=None,\n    description=None,\n    authors=None,\n    url=None,\n    doi=None,\n    **extra_fields,\n)\nReturn a new params object with updated metadata.\n\n\nupdated = params.set_metadata(\n    title=\"North Sea example\",\n    description=\"Python wrapper demo\",\n)\n\n\n\n\nMizerParams.set_pred_kernel(pred_kernel=None, *, reset=False)\nReturn a new params object with an updated predation kernel.\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\npred_kernel\nAny | None\nPredator x predator-size x prey-size array.\nNone\n\n\nreset\nbool\nRecompute from species parameters instead of using a custom kernel.\nFalse\n\n\n\n\n\n\n\nMizerParams.set_reproduction(\n    maturity=None,\n    repro_prop=None,\n    reset=False,\n    rdd=None,\n)\nReturn a new params object with updated reproduction settings.\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nmaturity\nAny | None\nSpecies-by-size maturity array.\nNone\n\n\nrepro_prop\nAny | None\nSpecies-by-size reproductive proportion array.\nNone\n\n\nreset\nbool\nRecompute from species parameters.\nFalse\n\n\nrdd\nstr | None\nName of the R density-dependence function to use.\nNone\n\n\n\n\n\n\n\nMizerParams.set_resource(\n    resource_rate=None,\n    resource_capacity=None,\n    resource_level=None,\n    resource_dynamics=None,\n    lambda_=None,\n    n=None,\n    w_pp_cutoff=None,\n    balance=None,\n)\nReturn a new params object with updated resource settings.\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nresource_rate\nAny | None\nResource growth-rate parameter or vector.\nNone\n\n\nresource_capacity\nAny | None\nResource carrying capacity parameter or vector.\nNone\n\n\nresource_level\nAny | None\nRatio of current resource to carrying capacity.\nNone\n\n\nresource_dynamics\nstr | None\nName of the resource dynamics function.\nNone\n\n\nlambda_\nfloat | None\nResource capacity power-law exponent.\nNone\n\n\nn\nfloat | None\nResource rate power-law exponent.\nNone\n\n\nw_pp_cutoff\nfloat | None\nUpper cutoff size for the resource power law.\nNone\n\n\nbalance\nbool | None\nWhether to rebalance the resource to the current state.\nNone\n\n\n\n\n\n\nupdated = params.set_resource(\n    resource_dynamics=\"resource_constant\",\n    balance=False,\n)\n\n\n\n\nMizerParams.set_search_volume(search_vol=None, *, reset=False)\nReturn a new params object with updated search volume.\n\n\n\nMizerParams.ssb()\nReturn spawning stock biomass in the initial state as a pandas Series.\n\n\n\nMizerParams.steady(\n    t_per=1.5,\n    t_max=100,\n    dt=0.1,\n    tol=None,\n    return_sim=False,\n    preserve='reproduction_level',\n    progress_bar=False,\n    info_level=3,\n)\nRun mizer::steady() and return params or a simulation.\nThis uses the higher-level mizer steady-state workflow that holds reproduction and resource dynamics constant during the search.\n\n\n\nMizerParams.steady_single_species(species=None, *, keep='egg')\nRun mizer::steadySingleSpecies() for selected species.\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nspecies\nstr | list[str] | tuple[str, …] | None\nOptional species subset.\nNone\n\n\nkeep\nstr\nQuantity to preserve. One of \"egg\", \"biomass\", or \"number\".\n'egg'\n\n\n\n\n\n\n\nMizerParams.summary()\nReturn the text representation of summary(params).\n\n\n\nMizerParams.trophic_level(as_xarray=True)\nReturn trophic level at size in the initial state.\n\n\n\nMizerParams.trophic_level_by_species()\nReturn the species-level trophic level in the initial state.",
+    "crumbs": [
+      "Model Wrappers",
+      "MizerParams"
+    ]
+  },
+  {
+    "objectID": "api/NorthSeaExample.html",
+    "href": "api/NorthSeaExample.html",
+    "title": "NorthSeaExample",
+    "section": "",
+    "text": "NorthSeaExample(\n    species_params,\n    interaction,\n    params,\n    sim,\n    species_params_gears=None,\n)\nConvenience bundle for the built-in North Sea example datasets.\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\nspecies_params\npd.DataFrame\nSpecies parameter table.\n\n\ninteraction\npd.DataFrame\nSpecies interaction matrix.\n\n\nparams\nMizerParams\nWrapped MizerParams object for the built-in North Sea model.\n\n\nsim\nMizerSim\nWrapped MizerSim object for the built-in North Sea simulation.\n\n\nspecies_params_gears\npd.DataFrame | None\nOptional gear-specific species parameter table when available in the installed mizer version.\n\n\n\n\n\n\nimport pymizer as mz\n\nnorth_sea = mz.load_north_sea()\nsim = north_sea.params.project(t_max=1, dt=0.1, t_save=1, effort=0, progress_bar=False)",
+    "crumbs": [
+      "Model Wrappers",
+      "NorthSeaExample"
+    ]
+  },
+  {
+    "objectID": "api/NorthSeaExample.html#attributes",
+    "href": "api/NorthSeaExample.html#attributes",
+    "title": "NorthSeaExample",
+    "section": "",
+    "text": "Name\nType\nDescription\n\n\n\n\nspecies_params\npd.DataFrame\nSpecies parameter table.\n\n\ninteraction\npd.DataFrame\nSpecies interaction matrix.\n\n\nparams\nMizerParams\nWrapped MizerParams object for the built-in North Sea model.\n\n\nsim\nMizerSim\nWrapped MizerSim object for the built-in North Sea simulation.\n\n\nspecies_params_gears\npd.DataFrame | None\nOptional gear-specific species parameter table when available in the installed mizer version.",
+    "crumbs": [
+      "Model Wrappers",
+      "NorthSeaExample"
+    ]
+  },
+  {
+    "objectID": "api/NorthSeaExample.html#examples",
+    "href": "api/NorthSeaExample.html#examples",
+    "title": "NorthSeaExample",
+    "section": "",
+    "text": "import pymizer as mz\n\nnorth_sea = mz.load_north_sea()\nsim = north_sea.params.project(t_max=1, dt=0.1, t_save=1, effort=0, progress_bar=False)",
+    "crumbs": [
+      "Model Wrappers",
+      "NorthSeaExample"
+    ]
+  },
+  {
+    "objectID": "api/validate_interaction_matrix.html",
+    "href": "api/validate_interaction_matrix.html",
+    "title": "validate_interaction_matrix",
+    "section": "",
+    "text": "validate_interaction_matrix\nvalidate_interaction_matrix(interaction, species_names)\nValidate an interaction matrix against the supplied species names.",
+    "crumbs": [
+      "Validation",
+      "validate_interaction_matrix"
+    ]
+  },
+  {
+    "objectID": "api/new_single_species_params.html",
+    "href": "api/new_single_species_params.html",
+    "title": "new_single_species_params",
+    "section": "",
+    "text": "new_single_species_params(species_params, env=None, **kwargs)\nCreate a single-species model.\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nspecies_params\npd.DataFrame\nSingle-row species parameter table.\nrequired\n\n\nenv\nMizerREnvironment | None\nOptional shared R environment wrapper.\nNone\n\n\n**kwargs\nAny\nAdditional arguments forwarded to mizer::newSingleSpeciesParams().\n{}",
+    "crumbs": [
+      "Constructors",
+      "new_single_species_params"
+    ]
+  },
+  {
+    "objectID": "api/new_single_species_params.html#parameters",
+    "href": "api/new_single_species_params.html#parameters",
+    "title": "new_single_species_params",
+    "section": "",
+    "text": "Name\nType\nDescription\nDefault\n\n\n\n\nspecies_params\npd.DataFrame\nSingle-row species parameter table.\nrequired\n\n\nenv\nMizerREnvironment | None\nOptional shared R environment wrapper.\nNone\n\n\n**kwargs\nAny\nAdditional arguments forwarded to mizer::newSingleSpeciesParams().\n{}",
+    "crumbs": [
+      "Constructors",
+      "new_single_species_params"
+    ]
+  },
+  {
+    "objectID": "api/load_north_sea.html",
+    "href": "api/load_north_sea.html",
+    "title": "load_north_sea",
+    "section": "",
+    "text": "load_north_sea(env=None)\nLoad the matching built-in North Sea example datasets together.\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nenv\nMizerREnvironment | None\nOptional shared R environment wrapper.\nNone\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\nA\nNorthSeaExample\nclass:NorthSeaExample bundle containing the most commonly used\n\n\n\nNorthSeaExample\nNorth Sea inputs and example model objects.\n\n\n\n\n\n\nimport pymizer as mz\n\nnorth_sea = mz.load_north_sea()\nprint(north_sea.species_params.head())\nprint(north_sea.params.biomass())",
+    "crumbs": [
+      "Datasets",
+      "load_north_sea"
+    ]
+  },
+  {
+    "objectID": "api/load_north_sea.html#parameters",
+    "href": "api/load_north_sea.html#parameters",
+    "title": "load_north_sea",
+    "section": "",
+    "text": "Name\nType\nDescription\nDefault\n\n\n\n\nenv\nMizerREnvironment | None\nOptional shared R environment wrapper.\nNone",
+    "crumbs": [
+      "Datasets",
+      "load_north_sea"
+    ]
+  },
+  {
+    "objectID": "api/load_north_sea.html#returns",
+    "href": "api/load_north_sea.html#returns",
+    "title": "load_north_sea",
+    "section": "",
+    "text": "Name\nType\nDescription\n\n\n\n\nA\nNorthSeaExample\nclass:NorthSeaExample bundle containing the most commonly used\n\n\n\nNorthSeaExample\nNorth Sea inputs and example model objects.",
+    "crumbs": [
+      "Datasets",
+      "load_north_sea"
+    ]
+  },
+  {
+    "objectID": "api/load_north_sea.html#examples",
+    "href": "api/load_north_sea.html#examples",
+    "title": "load_north_sea",
+    "section": "",
+    "text": "import pymizer as mz\n\nnorth_sea = mz.load_north_sea()\nprint(north_sea.species_params.head())\nprint(north_sea.params.biomass())",
+    "crumbs": [
+      "Datasets",
+      "load_north_sea"
+    ]
+  },
+  {
+    "objectID": "api/load_dataset.html",
+    "href": "api/load_dataset.html",
+    "title": "load_dataset",
+    "section": "",
+    "text": "load_dataset(name, env=None)\nLoad a built-in mizer dataset and convert it to a Python-friendly type.\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nname\nstr\nDataset name as reported by :func:list_datasets.\nrequired\n\n\nenv\nMizerREnvironment | None\nOptional shared R environment wrapper.\nNone\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\n\nAny\nOne of:\n\n\n\nAny\n- pandas.DataFrame for tabular datasets\n\n\n\nAny\n- :class:pymizer.MizerParams for MizerParams objects\n\n\n\nAny\n- :class:pymizer.MizerSim for MizerSim objects\n\n\n\nAny\n- a raw R-backed object for unsupported dataset classes\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\n\nMizerError\nIf the dataset name is unknown.\n\n\n\n\n\n\nimport pymizer as mz\n\nspecies = mz.load_dataset(\"NS_species_params\")\nparams = mz.load_dataset(\"NS_params\")\nsim = mz.load_dataset(\"NS_sim\")",
+    "crumbs": [
+      "Datasets",
+      "load_dataset"
+    ]
+  },
+  {
+    "objectID": "api/load_dataset.html#parameters",
+    "href": "api/load_dataset.html#parameters",
+    "title": "load_dataset",
+    "section": "",
+    "text": "Name\nType\nDescription\nDefault\n\n\n\n\nname\nstr\nDataset name as reported by :func:list_datasets.\nrequired\n\n\nenv\nMizerREnvironment | None\nOptional shared R environment wrapper.\nNone",
+    "crumbs": [
+      "Datasets",
+      "load_dataset"
+    ]
+  },
+  {
+    "objectID": "api/load_dataset.html#returns",
+    "href": "api/load_dataset.html#returns",
+    "title": "load_dataset",
+    "section": "",
+    "text": "Name\nType\nDescription\n\n\n\n\n\nAny\nOne of:\n\n\n\nAny\n- pandas.DataFrame for tabular datasets\n\n\n\nAny\n- :class:pymizer.MizerParams for MizerParams objects\n\n\n\nAny\n- :class:pymizer.MizerSim for MizerSim objects\n\n\n\nAny\n- a raw R-backed object for unsupported dataset classes",
+    "crumbs": [
+      "Datasets",
+      "load_dataset"
+    ]
+  },
+  {
+    "objectID": "api/load_dataset.html#raises",
+    "href": "api/load_dataset.html#raises",
+    "title": "load_dataset",
+    "section": "",
+    "text": "Name\nType\nDescription\n\n\n\n\n\nMizerError\nIf the dataset name is unknown.",
+    "crumbs": [
+      "Datasets",
+      "load_dataset"
+    ]
+  },
+  {
+    "objectID": "api/load_dataset.html#examples",
+    "href": "api/load_dataset.html#examples",
+    "title": "load_dataset",
+    "section": "",
+    "text": "import pymizer as mz\n\nspecies = mz.load_dataset(\"NS_species_params\")\nparams = mz.load_dataset(\"NS_params\")\nsim = mz.load_dataset(\"NS_sim\")",
+    "crumbs": [
+      "Datasets",
+      "load_dataset"
+    ]
+  },
+  {
+    "objectID": "api/new_multispecies_params.html",
+    "href": "api/new_multispecies_params.html",
+    "title": "new_multispecies_params",
+    "section": "",
+    "text": "new_multispecies_params(species_params, interaction=None, env=None, **kwargs)\nCreate a multispecies model from Python data structures.\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nspecies_params\npd.DataFrame\nSpecies parameter table as a pandas.DataFrame.\nrequired\n\n\ninteraction\nAny | None\nOptional interaction matrix.\nNone\n\n\nenv\nMizerREnvironment | None\nOptional shared R environment wrapper.\nNone\n\n\n**kwargs\nAny\nAdditional arguments forwarded to mizer::newMultispeciesParams().\n{}\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\n\nMizerParams\nA wrapped :class:MizerParams object.\n\n\n\n\n\n\nimport pymizer as mz\n\nspecies = mz.load_dataset(\"NS_species_params\")\ninteraction = mz.load_dataset(\"NS_interaction\")\nparams = mz.new_multispecies_params(\n    species_params=species,\n    interaction=interaction,\n)",
+    "crumbs": [
+      "Constructors",
+      "new_multispecies_params"
+    ]
+  },
+  {
+    "objectID": "api/new_multispecies_params.html#parameters",
+    "href": "api/new_multispecies_params.html#parameters",
+    "title": "new_multispecies_params",
+    "section": "",
+    "text": "Name\nType\nDescription\nDefault\n\n\n\n\nspecies_params\npd.DataFrame\nSpecies parameter table as a pandas.DataFrame.\nrequired\n\n\ninteraction\nAny | None\nOptional interaction matrix.\nNone\n\n\nenv\nMizerREnvironment | None\nOptional shared R environment wrapper.\nNone\n\n\n**kwargs\nAny\nAdditional arguments forwarded to mizer::newMultispeciesParams().\n{}",
+    "crumbs": [
+      "Constructors",
+      "new_multispecies_params"
+    ]
+  },
+  {
+    "objectID": "api/new_multispecies_params.html#returns",
+    "href": "api/new_multispecies_params.html#returns",
+    "title": "new_multispecies_params",
+    "section": "",
+    "text": "Name\nType\nDescription\n\n\n\n\n\nMizerParams\nA wrapped :class:MizerParams object.",
+    "crumbs": [
+      "Constructors",
+      "new_multispecies_params"
+    ]
+  },
+  {
+    "objectID": "api/new_multispecies_params.html#examples",
+    "href": "api/new_multispecies_params.html#examples",
+    "title": "new_multispecies_params",
+    "section": "",
+    "text": "import pymizer as mz\n\nspecies = mz.load_dataset(\"NS_species_params\")\ninteraction = mz.load_dataset(\"NS_interaction\")\nparams = mz.new_multispecies_params(\n    species_params=species,\n    interaction=interaction,\n)",
+    "crumbs": [
+      "Constructors",
+      "new_multispecies_params"
+    ]
+  },
+  {
+    "objectID": "roadmap.html",
+    "href": "roadmap.html",
+    "title": "Roadmap",
+    "section": "",
+    "text": "This page tracks the planned development of pymizer, the Python wrapper for the R mizer package.\nThe current package already supports:\n\ncreating MizerParams wrappers from Python\nrunning project() through the R mizer package\nextracting common results as pandas, numpy, and xarray\nloading built-in mizer datasets from Python\nbuilding a dedicated documentation website\n\nThe next stages should focus on turning the current proof of concept into a more robust and maintainable bridge for real analysis workflows.\n\n\n\nKeep the Python API close to the mental model of mizer, but make return types feel natural in Python.\nPrefer thin, reliable wrapping of stable R functionality over partial reimplementation in Python.\nExpand the public API in layers, starting with the most common scientific workflows.\nTreat packaging, testing, and documentation as product features, not polish.\n\n\n\n\n\n\n\nMake the existing wrapper reliable for day-to-day use.\nReduce avoidable environment friction.\nTighten the boundaries of the supported API.\n\n\n\n\n\nAdd explicit version checks for compatible R, mizer, and rpy2 versions.\nImprove startup diagnostics when R or the mizer package is unavailable.\nStandardise conversion helpers so all wrapped functions follow the same rules for pandas, numpy, and xarray outputs.\nAdd lightweight validation helpers for constructor inputs such as species_params and interaction matrices.\nImprove object summaries so MizerParams.summary() and MizerSim reporting are more useful in notebooks.\nAdd convenience methods for common save/load workflows on MizerSim as well as MizerParams.\n\n\n\n\n\n\n\n\nCover the most commonly used read-only mizer analysis functions.\nMake Python notebooks viable without frequent escapes into raw R objects.\n\n\n\n\n\nMizerSim accessors:\n\nssb()\nyield_gear()\nf_mort_gear()\npred_mort()\ndiet()\ngrowth_curves()\n\nMizerParams accessors:\n\ninitial_n()\ninitial_n_resource()\nbiomass()\nfeeding_level()\npred_rate()\n\nindicator functions:\n\ncommunity slope\nmean weight\nproportion of large fish\ntrophic level outputs\n\n\n\n\n\n\n\n\n\nSupport the common “load, tweak, rerun” workflow from Python.\nPreserve the immutability pattern used by mizer.\n\n\n\n\n\nset_interaction()\nset_resource()\nset_reproduction()\nset_initial_values()\nset_metadata()\nset_pred_kernel()\nset_search_volume()\nset_max_intake_rate()\nset_metabolic_rate()\nproject_to_steady() if feasible through the current bridge design\n\n\n\n\n\n\n\n\nMake the wrapper easy to learn through real models and reproducible examples.\n\n\n\n\n\nAdd richer helpers around built-in datasets, such as loading matching North Sea inputs together.\nAdd example notebooks for:\n\ncommunity model\nNorth Sea model\nbasic plotting and analysis in Python\n\nAdd a helper to expose package example file paths if needed.\nAdd a documented “recommended first workflow” that uses built-in example data only.\n\n\n\n\n\n\n\n\nMake installation predictable outside this repository.\nClarify how Python and R dependencies should be managed together.\n\n\n\n\n\nDecide on the intended release model:\n\npublish pymizer as a Python package only\nor keep it as a repo-local companion package for now\n\nAdd wheel and source distribution checks.\nDocument installation strategies for:\n\nlocal developer setup\nvirtualenv/venv\nConda or Mamba\nCI environments\n\nDecide whether installation should attempt any automatic R package checks or remain fully manual.\nAdd a minimal support matrix covering OS, Python version, and R version.\n\n\n\n\n\n\n\n\nMove from smoke tests to confidence-building coverage.\n\n\n\n\n\nunit tests for conversion helpers and shape handling\nintegration tests for live R bridge behaviour\nregression tests for built-in examples\ndocumentation build tests\n\n\n\n\n\n\n\n\nMake output exploration feel more natural in the Python ecosystem.\n\n\n\n\n\nconvenience plotting methods backed by matplotlib, seaborn, or plotly\nhelper methods for converting outputs to tidy long-form pandas\nutility functions for common notebook display patterns\noptional integration with Jupyter-rich summaries for wrapped objects\n\n\n\n\n\n\n\n\nExplore whether more of mizer’s extension surface can be exposed from Python without creating fragile abstractions.\n\n\n\n\n\nsupport for more extension hooks and metadata\ncontrolled access to custom rate-function registration\npass-through helpers for advanced users who need raw R evaluation\nhelpers for serialising wrapper state in mixed Python/R workflows\n\n\n\n\n\nIf development time is limited, the best next sequence is:\n\nStabilise the bridge and input validation.\nAdd the highest-value summary and indicator accessors.\nExpand tests and CI coverage.\nPublish example notebooks using the built-in datasets.\nAdd selected parameter-setting methods for iterative modelling workflows.\n\n\n\n\n\n\n\nclean install process documented\nconstructor and projection workflows stable\nbuilt-in dataset loading stable\ncore result accessors covered by tests\ndocs site published\n\n\n\n\n\ncommon summary and indicator functions wrapped\nNorth Sea example notebook available\nCI runs bridge tests automatically\nversion compatibility policy documented\n\n\n\n\n\nimportant setter methods wrapped\nsave/load workflow broadened\nmore realistic end-to-end examples added\nerror handling improved for model editing workflows\n\n\n\n\n\nThe canonical repository version of this plan also lives in the repository as python/ROADMAP.md."
+  },
+  {
+    "objectID": "roadmap.html#guiding-principles",
+    "href": "roadmap.html#guiding-principles",
+    "title": "Roadmap",
+    "section": "",
+    "text": "Keep the Python API close to the mental model of mizer, but make return types feel natural in Python.\nPrefer thin, reliable wrapping of stable R functionality over partial reimplementation in Python.\nExpand the public API in layers, starting with the most common scientific workflows.\nTreat packaging, testing, and documentation as product features, not polish."
+  },
+  {
+    "objectID": "roadmap.html#phase-1-stabilise-the-core-wrapper",
+    "href": "roadmap.html#phase-1-stabilise-the-core-wrapper",
+    "title": "Roadmap",
+    "section": "",
+    "text": "Make the existing wrapper reliable for day-to-day use.\nReduce avoidable environment friction.\nTighten the boundaries of the supported API.\n\n\n\n\n\nAdd explicit version checks for compatible R, mizer, and rpy2 versions.\nImprove startup diagnostics when R or the mizer package is unavailable.\nStandardise conversion helpers so all wrapped functions follow the same rules for pandas, numpy, and xarray outputs.\nAdd lightweight validation helpers for constructor inputs such as species_params and interaction matrices.\nImprove object summaries so MizerParams.summary() and MizerSim reporting are more useful in notebooks.\nAdd convenience methods for common save/load workflows on MizerSim as well as MizerParams."
+  },
+  {
+    "objectID": "roadmap.html#phase-2-expand-high-value-analysis-surface",
+    "href": "roadmap.html#phase-2-expand-high-value-analysis-surface",
+    "title": "Roadmap",
+    "section": "",
+    "text": "Cover the most commonly used read-only mizer analysis functions.\nMake Python notebooks viable without frequent escapes into raw R objects.\n\n\n\n\n\nMizerSim accessors:\n\nssb()\nyield_gear()\nf_mort_gear()\npred_mort()\ndiet()\ngrowth_curves()\n\nMizerParams accessors:\n\ninitial_n()\ninitial_n_resource()\nbiomass()\nfeeding_level()\npred_rate()\n\nindicator functions:\n\ncommunity slope\nmean weight\nproportion of large fish\ntrophic level outputs"
+  },
+  {
+    "objectID": "roadmap.html#phase-3-parameter-editing-and-model-manipulation",
+    "href": "roadmap.html#phase-3-parameter-editing-and-model-manipulation",
+    "title": "Roadmap",
+    "section": "",
+    "text": "Support the common “load, tweak, rerun” workflow from Python.\nPreserve the immutability pattern used by mizer.\n\n\n\n\n\nset_interaction()\nset_resource()\nset_reproduction()\nset_initial_values()\nset_metadata()\nset_pred_kernel()\nset_search_volume()\nset_max_intake_rate()\nset_metabolic_rate()\nproject_to_steady() if feasible through the current bridge design"
+  },
+  {
+    "objectID": "roadmap.html#phase-4-better-dataset-and-example-support",
+    "href": "roadmap.html#phase-4-better-dataset-and-example-support",
+    "title": "Roadmap",
+    "section": "",
+    "text": "Make the wrapper easy to learn through real models and reproducible examples.\n\n\n\n\n\nAdd richer helpers around built-in datasets, such as loading matching North Sea inputs together.\nAdd example notebooks for:\n\ncommunity model\nNorth Sea model\nbasic plotting and analysis in Python\n\nAdd a helper to expose package example file paths if needed.\nAdd a documented “recommended first workflow” that uses built-in example data only."
+  },
+  {
+    "objectID": "roadmap.html#phase-5-packaging-and-distribution",
+    "href": "roadmap.html#phase-5-packaging-and-distribution",
+    "title": "Roadmap",
+    "section": "",
+    "text": "Make installation predictable outside this repository.\nClarify how Python and R dependencies should be managed together.\n\n\n\n\n\nDecide on the intended release model:\n\npublish pymizer as a Python package only\nor keep it as a repo-local companion package for now\n\nAdd wheel and source distribution checks.\nDocument installation strategies for:\n\nlocal developer setup\nvirtualenv/venv\nConda or Mamba\nCI environments\n\nDecide whether installation should attempt any automatic R package checks or remain fully manual.\nAdd a minimal support matrix covering OS, Python version, and R version."
+  },
+  {
+    "objectID": "roadmap.html#phase-6-testing-and-continuous-integration",
+    "href": "roadmap.html#phase-6-testing-and-continuous-integration",
+    "title": "Roadmap",
+    "section": "",
+    "text": "Move from smoke tests to confidence-building coverage.\n\n\n\n\n\nunit tests for conversion helpers and shape handling\nintegration tests for live R bridge behaviour\nregression tests for built-in examples\ndocumentation build tests"
+  },
+  {
+    "objectID": "roadmap.html#phase-7-plotting-and-python-native-ergonomics",
+    "href": "roadmap.html#phase-7-plotting-and-python-native-ergonomics",
+    "title": "Roadmap",
+    "section": "",
+    "text": "Make output exploration feel more natural in the Python ecosystem.\n\n\n\n\n\nconvenience plotting methods backed by matplotlib, seaborn, or plotly\nhelper methods for converting outputs to tidy long-form pandas\nutility functions for common notebook display patterns\noptional integration with Jupyter-rich summaries for wrapped objects"
+  },
+  {
+    "objectID": "roadmap.html#phase-8-advanced-and-experimental-features",
+    "href": "roadmap.html#phase-8-advanced-and-experimental-features",
+    "title": "Roadmap",
+    "section": "",
+    "text": "Explore whether more of mizer’s extension surface can be exposed from Python without creating fragile abstractions.\n\n\n\n\n\nsupport for more extension hooks and metadata\ncontrolled access to custom rate-function registration\npass-through helpers for advanced users who need raw R evaluation\nhelpers for serialising wrapper state in mixed Python/R workflows"
+  },
+  {
+    "objectID": "roadmap.html#recommended-near-term-priorities",
+    "href": "roadmap.html#recommended-near-term-priorities",
+    "title": "Roadmap",
+    "section": "",
+    "text": "If development time is limited, the best next sequence is:\n\nStabilise the bridge and input validation.\nAdd the highest-value summary and indicator accessors.\nExpand tests and CI coverage.\nPublish example notebooks using the built-in datasets.\nAdd selected parameter-setting methods for iterative modelling workflows."
+  },
+  {
+    "objectID": "roadmap.html#milestones",
+    "href": "roadmap.html#milestones",
+    "title": "Roadmap",
+    "section": "",
+    "text": "clean install process documented\nconstructor and projection workflows stable\nbuilt-in dataset loading stable\ncore result accessors covered by tests\ndocs site published\n\n\n\n\n\ncommon summary and indicator functions wrapped\nNorth Sea example notebook available\nCI runs bridge tests automatically\nversion compatibility policy documented\n\n\n\n\n\nimportant setter methods wrapped\nsave/load workflow broadened\nmore realistic end-to-end examples added\nerror handling improved for model editing workflows"
+  },
+  {
+    "objectID": "roadmap.html#source",
+    "href": "roadmap.html#source",
+    "title": "Roadmap",
+    "section": "",
+    "text": "The canonical repository version of this plan also lives in the repository as python/ROADMAP.md."
+  },
+  {
+    "objectID": "articles/analysis-and-plotting.html",
+    "href": "articles/analysis-and-plotting.html",
+    "title": "Analysis And Plotting",
+    "section": "",
+    "text": "This article shows a notebook-style analysis workflow built around the bundled North Sea example. The emphasis is on staying in Python-native objects for summaries and then plotting them directly with matplotlib.\n\n\nimport pymizer as mz\n\nnorth_sea = mz.load_north_sea()\nparams = north_sea.params\n\nsim = params.project(\n    t_max=2,\n    dt=0.1,\n    t_save=1,\n    effort=0,\n    progress_bar=False,\n)\n\n\n\nThe time-by-species summaries come back as pandas.DataFrame, which makes them easy to reshape for plotting libraries:\nbiomass = sim.biomass()\nyield_df = sim.yield_()\n\nbiomass_long = (\n    biomass\n    .reset_index()\n    .melt(id_vars=\"time\", var_name=\"species\", value_name=\"biomass\")\n)\nThat gives a table with one row per time/species combination, ready for plotting or grouped analysis.\n\n\n\nFor size-resolved outputs, xarray works well directly:\npred_mort = sim.pred_mort()\ndiet = sim.diet()\n\ncod_pred_mort = pred_mort.sel(sp=\"Cod\")\ncod_diet = diet.sel(predator=\"Cod\")\nTypical use cases are:\n\nselecting one species with .sel(sp=\"Cod\")\nslicing along time or size dimensions\nconverting a smaller slice to a DataFrame with .to_dataframe()\n\n\n\n\nBecause matplotlib is a package dependency, a simple workflow is:\nimport matplotlib.pyplot as plt\n\nfig, ax = plt.subplots(figsize=(8, 4))\nbiomass[[\"Cod\", \"Haddock\", \"Herring\"]].plot(ax=ax)\nax.set_ylabel(\"Biomass\")\nax.set_title(\"North Sea Biomass Through Time\")\nfig.tight_layout()\nFor a size-resolved plot:\nfig, ax = plt.subplots(figsize=(8, 4))\ncod_pred_mort.plot(ax=ax)\nax.set_title(\"Cod Predation Mortality By Size\")\nfig.tight_layout()\n\n\n\nThe scalar and vector indicators are useful for concise summaries:\nlarge_fish = sim.proportion_of_large_fish()\nmean_weight = sim.mean_weight()\ncommunity_slope = sim.community_slope()\nThese give:\n\nlarge_fish: pandas.Series\nmean_weight: pandas.Series\ncommunity_slope: pandas.DataFrame\n\nThey work well for quick before/after comparisons when you edit parameters and rerun the model.\n\n\n\nA runnable version of this workflow lives in examples/north_sea_analysis.py.\nThe script:\n\nloads the North Sea bundle\nruns a short projection\nprints a few tidy summaries\nsaves PNG plots into examples/output"
+  },
+  {
+    "objectID": "articles/analysis-and-plotting.html#load-the-example",
+    "href": "articles/analysis-and-plotting.html#load-the-example",
+    "title": "Analysis And Plotting",
+    "section": "",
+    "text": "import pymizer as mz\n\nnorth_sea = mz.load_north_sea()\nparams = north_sea.params\n\nsim = params.project(\n    t_max=2,\n    dt=0.1,\n    t_save=1,\n    effort=0,\n    progress_bar=False,\n)"
+  },
+  {
+    "objectID": "articles/analysis-and-plotting.html#build-tidy-summaries",
+    "href": "articles/analysis-and-plotting.html#build-tidy-summaries",
+    "title": "Analysis And Plotting",
+    "section": "",
+    "text": "The time-by-species summaries come back as pandas.DataFrame, which makes them easy to reshape for plotting libraries:\nbiomass = sim.biomass()\nyield_df = sim.yield_()\n\nbiomass_long = (\n    biomass\n    .reset_index()\n    .melt(id_vars=\"time\", var_name=\"species\", value_name=\"biomass\")\n)\nThat gives a table with one row per time/species combination, ready for plotting or grouped analysis."
+  },
+  {
+    "objectID": "articles/analysis-and-plotting.html#size-resolved-diagnostics",
+    "href": "articles/analysis-and-plotting.html#size-resolved-diagnostics",
+    "title": "Analysis And Plotting",
+    "section": "",
+    "text": "For size-resolved outputs, xarray works well directly:\npred_mort = sim.pred_mort()\ndiet = sim.diet()\n\ncod_pred_mort = pred_mort.sel(sp=\"Cod\")\ncod_diet = diet.sel(predator=\"Cod\")\nTypical use cases are:\n\nselecting one species with .sel(sp=\"Cod\")\nslicing along time or size dimensions\nconverting a smaller slice to a DataFrame with .to_dataframe()"
+  },
+  {
+    "objectID": "articles/analysis-and-plotting.html#example-plots",
+    "href": "articles/analysis-and-plotting.html#example-plots",
+    "title": "Analysis And Plotting",
+    "section": "",
+    "text": "Because matplotlib is a package dependency, a simple workflow is:\nimport matplotlib.pyplot as plt\n\nfig, ax = plt.subplots(figsize=(8, 4))\nbiomass[[\"Cod\", \"Haddock\", \"Herring\"]].plot(ax=ax)\nax.set_ylabel(\"Biomass\")\nax.set_title(\"North Sea Biomass Through Time\")\nfig.tight_layout()\nFor a size-resolved plot:\nfig, ax = plt.subplots(figsize=(8, 4))\ncod_pred_mort.plot(ax=ax)\nax.set_title(\"Cod Predation Mortality By Size\")\nfig.tight_layout()"
+  },
+  {
+    "objectID": "articles/analysis-and-plotting.html#indicators-for-quick-comparison",
+    "href": "articles/analysis-and-plotting.html#indicators-for-quick-comparison",
+    "title": "Analysis And Plotting",
+    "section": "",
+    "text": "The scalar and vector indicators are useful for concise summaries:\nlarge_fish = sim.proportion_of_large_fish()\nmean_weight = sim.mean_weight()\ncommunity_slope = sim.community_slope()\nThese give:\n\nlarge_fish: pandas.Series\nmean_weight: pandas.Series\ncommunity_slope: pandas.DataFrame\n\nThey work well for quick before/after comparisons when you edit parameters and rerun the model."
+  },
+  {
+    "objectID": "articles/analysis-and-plotting.html#runnable-example",
+    "href": "articles/analysis-and-plotting.html#runnable-example",
+    "title": "Analysis And Plotting",
+    "section": "",
+    "text": "A runnable version of this workflow lives in examples/north_sea_analysis.py.\nThe script:\n\nloads the North Sea bundle\nruns a short projection\nprints a few tidy summaries\nsaves PNG plots into examples/output"
+  },
+  {
+    "objectID": "articles/north-sea-model.html",
+    "href": "articles/north-sea-model.html",
+    "title": "North Sea Model",
+    "section": "",
+    "text": "This article shows the recommended first workflow for a realistic built-in example model in pymizer: load the bundled North Sea datasets, inspect the inputs, run a short projection, and explore the results in Python-native data structures.\n\n\nimport pymizer as mz\n\nnorth_sea = mz.load_north_sea()\n\nspecies = north_sea.species_params\ninteraction = north_sea.interaction\nparams = north_sea.params\nsim = north_sea.sim\nThe bundle keeps the matching example pieces together:\n\nspecies: pandas.DataFrame\ninteraction: pandas.DataFrame\nparams: pymizer.MizerParams\nsim: pymizer.MizerSim\n\nIf available in the installed mizer version, the bundle also includes north_sea.species_params_gears.\n\n\n\nThe bundled North Sea inputs are immediately usable from Python:\nprint(species.head(2))\nprint(interaction.iloc[:2, :2])\nTypical output looks like:\n   species  w_max  w_mat    beta  sigma   k_vb         R_max  w_inf\n1    Sprat   33.0     13   51076    0.8  0.681  7.380000e+11   33.0\n2  Sandeel   36.0      4  398849    1.9  1.000  4.100000e+11   36.0\n\n            Sprat   Sandeel\nSprat    0.729129  0.034084\nSandeel  0.034084  0.681199\n\n\n\nThe bundled params object is already a wrapped MizerParams, so you can inspect the current state immediately:\nprint(params.biomass().head())\nExample:\nSprat      4.054293e+11\nSandeel    5.589441e+12\nN.pout     4.762654e+11\nHerring    1.467576e+12\nDab        1.056360e+10\n\n\n\nYou can project the bundled model forward from Python:\nshort_sim = params.project(\n    t_max=1,\n    dt=0.1,\n    t_save=1,\n    effort=0,\n    progress_bar=False,\n)\n\nprint(short_sim.biomass().iloc[:2, :3])\nExample output:\nspecies         Sprat       Sandeel        N.pout\ntime\n1967     5.083638e+10  3.652370e+12  3.698381e+11\n1968     5.569864e+10  3.737535e+12  3.929766e+11\n\n\n\nThe North Sea model is large enough to make the richer analysis methods useful:\ndiet = short_sim.diet()\npred_mort = short_sim.pred_mort()\nlarge_fish = short_sim.proportion_of_large_fish()\nTypical return types are:\n\nshort_sim.biomass(): pandas.DataFrame\nshort_sim.diet(): xarray.DataArray\nshort_sim.pred_mort(): xarray.DataArray\nshort_sim.proportion_of_large_fish(): pandas.Series\n\n\n\n\nBecause the bundled object is a normal MizerParams, it works with the Phase 3 editing surface as well:\nedited = params.set_metadata(\n    title=\"North Sea example\",\n    description=\"Edited from Python\",\n)\n\nedited_sim = edited.project(t_max=1, dt=0.1, t_save=1, effort=0, progress_bar=False)\nThis makes the bundled North Sea model a good starting point for notebooks, tests, and examples.\nFor a notebook-style follow-up that reshapes outputs and adds plotting, see Analysis And Plotting."
+  },
+  {
+    "objectID": "articles/north-sea-model.html#load-the-bundle",
+    "href": "articles/north-sea-model.html#load-the-bundle",
+    "title": "North Sea Model",
+    "section": "",
+    "text": "import pymizer as mz\n\nnorth_sea = mz.load_north_sea()\n\nspecies = north_sea.species_params\ninteraction = north_sea.interaction\nparams = north_sea.params\nsim = north_sea.sim\nThe bundle keeps the matching example pieces together:\n\nspecies: pandas.DataFrame\ninteraction: pandas.DataFrame\nparams: pymizer.MizerParams\nsim: pymizer.MizerSim\n\nIf available in the installed mizer version, the bundle also includes north_sea.species_params_gears."
+  },
+  {
+    "objectID": "articles/north-sea-model.html#inspect-the-inputs",
+    "href": "articles/north-sea-model.html#inspect-the-inputs",
+    "title": "North Sea Model",
+    "section": "",
+    "text": "The bundled North Sea inputs are immediately usable from Python:\nprint(species.head(2))\nprint(interaction.iloc[:2, :2])\nTypical output looks like:\n   species  w_max  w_mat    beta  sigma   k_vb         R_max  w_inf\n1    Sprat   33.0     13   51076    0.8  0.681  7.380000e+11   33.0\n2  Sandeel   36.0      4  398849    1.9  1.000  4.100000e+11   36.0\n\n            Sprat   Sandeel\nSprat    0.729129  0.034084\nSandeel  0.034084  0.681199"
+  },
+  {
+    "objectID": "articles/north-sea-model.html#inspect-the-built-in-model",
+    "href": "articles/north-sea-model.html#inspect-the-built-in-model",
+    "title": "North Sea Model",
+    "section": "",
+    "text": "The bundled params object is already a wrapped MizerParams, so you can inspect the current state immediately:\nprint(params.biomass().head())\nExample:\nSprat      4.054293e+11\nSandeel    5.589441e+12\nN.pout     4.762654e+11\nHerring    1.467576e+12\nDab        1.056360e+10"
+  },
+  {
+    "objectID": "articles/north-sea-model.html#run-a-short-projection",
+    "href": "articles/north-sea-model.html#run-a-short-projection",
+    "title": "North Sea Model",
+    "section": "",
+    "text": "You can project the bundled model forward from Python:\nshort_sim = params.project(\n    t_max=1,\n    dt=0.1,\n    t_save=1,\n    effort=0,\n    progress_bar=False,\n)\n\nprint(short_sim.biomass().iloc[:2, :3])\nExample output:\nspecies         Sprat       Sandeel        N.pout\ntime\n1967     5.083638e+10  3.652370e+12  3.698381e+11\n1968     5.569864e+10  3.737535e+12  3.929766e+11"
+  },
+  {
+    "objectID": "articles/north-sea-model.html#explore-the-results",
+    "href": "articles/north-sea-model.html#explore-the-results",
+    "title": "North Sea Model",
+    "section": "",
+    "text": "The North Sea model is large enough to make the richer analysis methods useful:\ndiet = short_sim.diet()\npred_mort = short_sim.pred_mort()\nlarge_fish = short_sim.proportion_of_large_fish()\nTypical return types are:\n\nshort_sim.biomass(): pandas.DataFrame\nshort_sim.diet(): xarray.DataArray\nshort_sim.pred_mort(): xarray.DataArray\nshort_sim.proportion_of_large_fish(): pandas.Series"
+  },
+  {
+    "objectID": "articles/north-sea-model.html#edit-and-rerun",
+    "href": "articles/north-sea-model.html#edit-and-rerun",
+    "title": "North Sea Model",
+    "section": "",
+    "text": "Because the bundled object is a normal MizerParams, it works with the Phase 3 editing surface as well:\nedited = params.set_metadata(\n    title=\"North Sea example\",\n    description=\"Edited from Python\",\n)\n\nedited_sim = edited.project(t_max=1, dt=0.1, t_save=1, effort=0, progress_bar=False)\nThis makes the bundled North Sea model a good starting point for notebooks, tests, and examples.\nFor a notebook-style follow-up that reshapes outputs and adds plotting, see Analysis And Plotting."
+  },
+  {
+    "objectID": "news.html",
+    "href": "news.html",
+    "title": "News",
+    "section": "",
+    "text": "Initial pymizer proof-of-concept package added under python/\nAdded wrappers for MizerParams, MizerSim, model constructors, and simulation output accessors\nAdded built-in dataset access from Python\nAdded a MkDocs documentation site with articles and API reference"
+  },
+  {
+    "objectID": "news.html#section",
+    "href": "news.html#section",
+    "title": "News",
+    "section": "",
+    "text": "Initial pymizer proof-of-concept package added under python/\nAdded wrappers for MizerParams, MizerSim, model constructors, and simulation output accessors\nAdded built-in dataset access from Python\nAdded a MkDocs documentation site with articles and API reference"
+  },
+  {
+    "objectID": "reference/model.html",
+    "href": "reference/model.html",
+    "title": "Model API",
+    "section": "",
+    "text": "The model API combines constructor functions with two wrapper classes: MizerParams for configured models and MizerSim for projection results.\n\n\n\nnew_community_params()\nnew_multispecies_params()\nnew_single_species_params()\nread_params()\n\n\n\n\n\nstate inspection: initial_n(), initial_n_resource(), biomass(), abundance(), ssb()\nsize-resolved rates: pred_rate(), pred_mort(), feeding_level(), diet(), trophic_level(), pred_kernel()\nindicators: mean_weight(), mean_max_weight(), proportion_of_large_fish(), community_slope()\nparameter editing: set_interaction(), set_resource(), set_initial_values(), set_metadata(), set_reproduction(), set_search_volume(), set_max_intake_rate(), set_metabolic_rate(), set_pred_kernel()\nsteady-state workflows: project_to_steady(), steady(), steady_single_species()\nsimulation: project()\n\n\n\n\n\nprojection summaries: times(), biomass(), abundance(), yield_(), ssb()\nstate and rate diagnostics: initial_n(), initial_n_resource(), pred_rate(), pred_mort(), feeding_level(), f_mort(), f_mort_gear()\necological summaries: diet(), growth_curves(), trophic_level(), trophic_level_by_species()\n\n\n\n\nThe editing methods mirror the mizer design: they do not mutate the current object in place. Instead they return a new MizerParams wrapper with the updated R object inside it.\nTypical usage looks like:\ninteraction = params.interaction_matrix()\ninteraction.iloc[0, 1] = 0.0\n\nupdated = params.set_interaction(interaction)\nsim = updated.project(t_max=2, dt=0.1, t_save=1, effort=0, progress_bar=False)\n\n\n\nThe wrapper exposes both lower-level and higher-level steady-state helpers:\n\nproject_to_steady() searches for convergence under the current dynamics\nsteady() applies the more opinionated mizer::steady() workflow\nsteady_single_species() solves selected species against the current rates\n\n\n\n\nMany summary methods accept arguments such as species=, min_w=, max_w=, min_l=, and max_l=. In general:\n\ntime-by-species summaries return pandas.DataFrame\nspectra and size-resolved arrays return xarray.DataArray\none-dimensional indicators return float or pandas.Series\n\n\n\n\nFor full signatures, docstrings, and class reference pages, see:\n\nMizerParams\nMizerSim\nnew_community_params\nnew_multispecies_params\nnew_single_species_params\nread_params"
+  },
+  {
+    "objectID": "reference/model.html#constructors",
+    "href": "reference/model.html#constructors",
+    "title": "Model API",
+    "section": "",
+    "text": "new_community_params()\nnew_multispecies_params()\nnew_single_species_params()\nread_params()"
+  },
+  {
+    "objectID": "reference/model.html#common-mizerparams-methods",
+    "href": "reference/model.html#common-mizerparams-methods",
+    "title": "Model API",
+    "section": "",
+    "text": "state inspection: initial_n(), initial_n_resource(), biomass(), abundance(), ssb()\nsize-resolved rates: pred_rate(), pred_mort(), feeding_level(), diet(), trophic_level(), pred_kernel()\nindicators: mean_weight(), mean_max_weight(), proportion_of_large_fish(), community_slope()\nparameter editing: set_interaction(), set_resource(), set_initial_values(), set_metadata(), set_reproduction(), set_search_volume(), set_max_intake_rate(), set_metabolic_rate(), set_pred_kernel()\nsteady-state workflows: project_to_steady(), steady(), steady_single_species()\nsimulation: project()"
+  },
+  {
+    "objectID": "reference/model.html#common-mizersim-methods",
+    "href": "reference/model.html#common-mizersim-methods",
+    "title": "Model API",
+    "section": "",
+    "text": "projection summaries: times(), biomass(), abundance(), yield_(), ssb()\nstate and rate diagnostics: initial_n(), initial_n_resource(), pred_rate(), pred_mort(), feeding_level(), f_mort(), f_mort_gear()\necological summaries: diet(), growth_curves(), trophic_level(), trophic_level_by_species()"
+  },
+  {
+    "objectID": "reference/model.html#editing-workflow",
+    "href": "reference/model.html#editing-workflow",
+    "title": "Model API",
+    "section": "",
+    "text": "The editing methods mirror the mizer design: they do not mutate the current object in place. Instead they return a new MizerParams wrapper with the updated R object inside it.\nTypical usage looks like:\ninteraction = params.interaction_matrix()\ninteraction.iloc[0, 1] = 0.0\n\nupdated = params.set_interaction(interaction)\nsim = updated.project(t_max=2, dt=0.1, t_save=1, effort=0, progress_bar=False)"
+  },
+  {
+    "objectID": "reference/model.html#steady-state-workflow",
+    "href": "reference/model.html#steady-state-workflow",
+    "title": "Model API",
+    "section": "",
+    "text": "The wrapper exposes both lower-level and higher-level steady-state helpers:\n\nproject_to_steady() searches for convergence under the current dynamics\nsteady() applies the more opinionated mizer::steady() workflow\nsteady_single_species() solves selected species against the current rates"
+  },
+  {
+    "objectID": "reference/model.html#filtering-and-return-types",
+    "href": "reference/model.html#filtering-and-return-types",
+    "title": "Model API",
+    "section": "",
+    "text": "Many summary methods accept arguments such as species=, min_w=, max_w=, min_l=, and max_l=. In general:\n\ntime-by-species summaries return pandas.DataFrame\nspectra and size-resolved arrays return xarray.DataArray\none-dimensional indicators return float or pandas.Series"
+  },
+  {
+    "objectID": "reference/model.html#generated-api-pages",
+    "href": "reference/model.html#generated-api-pages",
+    "title": "Model API",
+    "section": "",
+    "text": "For full signatures, docstrings, and class reference pages, see:\n\nMizerParams\nMizerSim\nnew_community_params\nnew_multispecies_params\nnew_single_species_params\nread_params"
+  },
+  {
+    "objectID": "reference/datasets.html",
+    "href": "reference/datasets.html",
+    "title": "Dataset API",
+    "section": "",
+    "text": "The dataset helpers expose the example data that ships with the R mizer package.\nUse them to:\n\ndiscover available built-in datasets with list_datasets()\nload tabular inputs such as NS_species_params and NS_interaction\nload wrapped model objects such as NS_params and NS_sim\nload the commonly used North Sea example bundle with load_north_sea()\n\nThese helpers are a convenient way to try pymizer without preparing your own input files first.\n\n\nFor signatures, return types, and docstrings, see:\n\nNorthSeaExample\nlist_datasets\nload_dataset\nload_north_sea"
+  },
+  {
+    "objectID": "reference/datasets.html#generated-api-pages",
+    "href": "reference/datasets.html#generated-api-pages",
+    "title": "Dataset API",
+    "section": "",
+    "text": "For signatures, return types, and docstrings, see:\n\nNorthSeaExample\nlist_datasets\nload_dataset\nload_north_sea"
+  },
+  {
+    "objectID": "reference/index.html",
+    "href": "reference/index.html",
+    "title": "Reference Overview",
+    "section": "",
+    "text": "The pymizer reference now has two layers:\n\nhigh-level guide pages in this reference/ section\ngenerated API pages under API Reference, built from the package source with quartodoc\n\n\n\n\nModel API: model constructors and wrapper classes\nDataset API: list and load packaged example datasets\nR Bridge API: lower-level access to the embedded R environment\nAPI Reference: generated signatures and docstrings for the public Python surface\n\n\n\n\nThe current pymizer API is centred around three parts of the workflow:\n\nmodel construction with new_community_params(), new_multispecies_params(), new_single_species_params(), and read_params()\nsimulation with MizerParams.project()\ninspection through MizerParams and MizerSim methods that return pandas, numpy, or xarray objects\n\n\n\n\n\ntabular summaries such as sim.biomass() and sim.abundance() return pandas.DataFrame\nstate spectra such as params.initial_n() and sim.pred_rate() return xarray.DataArray by default\none-dimensional indicator outputs such as params.mean_weight() or params.initial_n_resource() return Python scalars or pandas.Series\n\n\n\n\n\nuse params.initial_n() and params.initial_n_resource() to inspect the starting state before a projection\nuse sim.biomass(), sim.abundance(), and sim.ssb() for time-by-species summaries\nuse sim.pred_rate(), sim.pred_mort(), sim.feeding_level(), and sim.diet() for size-resolved diagnostics\nuse filter arguments such as species=, min_w=, max_w=, min_l=, and max_l= on supported summary methods to stay within Python for common exploratory analysis\n\n\n\n\nThe public API deliberately stays narrower than the full R package:\n\nconstructor functions are exposed at top level\nMizerParams and MizerSim provide the most common workflows\nraw R objects remain accessible through the .r property when needed\n\nFor full signatures and class pages, use the generated API Reference."
+  },
+  {
+    "objectID": "reference/index.html#guide-pages",
+    "href": "reference/index.html#guide-pages",
+    "title": "Reference Overview",
+    "section": "",
+    "text": "Model API: model constructors and wrapper classes\nDataset API: list and load packaged example datasets\nR Bridge API: lower-level access to the embedded R environment\nAPI Reference: generated signatures and docstrings for the public Python surface"
+  },
+  {
+    "objectID": "reference/index.html#key-wrapper-surfaces",
+    "href": "reference/index.html#key-wrapper-surfaces",
+    "title": "Reference Overview",
+    "section": "",
+    "text": "The current pymizer API is centred around three parts of the workflow:\n\nmodel construction with new_community_params(), new_multispecies_params(), new_single_species_params(), and read_params()\nsimulation with MizerParams.project()\ninspection through MizerParams and MizerSim methods that return pandas, numpy, or xarray objects"
+  },
+  {
+    "objectID": "reference/index.html#common-return-types",
+    "href": "reference/index.html#common-return-types",
+    "title": "Reference Overview",
+    "section": "",
+    "text": "tabular summaries such as sim.biomass() and sim.abundance() return pandas.DataFrame\nstate spectra such as params.initial_n() and sim.pred_rate() return xarray.DataArray by default\none-dimensional indicator outputs such as params.mean_weight() or params.initial_n_resource() return Python scalars or pandas.Series"
+  },
+  {
+    "objectID": "reference/index.html#common-analysis-patterns",
+    "href": "reference/index.html#common-analysis-patterns",
+    "title": "Reference Overview",
+    "section": "",
+    "text": "use params.initial_n() and params.initial_n_resource() to inspect the starting state before a projection\nuse sim.biomass(), sim.abundance(), and sim.ssb() for time-by-species summaries\nuse sim.pred_rate(), sim.pred_mort(), sim.feeding_level(), and sim.diet() for size-resolved diagnostics\nuse filter arguments such as species=, min_w=, max_w=, min_l=, and max_l= on supported summary methods to stay within Python for common exploratory analysis"
+  },
+  {
+    "objectID": "reference/index.html#design-notes",
+    "href": "reference/index.html#design-notes",
+    "title": "Reference Overview",
+    "section": "",
+    "text": "The public API deliberately stays narrower than the full R package:\n\nconstructor functions are exposed at top level\nMizerParams and MizerSim provide the most common workflows\nraw R objects remain accessible through the .r property when needed\n\nFor full signatures and class pages, use the generated API Reference."
+  },
+  {
+    "objectID": "reference/bridge.html",
+    "href": "reference/bridge.html",
+    "title": "R Bridge API",
+    "section": "",
+    "text": "The bridge API covers the lower-level runtime layer that connects Python to the embedded R session.\nMost users only need:\n\nget_environment() to inspect the shared bridge instance\nruntime_diagnostics() to troubleshoot setup problems\nevaluate_versions() and CompatibilityReport to reason about supported runtime combinations\n\nYou can also use MizerREnvironment directly when you need to inspect raw R objects or call additional exported mizer functions.\n\n\nFor signatures, runtime compatibility details, and lower-level class reference pages, see:\n\nCompatibilityReport\nMizerREnvironment\nevaluate_versions\nget_environment\nruntime_diagnostics"
+  },
+  {
+    "objectID": "reference/bridge.html#generated-api-pages",
+    "href": "reference/bridge.html#generated-api-pages",
+    "title": "R Bridge API",
+    "section": "",
+    "text": "For signatures, runtime compatibility details, and lower-level class reference pages, see:\n\nCompatibilityReport\nMizerREnvironment\nevaluate_versions\nget_environment\nruntime_diagnostics"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "pymizer",
+    "section": "",
+    "text": "pymizer brings core mizer workflows into Python while continuing to rely on the mature R implementation for the actual model logic and numerical solvers.\nThe current wrapper focuses on the common interactive workflow:\n\nload or construct a MizerParams model\nrun a projection with project()\npull results back into Python as pandas, numpy, or xarray\n\nimport pymizer as mz\n\nparams = mz.new_community_params(no_w=20)\nsim = params.project(t_max=5, dt=0.1, t_save=1, progress_bar=False)\n\nbiomass = sim.biomass()\ntimes = sim.times()\n\n\nmizer already has a rich R API and excellent package documentation. The goal of pymizer is not to replace that ecosystem, but to make it easier to:\n\nuse mizer from Python notebooks and analysis scripts\nmove simulation outputs directly into the Python data stack\naccess packaged example datasets from Python\nkeep the Python interface close to the mental model of the R package\n\n\n\n\nThe wrapper currently supports:\n\nconstructing models with new_multispecies_params(), new_single_species_params(), and new_community_params()\nloading saved models with read_params()\nrunning simulations through MizerParams.project()\naccessing common outputs from MizerSim\nlisting and loading built-in mizer datasets\n\nAdvanced extension mechanisms in mizer, especially custom rate functions, are not yet wrapped in a Python-native way.\n\n\n\n\nGet Started shows installation and the first simulation.\nArticles provides worked examples.\nReference Overview summarises the public Python API.\nAPI Reference is generated from the package source with quartodoc.\nNews summarises recent changes to the wrapper."
+  },
+  {
+    "objectID": "index.html#why-a-python-wrapper",
+    "href": "index.html#why-a-python-wrapper",
+    "title": "pymizer",
+    "section": "",
+    "text": "mizer already has a rich R API and excellent package documentation. The goal of pymizer is not to replace that ecosystem, but to make it easier to:\n\nuse mizer from Python notebooks and analysis scripts\nmove simulation outputs directly into the Python data stack\naccess packaged example datasets from Python\nkeep the Python interface close to the mental model of the R package"
+  },
+  {
+    "objectID": "index.html#current-scope",
+    "href": "index.html#current-scope",
+    "title": "pymizer",
+    "section": "",
+    "text": "The wrapper currently supports:\n\nconstructing models with new_multispecies_params(), new_single_species_params(), and new_community_params()\nloading saved models with read_params()\nrunning simulations through MizerParams.project()\naccessing common outputs from MizerSim\nlisting and loading built-in mizer datasets\n\nAdvanced extension mechanisms in mizer, especially custom rate functions, are not yet wrapped in a Python-native way."
+  },
+  {
+    "objectID": "index.html#site-guide",
+    "href": "index.html#site-guide",
+    "title": "pymizer",
+    "section": "",
+    "text": "Get Started shows installation and the first simulation.\nArticles provides worked examples.\nReference Overview summarises the public Python API.\nAPI Reference is generated from the package source with quartodoc.\nNews summarises recent changes to the wrapper."
+  },
+  {
+    "objectID": "articles/community-model.html",
+    "href": "articles/community-model.html",
+    "title": "Community Model",
+    "section": "",
+    "text": "This executable article mirrors the lightest-weight path through the wrapper: create a community model in Python, run a projection in R through mizer, and bring the results back into Python objects."
+  },
+  {
+    "objectID": "articles/community-model.html#create-and-project",
+    "href": "articles/community-model.html#create-and-project",
+    "title": "Community Model",
+    "section": "Create And Project",
+    "text": "Create And Project\n\nimport pymizer as mz\n\nparams = mz.new_community_params(no_w=20)\nsim = params.project(\n    t_max=5,\n    dt=0.1,\n    t_save=1,\n    progress_bar=False,\n)\n\nThe projection returns a wrapped MizerSim object that we can query directly from Python:\n\ntimes = sim.times()\nbiomass = sim.biomass()\n\nprint(times)\nprint()\nprint(biomass.to_string())\n\n[0. 1. 2. 3. 4. 5.]\n\nspecies     Community\ntime                 \n0        34926.721959\n1        46146.578715\n2        50503.969482\n3        52101.198790\n4        52906.953622\n5        53493.609873"
+  },
+  {
+    "objectID": "articles/community-model.html#inspect-outputs",
+    "href": "articles/community-model.html#inspect-outputs",
+    "title": "Community Model",
+    "section": "Inspect Outputs",
+    "text": "Inspect Outputs\nThe returned objects are chosen to feel natural in Python:\n\nabundance = sim.abundance()\nresource = sim.n_resource()\ninitial_n = params.initial_n()\ninitial_resource = params.initial_n_resource()\npred_rate = sim.pred_rate()\n\nfor name, value in [\n    (\"times\", times),\n    (\"biomass\", biomass),\n    (\"abundance\", abundance),\n    (\"resource\", resource),\n    (\"initial_n\", initial_n),\n    (\"initial_resource\", initial_resource),\n    (\"pred_rate\", pred_rate),\n]:\n    print(f\"{name}: {type(value).__name__}\")\n\ntimes: ndarray\nbiomass: DataFrame\nabundance: DataFrame\nresource: DataArray\ninitial_n: DataArray\ninitial_resource: Series\npred_rate: DataArray\n\n\nA quick look at the resource spectrum from the first saved time step:\n\nprint(resource.isel(time=0).to_pandas().head().to_string())\n\nw\n7.85e-11    5.197440e+23\n2.34e-10    5.555675e+22\n6.95e-10    5.938602e+21\n2.07e-09    6.347922e+20\n6.16e-09    6.785455e+19"
+  },
+  {
+    "objectID": "articles/community-model.html#focus-on-a-size-range",
+    "href": "articles/community-model.html#focus-on-a-size-range",
+    "title": "Community Model",
+    "section": "Focus On A Size Range",
+    "text": "Focus On A Size Range\nThe high-level summary methods can also be narrowed to a size range without leaving Python:\n\ncommunity_biomass = sim.biomass(min_w=1, max_w=1000)\ncommunity_abundance = sim.abundance(min_w=1, max_w=1000)\nmean_weight = params.mean_weight(min_w=1, max_w=1000)\nlarge_fish = params.proportion_of_large_fish(threshold_w=100)\n\ndef show(value):\n    print(value.to_string() if hasattr(value, \"to_string\") else value)\n\nprint(community_biomass.to_string())\nprint()\nprint(community_abundance.to_string())\nprint()\nshow(mean_weight)\nprint()\nshow(large_fish)\n\nspecies     Community\ntime                 \n0        10020.682639\n1        19750.053450\n2        23042.991156\n3        23508.256860\n4        23267.975191\n5        22722.944352\n\nspecies    Community\ntime                \n0        1349.415244\n1        3381.503254\n2        2472.634763\n3        1960.837934\n4        1937.719916\n5        2077.203355\n\n7.425944450680252\n\n0.32061391752645263"
+  },
+  {
+    "objectID": "articles/community-model.html#edit-and-reuse-a-model",
+    "href": "articles/community-model.html#edit-and-reuse-a-model",
+    "title": "Community Model",
+    "section": "Edit And Reuse A Model",
+    "text": "Edit And Reuse A Model\nThe wrapper preserves the mizer pattern where parameter edits return a new model object:\n\nedited = params.set_metadata(\n    title=\"Community demo\",\n    description=\"Edited from Python\",\n)\n\nsteady_ready = edited.set_initial_values(sim)\n\nsearch_vol = params.search_volume(as_xarray=False).copy()\nsearch_vol[:] = search_vol * 1.05\n\nretuned = params.set_search_volume(search_vol)\n\nThis pattern also applies to set_interaction(), set_reproduction(), set_max_intake_rate(), set_metabolic_rate(), and set_pred_kernel()."
+  },
+  {
+    "objectID": "articles/community-model.html#steady-state-helpers",
+    "href": "articles/community-model.html#steady-state-helpers",
+    "title": "Community Model",
+    "section": "Steady-State Helpers",
+    "text": "Steady-State Helpers\nFor steady-state-oriented workflows, pymizer exposes the mizer helpers directly. These heavier examples are left unevaluated in the prototype so the rendered article stays fast:\n\nsteady_params = params.project_to_steady(\n    t_per=0.5,\n    t_max=0.5,\n    dt=0.1,\n    progress_bar=False,\n    info_level=0,\n)\n\nFor larger packaged models such as NS_params, you can also use:\n\nns_params = mz.load_dataset(\"NS_params\")\nns_steady = ns_params.steady(\n    t_per=1.5,\n    t_max=1.5,\n    dt=0.1,\n    progress_bar=False,\n    info_level=0,\n)"
+  },
+  {
+    "objectID": "articles/community-model.html#notes",
+    "href": "articles/community-model.html#notes",
+    "title": "Community Model",
+    "section": "Notes",
+    "text": "Notes\n\nThe model construction and projection are still performed by the R mizer package.\nThe Python layer mainly handles conversion, object wrapping, and ergonomics.\nWhen debugging environment problems, it is worth checking both Python and R package availability.\n\nThis first executable article keeps the code path small on purpose. Once the Quarto workflow is in place, the same pattern can be extended to the larger North Sea and plotting articles."
+  },
+  {
+    "objectID": "articles/datasets.html",
+    "href": "articles/datasets.html",
+    "title": "Datasets",
+    "section": "",
+    "text": "The R package ships with several example datasets that are useful both for testing the wrapper and for learning the mizer workflow from Python.\n\n\nimport pymizer as mz\n\ndatasets = mz.list_datasets()\nprint(datasets)\nTypical entries include:\n\nNS_species_params\nNS_species_params_gears\nNS_interaction\nNS_params\nNS_sim\n\n\n\n\nspecies = mz.load_dataset(\"NS_species_params\")\ninteraction = mz.load_dataset(\"NS_interaction\")\nparams = mz.load_dataset(\"NS_params\")\nsim = mz.load_dataset(\"NS_sim\")\n\n\n\nload_dataset() maps dataset types to the closest Python representation:\n\nR data.frame -&gt; pandas.DataFrame\nR matrix -&gt; pandas.DataFrame with row and column labels\nMizerParams -&gt; pymizer.MizerParams\nMizerSim -&gt; pymizer.MizerSim\n\n\n\n\nFor the common North Sea example workflow, pymizer can load the matching datasets together:\nimport pymizer as mz\n\nnorth_sea = mz.load_north_sea()\n\nspecies = north_sea.species_params\ninteraction = north_sea.interaction\nparams = north_sea.params\nsim = north_sea.sim\nThis is usually the most convenient entry point for a notebook because the tabular inputs and wrapped model objects stay grouped together. A runnable version of this workflow lives in examples/north_sea.py.\n\n\n\nYou can rebuild the North Sea parameter object from Python inputs:\nspecies = mz.load_dataset(\"NS_species_params\")\ninteraction = mz.load_dataset(\"NS_interaction\")\n\nparams = mz.new_multispecies_params(\n    species_params=species,\n    interaction=interaction,\n)\nThis is often the most convenient starting point for notebooks because the inputs are already in pandas."
+  },
+  {
+    "objectID": "articles/datasets.html#list-available-datasets",
+    "href": "articles/datasets.html#list-available-datasets",
+    "title": "Datasets",
+    "section": "",
+    "text": "import pymizer as mz\n\ndatasets = mz.list_datasets()\nprint(datasets)\nTypical entries include:\n\nNS_species_params\nNS_species_params_gears\nNS_interaction\nNS_params\nNS_sim"
+  },
+  {
+    "objectID": "articles/datasets.html#load-a-dataset",
+    "href": "articles/datasets.html#load-a-dataset",
+    "title": "Datasets",
+    "section": "",
+    "text": "species = mz.load_dataset(\"NS_species_params\")\ninteraction = mz.load_dataset(\"NS_interaction\")\nparams = mz.load_dataset(\"NS_params\")\nsim = mz.load_dataset(\"NS_sim\")"
+  },
+  {
+    "objectID": "articles/datasets.html#returned-python-types",
+    "href": "articles/datasets.html#returned-python-types",
+    "title": "Datasets",
+    "section": "",
+    "text": "load_dataset() maps dataset types to the closest Python representation:\n\nR data.frame -&gt; pandas.DataFrame\nR matrix -&gt; pandas.DataFrame with row and column labels\nMizerParams -&gt; pymizer.MizerParams\nMizerSim -&gt; pymizer.MizerSim"
+  },
+  {
+    "objectID": "articles/datasets.html#load-the-north-sea-bundle",
+    "href": "articles/datasets.html#load-the-north-sea-bundle",
+    "title": "Datasets",
+    "section": "",
+    "text": "For the common North Sea example workflow, pymizer can load the matching datasets together:\nimport pymizer as mz\n\nnorth_sea = mz.load_north_sea()\n\nspecies = north_sea.species_params\ninteraction = north_sea.interaction\nparams = north_sea.params\nsim = north_sea.sim\nThis is usually the most convenient entry point for a notebook because the tabular inputs and wrapped model objects stay grouped together. A runnable version of this workflow lives in examples/north_sea.py."
+  },
+  {
+    "objectID": "articles/datasets.html#north-sea-example",
+    "href": "articles/datasets.html#north-sea-example",
+    "title": "Datasets",
+    "section": "",
+    "text": "You can rebuild the North Sea parameter object from Python inputs:\nspecies = mz.load_dataset(\"NS_species_params\")\ninteraction = mz.load_dataset(\"NS_interaction\")\n\nparams = mz.new_multispecies_params(\n    species_params=species,\n    interaction=interaction,\n)\nThis is often the most convenient starting point for notebooks because the inputs are already in pandas."
+  },
+  {
+    "objectID": "get-started.html",
+    "href": "get-started.html",
+    "title": "Get Started",
+    "section": "",
+    "text": "To use pymizer, you need:\n\nPython 3.10 or later\nR installed and available on your path\nthe mizer R package installed in your R library\n\n\n\n\nFor development from this repository:\npython3 -m venv python/.venv\npython/.venv/bin/pip install -e ./python\nTo install documentation tooling as well:\npython/.venv/bin/pip install -e './python[docs]'\n\n\n\nThe simplest way to confirm the bridge is working is to build a small community model and run a short projection:\nimport pymizer as mz\n\nparams = mz.new_community_params(no_w=20)\nsim = params.project(\n    t_max=5,\n    dt=0.1,\n    t_save=1,\n    progress_bar=False,\n)\n\nprint(sim.times())\nprint(sim.biomass())\nExpected result:\n\nsim.times() returns a NumPy array of saved years\nsim.biomass() returns a labelled pandas.DataFrame\n\n\n\n\nOnce a model is loaded or created, you can inspect both the initial state and the projected state without dropping into raw R objects:\nimport pymizer as mz\n\nparams = mz.new_community_params(no_w=20)\nsim = params.project(t_max=5, dt=0.1, t_save=1, progress_bar=False)\n\ninitial_n = params.initial_n()\ninitial_resource = params.initial_n_resource()\npred_rate = sim.pred_rate()\npred_mort = sim.pred_mort()\nTypical return types are:\n\ninitial_n: xarray.DataArray with dimensions (\"sp\", \"w\")\ninitial_resource: pandas.Series indexed by resource size\npred_rate: xarray.DataArray with dimensions (\"sp\", \"w_prey\")\npred_mort: xarray.DataArray with dimensions (\"time\", \"sp\", \"w\")\n\n\n\n\nMany summary methods accept the same species and size-range filters used by the R package:\nimport pymizer as mz\n\nspecies = mz.load_dataset(\"NS_species_params\")\ninteraction = mz.load_dataset(\"NS_interaction\")\nparams = mz.new_multispecies_params(species_params=species, interaction=interaction)\nsim = params.project(t_max=1, dt=0.1, t_save=1, effort=0, progress_bar=False)\n\ncod_haddock_growth = params.growth_curves(species=[\"Cod\", \"Haddock\"], max_age=5)\nmedium_biomass = sim.biomass(min_w=10, max_w=1000)\ncod_haddock_weight = params.mean_weight(species=[\"Cod\", \"Haddock\"], min_w=10, max_w=1000)\nSupported filter arguments vary by method, but the common ones are:\n\nspecies=\nmin_w= and max_w=\nmin_l= and max_l=\nmethod-specific options such as use_cutoff=, threshold_w=, and biomass=\n\n\n\n\npymizer now supports the common “load, tweak, rerun” workflow directly from Python. The editing methods follow the mizer pattern and return a new MizerParams object rather than mutating the existing one.\nimport pymizer as mz\n\nparams = mz.load_dataset(\"NS_params\")\n\ninteraction = params.interaction_matrix()\ninteraction.iloc[0, 1] = 0.0\n\nupdated = (\n    params\n    .set_interaction(interaction)\n    .set_metadata(title=\"North Sea example\", description=\"Edited from Python\")\n)\n\nsim = updated.project(t_max=2, dt=0.1, t_save=1, effort=0, progress_bar=False)\nUseful editing methods include:\n\nset_interaction()\nset_resource()\nset_initial_values()\nset_metadata()\nset_reproduction()\nset_search_volume()\nset_max_intake_rate()\nset_metabolic_rate()\nset_pred_kernel()\n\n\n\n\nThe wrapper also exposes the steady-state search helpers from mizer:\nimport pymizer as mz\n\nparams = mz.load_dataset(\"NS_params\")\n\nsteady_params = params.project_to_steady(\n    t_per=1.0,\n    t_max=5.0,\n    dt=0.1,\n    progress_bar=False,\n    info_level=0,\n)\n\nsingle_species_params = params.steady_single_species(keep=\"biomass\")\nAvailable helpers are:\n\nproject_to_steady() for the lower-level convergence search\nsteady() for the higher-level workflow that holds reproduction and resource dynamics constant during the search\nsteady_single_species() for solving selected species against the current rates\n\n\n\n\nThe wrapper can also load datasets shipped with the R package:\nimport pymizer as mz\n\nprint(mz.list_datasets())\n\nnorth_sea = mz.load_north_sea()\nspecies = mz.load_dataset(\"NS_species_params\")\ninteraction = mz.load_dataset(\"NS_interaction\")\nparams = mz.load_dataset(\"NS_params\")\nsim = mz.load_dataset(\"NS_sim\")\nReturned types depend on the dataset:\n\ntabular datasets become pandas.DataFrame\nNS_params becomes pymizer.MizerParams\nNS_sim becomes pymizer.MizerSim\n\nFor most users, the easiest way to start with a realistic model is the bundled North Sea helper:\nimport pymizer as mz\n\nnorth_sea = mz.load_north_sea()\n\nparams = north_sea.params\nsim = north_sea.params.project(t_max=1, dt=0.1, t_save=1, effort=0, progress_bar=False)\nThis returns the matching built-in pieces together:\n\nnorth_sea.species_params\nnorth_sea.interaction\nnorth_sea.params\nnorth_sea.sim\noptionally north_sea.species_params_gears when available in the installed mizer version\n\n\n\n\nThis website is built with Quarto, and the API reference pages are generated by quartodoc from the Python package source:\npython3 -m pip install -e '.[docs]'\nsource .venv/bin/activate\nquartodoc build --config docs/_quarto.yml\nQUARTO_PYTHON=\"$(pwd)/.venv/bin/python\" quarto render docs\nFor live preview during editing:\nsource .venv/bin/activate\nquartodoc build --config docs/_quarto.yml --watch\nQUARTO_PYTHON=\"$(pwd)/.venv/bin/python\" quarto preview docs\nquartodoc build reads docs/_quarto.yml and writes the generated API pages into docs/api/. Quarto then renders the hand-written .md and .qmd pages alongside that generated reference.\nSet QUARTO_PYTHON to the repository virtualenv so executable articles run against the same Python, rpy2, and R-backed pymizer environment as the library itself.\n\n\n\nOnce the site has been rendered into docs/_site/, publish it using your preferred Quarto or GitHub Pages workflow."
+  },
+  {
+    "objectID": "get-started.html#requirements",
+    "href": "get-started.html#requirements",
+    "title": "Get Started",
+    "section": "",
+    "text": "To use pymizer, you need:\n\nPython 3.10 or later\nR installed and available on your path\nthe mizer R package installed in your R library"
+  },
+  {
+    "objectID": "get-started.html#install",
+    "href": "get-started.html#install",
+    "title": "Get Started",
+    "section": "",
+    "text": "For development from this repository:\npython3 -m venv python/.venv\npython/.venv/bin/pip install -e ./python\nTo install documentation tooling as well:\npython/.venv/bin/pip install -e './python[docs]'"
+  },
+  {
+    "objectID": "get-started.html#first-simulation",
+    "href": "get-started.html#first-simulation",
+    "title": "Get Started",
+    "section": "",
+    "text": "The simplest way to confirm the bridge is working is to build a small community model and run a short projection:\nimport pymizer as mz\n\nparams = mz.new_community_params(no_w=20)\nsim = params.project(\n    t_max=5,\n    dt=0.1,\n    t_save=1,\n    progress_bar=False,\n)\n\nprint(sim.times())\nprint(sim.biomass())\nExpected result:\n\nsim.times() returns a NumPy array of saved years\nsim.biomass() returns a labelled pandas.DataFrame"
+  },
+  {
+    "objectID": "get-started.html#inspect-the-model-state",
+    "href": "get-started.html#inspect-the-model-state",
+    "title": "Get Started",
+    "section": "",
+    "text": "Once a model is loaded or created, you can inspect both the initial state and the projected state without dropping into raw R objects:\nimport pymizer as mz\n\nparams = mz.new_community_params(no_w=20)\nsim = params.project(t_max=5, dt=0.1, t_save=1, progress_bar=False)\n\ninitial_n = params.initial_n()\ninitial_resource = params.initial_n_resource()\npred_rate = sim.pred_rate()\npred_mort = sim.pred_mort()\nTypical return types are:\n\ninitial_n: xarray.DataArray with dimensions (\"sp\", \"w\")\ninitial_resource: pandas.Series indexed by resource size\npred_rate: xarray.DataArray with dimensions (\"sp\", \"w_prey\")\npred_mort: xarray.DataArray with dimensions (\"time\", \"sp\", \"w\")"
+  },
+  {
+    "objectID": "get-started.html#filter-common-summaries",
+    "href": "get-started.html#filter-common-summaries",
+    "title": "Get Started",
+    "section": "",
+    "text": "Many summary methods accept the same species and size-range filters used by the R package:\nimport pymizer as mz\n\nspecies = mz.load_dataset(\"NS_species_params\")\ninteraction = mz.load_dataset(\"NS_interaction\")\nparams = mz.new_multispecies_params(species_params=species, interaction=interaction)\nsim = params.project(t_max=1, dt=0.1, t_save=1, effort=0, progress_bar=False)\n\ncod_haddock_growth = params.growth_curves(species=[\"Cod\", \"Haddock\"], max_age=5)\nmedium_biomass = sim.biomass(min_w=10, max_w=1000)\ncod_haddock_weight = params.mean_weight(species=[\"Cod\", \"Haddock\"], min_w=10, max_w=1000)\nSupported filter arguments vary by method, but the common ones are:\n\nspecies=\nmin_w= and max_w=\nmin_l= and max_l=\nmethod-specific options such as use_cutoff=, threshold_w=, and biomass="
+  },
+  {
+    "objectID": "get-started.html#edit-and-rerun-models",
+    "href": "get-started.html#edit-and-rerun-models",
+    "title": "Get Started",
+    "section": "",
+    "text": "pymizer now supports the common “load, tweak, rerun” workflow directly from Python. The editing methods follow the mizer pattern and return a new MizerParams object rather than mutating the existing one.\nimport pymizer as mz\n\nparams = mz.load_dataset(\"NS_params\")\n\ninteraction = params.interaction_matrix()\ninteraction.iloc[0, 1] = 0.0\n\nupdated = (\n    params\n    .set_interaction(interaction)\n    .set_metadata(title=\"North Sea example\", description=\"Edited from Python\")\n)\n\nsim = updated.project(t_max=2, dt=0.1, t_save=1, effort=0, progress_bar=False)\nUseful editing methods include:\n\nset_interaction()\nset_resource()\nset_initial_values()\nset_metadata()\nset_reproduction()\nset_search_volume()\nset_max_intake_rate()\nset_metabolic_rate()\nset_pred_kernel()"
+  },
+  {
+    "objectID": "get-started.html#steady-state-workflows",
+    "href": "get-started.html#steady-state-workflows",
+    "title": "Get Started",
+    "section": "",
+    "text": "The wrapper also exposes the steady-state search helpers from mizer:\nimport pymizer as mz\n\nparams = mz.load_dataset(\"NS_params\")\n\nsteady_params = params.project_to_steady(\n    t_per=1.0,\n    t_max=5.0,\n    dt=0.1,\n    progress_bar=False,\n    info_level=0,\n)\n\nsingle_species_params = params.steady_single_species(keep=\"biomass\")\nAvailable helpers are:\n\nproject_to_steady() for the lower-level convergence search\nsteady() for the higher-level workflow that holds reproduction and resource dynamics constant during the search\nsteady_single_species() for solving selected species against the current rates"
+  },
+  {
+    "objectID": "get-started.html#built-in-datasets",
+    "href": "get-started.html#built-in-datasets",
+    "title": "Get Started",
+    "section": "",
+    "text": "The wrapper can also load datasets shipped with the R package:\nimport pymizer as mz\n\nprint(mz.list_datasets())\n\nnorth_sea = mz.load_north_sea()\nspecies = mz.load_dataset(\"NS_species_params\")\ninteraction = mz.load_dataset(\"NS_interaction\")\nparams = mz.load_dataset(\"NS_params\")\nsim = mz.load_dataset(\"NS_sim\")\nReturned types depend on the dataset:\n\ntabular datasets become pandas.DataFrame\nNS_params becomes pymizer.MizerParams\nNS_sim becomes pymizer.MizerSim\n\nFor most users, the easiest way to start with a realistic model is the bundled North Sea helper:\nimport pymizer as mz\n\nnorth_sea = mz.load_north_sea()\n\nparams = north_sea.params\nsim = north_sea.params.project(t_max=1, dt=0.1, t_save=1, effort=0, progress_bar=False)\nThis returns the matching built-in pieces together:\n\nnorth_sea.species_params\nnorth_sea.interaction\nnorth_sea.params\nnorth_sea.sim\noptionally north_sea.species_params_gears when available in the installed mizer version"
+  },
+  {
+    "objectID": "get-started.html#build-the-docs",
+    "href": "get-started.html#build-the-docs",
+    "title": "Get Started",
+    "section": "",
+    "text": "This website is built with Quarto, and the API reference pages are generated by quartodoc from the Python package source:\npython3 -m pip install -e '.[docs]'\nsource .venv/bin/activate\nquartodoc build --config docs/_quarto.yml\nQUARTO_PYTHON=\"$(pwd)/.venv/bin/python\" quarto render docs\nFor live preview during editing:\nsource .venv/bin/activate\nquartodoc build --config docs/_quarto.yml --watch\nQUARTO_PYTHON=\"$(pwd)/.venv/bin/python\" quarto preview docs\nquartodoc build reads docs/_quarto.yml and writes the generated API pages into docs/api/. Quarto then renders the hand-written .md and .qmd pages alongside that generated reference.\nSet QUARTO_PYTHON to the repository virtualenv so executable articles run against the same Python, rpy2, and R-backed pymizer environment as the library itself."
+  },
+  {
+    "objectID": "get-started.html#publish-to-github-pages",
+    "href": "get-started.html#publish-to-github-pages",
+    "title": "Get Started",
+    "section": "",
+    "text": "Once the site has been rendered into docs/_site/, publish it using your preferred Quarto or GitHub Pages workflow."
+  },
+  {
+    "objectID": "api/MizerSim.html",
+    "href": "api/MizerSim.html",
+    "title": "MizerSim",
+    "section": "",
+    "text": "MizerSim(_r_obj, _env)\nPython wrapper around an R MizerSim object.\nMizerSim stores time-resolved output from a projection. The wrapper exposes common summaries as labelled pandas and xarray objects.\n\n\nimport pymizer as mz\n\nparams = mz.new_community_params(no_w=20)\nsim = params.project(t_max=5, dt=0.1, t_save=1, progress_bar=False)\nbiomass = sim.biomass()\n\n\n\n\n\n\nName\nDescription\n\n\n\n\nr\nAccess the underlying R object.\n\n\n\n\n\n\n\n\n\nName\nDescription\n\n\n\n\nabundance\nReturn total abundance through time as a pandas DataFrame.\n\n\nbiomass\nReturn biomass through time as a pandas DataFrame.\n\n\ncommunity_slope\nReturn the fitted community size-spectrum slope through time.\n\n\ndiet\nReturn diet composition at the final simulated state.\n\n\nf_mort\nReturn fishing mortality through time.\n\n\nf_mort_gear\nReturn gear-resolved fishing mortality through time.\n\n\nfeeding_level\nReturn feeding levels through time.\n\n\ngrowth_curves\nReturn growth curves evaluated from the final simulation state.\n\n\ninitial_n\nReturn the initial fish abundance density spectrum used by the simulation.\n\n\ninitial_n_resource\nReturn the initial resource spectrum used by the simulation.\n\n\nmean_max_weight\nReturn the mean maximum weight through time.\n\n\nmean_weight\nReturn mean community weight through time.\n\n\nn\nReturn the species abundance array.\n\n\nn_resource\nReturn the resource abundance array.\n\n\nparams\nReturn the MizerParams used to create the simulation.\n\n\npred_mort\nReturn predation mortality through time.\n\n\npred_rate\nReturn predation rate at the final simulated state.\n\n\nproportion_of_large_fish\nReturn the proportion of large fish through time.\n\n\nssb\nReturn spawning stock biomass through time as a pandas DataFrame.\n\n\ntimes\nReturn saved times as a NumPy array.\n\n\ntrophic_level\nReturn trophic level at size at the final simulated state.\n\n\ntrophic_level_by_species\nReturn the species-level trophic level at the final simulated state.\n\n\nyield_\nReturn fisheries yield through time as a pandas DataFrame.\n\n\nyield_gear\nReturn gear-resolved fisheries yield through time.\n\n\n\n\n\nMizerSim.abundance(min_w=None, max_w=None, min_l=None, max_l=None)\nReturn total abundance through time as a pandas DataFrame.\n\n\n\nMizerSim.biomass(\n    use_cutoff=False,\n    min_w=None,\n    max_w=None,\n    min_l=None,\n    max_l=None,\n)\nReturn biomass through time as a pandas DataFrame.\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nuse_cutoff\nbool\nUse the biomass_cutoff species parameter when available.\nFalse\n\n\nmin_w\nfloat | list[float] | None\nMinimum weight filter.\nNone\n\n\nmax_w\nfloat | list[float] | None\nMaximum weight filter.\nNone\n\n\nmin_l\nfloat | list[float] | None\nMinimum length filter.\nNone\n\n\nmax_l\nfloat | list[float] | None\nMaximum length filter.\nNone\n\n\n\n\n\n\n\nMizerSim.community_slope(\n    species=None,\n    biomass=True,\n    min_w=None,\n    max_w=None,\n    min_l=None,\n    max_l=None,\n)\nReturn the fitted community size-spectrum slope through time.\n\n\n\nMizerSim.diet(proportion=True, as_xarray=True)\nReturn diet composition at the final simulated state.\nThis method evaluates diet on a params object rebuilt from the final simulated state.\n\n\n\nMizerSim.f_mort(as_xarray=True)\nReturn fishing mortality through time.\n\n\n\nMizerSim.f_mort_gear(as_xarray=True)\nReturn gear-resolved fishing mortality through time.\n\n\n\nMizerSim.feeding_level(as_xarray=True)\nReturn feeding levels through time.\n\n\n\nMizerSim.growth_curves(species=None, max_age=20, percentage=False)\nReturn growth curves evaluated from the final simulation state.\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nspecies\nstr | list[str] | tuple[str, …] | None\nOptional species subset.\nNone\n\n\nmax_age\nfloat\nMaximum age to evaluate.\n20\n\n\npercentage\nbool\nReturn size as a percentage of w_max.\nFalse\n\n\n\n\n\n\n\nMizerSim.initial_n(as_xarray=True)\nReturn the initial fish abundance density spectrum used by the simulation.\n\n\n\nMizerSim.initial_n_resource()\nReturn the initial resource spectrum used by the simulation.\n\n\n\nMizerSim.mean_max_weight(\n    measure='both',\n    *,\n    species=None,\n    min_w=None,\n    max_w=None,\n    min_l=None,\n    max_l=None,\n)\nReturn the mean maximum weight through time.\n\n\n\nMizerSim.mean_weight(\n    species=None,\n    min_w=None,\n    max_w=None,\n    min_l=None,\n    max_l=None,\n)\nReturn mean community weight through time.\n\n\n\nMizerSim.n(as_xarray=True)\nReturn the species abundance array.\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nas_xarray\nbool\nWhen True, return an xarray.DataArray with dimensions (\"time\", \"sp\", \"w\").\nTrue\n\n\n\n\n\n\n\nMizerSim.n_resource(as_xarray=True)\nReturn the resource abundance array.\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nas_xarray\nbool\nWhen True, return an xarray.DataArray with dimensions (\"time\", \"w\").\nTrue\n\n\n\n\n\n\n\nMizerSim.params()\nReturn the MizerParams used to create the simulation.\n\n\n\nMizerSim.pred_mort(as_xarray=True)\nReturn predation mortality through time.\n\n\n\nMizerSim.pred_rate(as_xarray=True)\nReturn predation rate at the final simulated state.\nThis uses setInitialValues(getParams(sim), sim) under the hood so that the predation rate is evaluated on the final simulated state.\n\n\n\nMizerSim.proportion_of_large_fish(\n    species=None,\n    threshold_w=100,\n    threshold_l=None,\n    biomass_proportion=True,\n    min_w=None,\n    max_w=None,\n    min_l=None,\n    max_l=None,\n)\nReturn the proportion of large fish through time.\n\n\n\nMizerSim.ssb()\nReturn spawning stock biomass through time as a pandas DataFrame.\n\n\n\nMizerSim.times()\nReturn saved times as a NumPy array.\n\n\n\nMizerSim.trophic_level(as_xarray=True)\nReturn trophic level at size at the final simulated state.\n\n\n\nMizerSim.trophic_level_by_species()\nReturn the species-level trophic level at the final simulated state.\n\n\n\nMizerSim.yield_()\nReturn fisheries yield through time as a pandas DataFrame.\n\n\n\nMizerSim.yield_gear(as_xarray=True)\nReturn gear-resolved fisheries yield through time.",
+    "crumbs": [
+      "Model Wrappers",
+      "MizerSim"
+    ]
+  },
+  {
+    "objectID": "api/MizerSim.html#examples",
+    "href": "api/MizerSim.html#examples",
+    "title": "MizerSim",
+    "section": "",
+    "text": "import pymizer as mz\n\nparams = mz.new_community_params(no_w=20)\nsim = params.project(t_max=5, dt=0.1, t_save=1, progress_bar=False)\nbiomass = sim.biomass()",
+    "crumbs": [
+      "Model Wrappers",
+      "MizerSim"
+    ]
+  },
+  {
+    "objectID": "api/MizerSim.html#attributes",
+    "href": "api/MizerSim.html#attributes",
+    "title": "MizerSim",
+    "section": "",
+    "text": "Name\nDescription\n\n\n\n\nr\nAccess the underlying R object.",
+    "crumbs": [
+      "Model Wrappers",
+      "MizerSim"
+    ]
+  },
+  {
+    "objectID": "api/MizerSim.html#methods",
+    "href": "api/MizerSim.html#methods",
+    "title": "MizerSim",
+    "section": "",
+    "text": "Name\nDescription\n\n\n\n\nabundance\nReturn total abundance through time as a pandas DataFrame.\n\n\nbiomass\nReturn biomass through time as a pandas DataFrame.\n\n\ncommunity_slope\nReturn the fitted community size-spectrum slope through time.\n\n\ndiet\nReturn diet composition at the final simulated state.\n\n\nf_mort\nReturn fishing mortality through time.\n\n\nf_mort_gear\nReturn gear-resolved fishing mortality through time.\n\n\nfeeding_level\nReturn feeding levels through time.\n\n\ngrowth_curves\nReturn growth curves evaluated from the final simulation state.\n\n\ninitial_n\nReturn the initial fish abundance density spectrum used by the simulation.\n\n\ninitial_n_resource\nReturn the initial resource spectrum used by the simulation.\n\n\nmean_max_weight\nReturn the mean maximum weight through time.\n\n\nmean_weight\nReturn mean community weight through time.\n\n\nn\nReturn the species abundance array.\n\n\nn_resource\nReturn the resource abundance array.\n\n\nparams\nReturn the MizerParams used to create the simulation.\n\n\npred_mort\nReturn predation mortality through time.\n\n\npred_rate\nReturn predation rate at the final simulated state.\n\n\nproportion_of_large_fish\nReturn the proportion of large fish through time.\n\n\nssb\nReturn spawning stock biomass through time as a pandas DataFrame.\n\n\ntimes\nReturn saved times as a NumPy array.\n\n\ntrophic_level\nReturn trophic level at size at the final simulated state.\n\n\ntrophic_level_by_species\nReturn the species-level trophic level at the final simulated state.\n\n\nyield_\nReturn fisheries yield through time as a pandas DataFrame.\n\n\nyield_gear\nReturn gear-resolved fisheries yield through time.\n\n\n\n\n\nMizerSim.abundance(min_w=None, max_w=None, min_l=None, max_l=None)\nReturn total abundance through time as a pandas DataFrame.\n\n\n\nMizerSim.biomass(\n    use_cutoff=False,\n    min_w=None,\n    max_w=None,\n    min_l=None,\n    max_l=None,\n)\nReturn biomass through time as a pandas DataFrame.\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nuse_cutoff\nbool\nUse the biomass_cutoff species parameter when available.\nFalse\n\n\nmin_w\nfloat | list[float] | None\nMinimum weight filter.\nNone\n\n\nmax_w\nfloat | list[float] | None\nMaximum weight filter.\nNone\n\n\nmin_l\nfloat | list[float] | None\nMinimum length filter.\nNone\n\n\nmax_l\nfloat | list[float] | None\nMaximum length filter.\nNone\n\n\n\n\n\n\n\nMizerSim.community_slope(\n    species=None,\n    biomass=True,\n    min_w=None,\n    max_w=None,\n    min_l=None,\n    max_l=None,\n)\nReturn the fitted community size-spectrum slope through time.\n\n\n\nMizerSim.diet(proportion=True, as_xarray=True)\nReturn diet composition at the final simulated state.\nThis method evaluates diet on a params object rebuilt from the final simulated state.\n\n\n\nMizerSim.f_mort(as_xarray=True)\nReturn fishing mortality through time.\n\n\n\nMizerSim.f_mort_gear(as_xarray=True)\nReturn gear-resolved fishing mortality through time.\n\n\n\nMizerSim.feeding_level(as_xarray=True)\nReturn feeding levels through time.\n\n\n\nMizerSim.growth_curves(species=None, max_age=20, percentage=False)\nReturn growth curves evaluated from the final simulation state.\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nspecies\nstr | list[str] | tuple[str, …] | None\nOptional species subset.\nNone\n\n\nmax_age\nfloat\nMaximum age to evaluate.\n20\n\n\npercentage\nbool\nReturn size as a percentage of w_max.\nFalse\n\n\n\n\n\n\n\nMizerSim.initial_n(as_xarray=True)\nReturn the initial fish abundance density spectrum used by the simulation.\n\n\n\nMizerSim.initial_n_resource()\nReturn the initial resource spectrum used by the simulation.\n\n\n\nMizerSim.mean_max_weight(\n    measure='both',\n    *,\n    species=None,\n    min_w=None,\n    max_w=None,\n    min_l=None,\n    max_l=None,\n)\nReturn the mean maximum weight through time.\n\n\n\nMizerSim.mean_weight(\n    species=None,\n    min_w=None,\n    max_w=None,\n    min_l=None,\n    max_l=None,\n)\nReturn mean community weight through time.\n\n\n\nMizerSim.n(as_xarray=True)\nReturn the species abundance array.\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nas_xarray\nbool\nWhen True, return an xarray.DataArray with dimensions (\"time\", \"sp\", \"w\").\nTrue\n\n\n\n\n\n\n\nMizerSim.n_resource(as_xarray=True)\nReturn the resource abundance array.\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nas_xarray\nbool\nWhen True, return an xarray.DataArray with dimensions (\"time\", \"w\").\nTrue\n\n\n\n\n\n\n\nMizerSim.params()\nReturn the MizerParams used to create the simulation.\n\n\n\nMizerSim.pred_mort(as_xarray=True)\nReturn predation mortality through time.\n\n\n\nMizerSim.pred_rate(as_xarray=True)\nReturn predation rate at the final simulated state.\nThis uses setInitialValues(getParams(sim), sim) under the hood so that the predation rate is evaluated on the final simulated state.\n\n\n\nMizerSim.proportion_of_large_fish(\n    species=None,\n    threshold_w=100,\n    threshold_l=None,\n    biomass_proportion=True,\n    min_w=None,\n    max_w=None,\n    min_l=None,\n    max_l=None,\n)\nReturn the proportion of large fish through time.\n\n\n\nMizerSim.ssb()\nReturn spawning stock biomass through time as a pandas DataFrame.\n\n\n\nMizerSim.times()\nReturn saved times as a NumPy array.\n\n\n\nMizerSim.trophic_level(as_xarray=True)\nReturn trophic level at size at the final simulated state.\n\n\n\nMizerSim.trophic_level_by_species()\nReturn the species-level trophic level at the final simulated state.\n\n\n\nMizerSim.yield_()\nReturn fisheries yield through time as a pandas DataFrame.\n\n\n\nMizerSim.yield_gear(as_xarray=True)\nReturn gear-resolved fisheries yield through time.",
+    "crumbs": [
+      "Model Wrappers",
+      "MizerSim"
+    ]
+  },
+  {
+    "objectID": "api/get_environment.html",
+    "href": "api/get_environment.html",
+    "title": "get_environment",
+    "section": "",
+    "text": "get_environment()\nReturn the singleton R environment used by pymizer.\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\n\nMizerREnvironment\nThe shared :class:MizerREnvironment instance.\n\n\n\n\n\n\nimport pymizer as mz\n\nenv = mz.get_environment()\nprint(env.compatibility_report().ok)",
+    "crumbs": [
+      "R Bridge",
+      "get_environment"
+    ]
+  },
+  {
+    "objectID": "api/get_environment.html#returns",
+    "href": "api/get_environment.html#returns",
+    "title": "get_environment",
+    "section": "",
+    "text": "Name\nType\nDescription\n\n\n\n\n\nMizerREnvironment\nThe shared :class:MizerREnvironment instance.",
+    "crumbs": [
+      "R Bridge",
+      "get_environment"
+    ]
+  },
+  {
+    "objectID": "api/get_environment.html#examples",
+    "href": "api/get_environment.html#examples",
+    "title": "get_environment",
+    "section": "",
+    "text": "import pymizer as mz\n\nenv = mz.get_environment()\nprint(env.compatibility_report().ok)",
+    "crumbs": [
+      "R Bridge",
+      "get_environment"
+    ]
+  },
+  {
+    "objectID": "api/runtime_diagnostics.html",
+    "href": "api/runtime_diagnostics.html",
+    "title": "runtime_diagnostics",
+    "section": "",
+    "text": "runtime_diagnostics()\nReturn environment diagnostics without requiring access to internals.\nThe returned dictionary is designed for quick troubleshooting in notebooks, scripts, or issue reports.\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\n\ndict[str, Any]\nA dictionary describing:\n\n\n\ndict[str, Any]\n- whether rpy2 imported successfully\n\n\n\ndict[str, Any]\n- minimum supported versions\n\n\n\ndict[str, Any]\n- detected runtime versions when available\n\n\n\ndict[str, Any]\n- overall compatibility status\n\n\n\ndict[str, Any]\n- any issues that were found\n\n\n\n\n\n\nimport pymizer as mz\n\ndiagnostics = mz.runtime_diagnostics()\nprint(diagnostics[\"compatibility\"])",
+    "crumbs": [
+      "R Bridge",
+      "runtime_diagnostics"
+    ]
+  },
+  {
+    "objectID": "api/runtime_diagnostics.html#returns",
+    "href": "api/runtime_diagnostics.html#returns",
+    "title": "runtime_diagnostics",
+    "section": "",
+    "text": "Name\nType\nDescription\n\n\n\n\n\ndict[str, Any]\nA dictionary describing:\n\n\n\ndict[str, Any]\n- whether rpy2 imported successfully\n\n\n\ndict[str, Any]\n- minimum supported versions\n\n\n\ndict[str, Any]\n- detected runtime versions when available\n\n\n\ndict[str, Any]\n- overall compatibility status\n\n\n\ndict[str, Any]\n- any issues that were found",
+    "crumbs": [
+      "R Bridge",
+      "runtime_diagnostics"
+    ]
+  },
+  {
+    "objectID": "api/runtime_diagnostics.html#examples",
+    "href": "api/runtime_diagnostics.html#examples",
+    "title": "runtime_diagnostics",
+    "section": "",
+    "text": "import pymizer as mz\n\ndiagnostics = mz.runtime_diagnostics()\nprint(diagnostics[\"compatibility\"])",
+    "crumbs": [
+      "R Bridge",
+      "runtime_diagnostics"
+    ]
+  },
+  {
+    "objectID": "api/CompatibilityReport.html",
+    "href": "api/CompatibilityReport.html",
+    "title": "CompatibilityReport",
+    "section": "",
+    "text": "CompatibilityReport(versions, minimum_versions, issues)\nCompatibility report for the active Python and R runtime stack.\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\nversions\ndict[str, str]\nDetected versions for the current Python, R, rpy2, and mizer runtime stack.\n\n\nminimum_versions\ndict[str, str]\nMinimum versions expected by pymizer.\n\n\nissues\nlist[str]\nHuman-readable compatibility problems, if any.",
+    "crumbs": [
+      "R Bridge",
+      "CompatibilityReport"
+    ]
+  },
+  {
+    "objectID": "api/CompatibilityReport.html#attributes",
+    "href": "api/CompatibilityReport.html#attributes",
+    "title": "CompatibilityReport",
+    "section": "",
+    "text": "Name\nType\nDescription\n\n\n\n\nversions\ndict[str, str]\nDetected versions for the current Python, R, rpy2, and mizer runtime stack.\n\n\nminimum_versions\ndict[str, str]\nMinimum versions expected by pymizer.\n\n\nissues\nlist[str]\nHuman-readable compatibility problems, if any.",
+    "crumbs": [
+      "R Bridge",
+      "CompatibilityReport"
+    ]
+  },
+  {
+    "objectID": "api/MizerREnvironment.html",
+    "href": "api/MizerREnvironment.html",
+    "title": "MizerREnvironment",
+    "section": "",
+    "text": "MizerREnvironment(package_name='mizer')\nThin wrapper around the embedded R session used by pymizer.\nMost users should access the shared singleton via :func:get_environment rather than instantiating this class directly.\n\n\nimport pymizer as mz\n\nenv = mz.get_environment()\nprint(env.versions())\n\n\n\n\n\n\nName\nDescription\n\n\n\n\ncall\nCall an exported R function from the mizer package.\n\n\nclass_name\nReturn the first class name for an R object.\n\n\ncompatibility_report\nReturn a compatibility report for the active runtime environment.\n\n\ndataframe_from_r\nConvert an R object to a pandas DataFrame via as.data.frame().\n\n\nis_s4\nReturn whether an object is an S4 object.\n\n\nread_rds\nRead an .rds file and return the raw R object.\n\n\nsave_rds\nSave an R object to an .rds file.\n\n\nslot_names\nReturn slot names for an S4 object.\n\n\nversions\nReturn version information for the active Python and R bridge stack.\n\n\n\n\n\nMizerREnvironment.call(name, *args, **kwargs)\nCall an exported R function from the mizer package.\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nname\nstr\nExported function name in the R package.\nrequired\n\n\n*args\nAny\nPositional arguments passed to the R function.\n()\n\n\n**kwargs\nAny\nKeyword arguments passed to the R function.\n{}\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\n\nAny\nThe raw R object returned by the function call.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\n\nMizerError\nIf the function is missing or the R call fails.\n\n\n\n\n\n\n\nMizerREnvironment.class_name(obj)\nReturn the first class name for an R object.\n\n\n\nMizerREnvironment.compatibility_report()\nReturn a compatibility report for the active runtime environment.\n\n\n\nMizerREnvironment.dataframe_from_r(obj)\nConvert an R object to a pandas DataFrame via as.data.frame().\n\n\n\nMizerREnvironment.is_s4(obj)\nReturn whether an object is an S4 object.\n\n\n\nMizerREnvironment.read_rds(path)\nRead an .rds file and return the raw R object.\n\n\n\nMizerREnvironment.save_rds(obj, path)\nSave an R object to an .rds file.\n\n\n\nMizerREnvironment.slot_names(obj)\nReturn slot names for an S4 object.\n\n\n\nMizerREnvironment.versions()\nReturn version information for the active Python and R bridge stack.\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\n\ndict[str, str]\nA mapping with entries for pymizer, Python, rpy2, R, and\n\n\n\ndict[str, str]\nmizer.",
+    "crumbs": [
+      "R Bridge",
+      "MizerREnvironment"
+    ]
+  },
+  {
+    "objectID": "api/MizerREnvironment.html#examples",
+    "href": "api/MizerREnvironment.html#examples",
+    "title": "MizerREnvironment",
+    "section": "",
+    "text": "import pymizer as mz\n\nenv = mz.get_environment()\nprint(env.versions())",
+    "crumbs": [
+      "R Bridge",
+      "MizerREnvironment"
+    ]
+  },
+  {
+    "objectID": "api/MizerREnvironment.html#methods",
+    "href": "api/MizerREnvironment.html#methods",
+    "title": "MizerREnvironment",
+    "section": "",
+    "text": "Name\nDescription\n\n\n\n\ncall\nCall an exported R function from the mizer package.\n\n\nclass_name\nReturn the first class name for an R object.\n\n\ncompatibility_report\nReturn a compatibility report for the active runtime environment.\n\n\ndataframe_from_r\nConvert an R object to a pandas DataFrame via as.data.frame().\n\n\nis_s4\nReturn whether an object is an S4 object.\n\n\nread_rds\nRead an .rds file and return the raw R object.\n\n\nsave_rds\nSave an R object to an .rds file.\n\n\nslot_names\nReturn slot names for an S4 object.\n\n\nversions\nReturn version information for the active Python and R bridge stack.\n\n\n\n\n\nMizerREnvironment.call(name, *args, **kwargs)\nCall an exported R function from the mizer package.\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nname\nstr\nExported function name in the R package.\nrequired\n\n\n*args\nAny\nPositional arguments passed to the R function.\n()\n\n\n**kwargs\nAny\nKeyword arguments passed to the R function.\n{}\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\n\nAny\nThe raw R object returned by the function call.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\n\nMizerError\nIf the function is missing or the R call fails.\n\n\n\n\n\n\n\nMizerREnvironment.class_name(obj)\nReturn the first class name for an R object.\n\n\n\nMizerREnvironment.compatibility_report()\nReturn a compatibility report for the active runtime environment.\n\n\n\nMizerREnvironment.dataframe_from_r(obj)\nConvert an R object to a pandas DataFrame via as.data.frame().\n\n\n\nMizerREnvironment.is_s4(obj)\nReturn whether an object is an S4 object.\n\n\n\nMizerREnvironment.read_rds(path)\nRead an .rds file and return the raw R object.\n\n\n\nMizerREnvironment.save_rds(obj, path)\nSave an R object to an .rds file.\n\n\n\nMizerREnvironment.slot_names(obj)\nReturn slot names for an S4 object.\n\n\n\nMizerREnvironment.versions()\nReturn version information for the active Python and R bridge stack.\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\n\ndict[str, str]\nA mapping with entries for pymizer, Python, rpy2, R, and\n\n\n\ndict[str, str]\nmizer.",
+    "crumbs": [
+      "R Bridge",
+      "MizerREnvironment"
+    ]
+  },
+  {
+    "objectID": "api/validate_species_params.html",
+    "href": "api/validate_species_params.html",
+    "title": "validate_species_params",
+    "section": "",
+    "text": "validate_species_params\nvalidate_species_params(species_params, *, single_species=False)\nValidate a species parameter table before handing it to R.",
+    "crumbs": [
+      "Validation",
+      "validate_species_params"
+    ]
+  },
+  {
+    "objectID": "api/evaluate_versions.html",
+    "href": "api/evaluate_versions.html",
+    "title": "evaluate_versions",
+    "section": "",
+    "text": "evaluate_versions(versions, minimum_versions=None)\nEvaluate detected versions against the supported minimum versions.\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nversions\ndict[str, str]\nMapping of component name to version string.\nrequired\n\n\nminimum_versions\ndict[str, str] | None\nOptional override for the default minimum versions.\nNone\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\nA\nCompatibilityReport\nclass:CompatibilityReport.\n\n\n\n\n\n\nimport pymizer as mz\n\nreport = mz.evaluate_versions(\n    {\"python\": \"3.12.0\", \"rpy2\": \"3.6.7\", \"R\": \"4.5.3\", \"mizer\": \"2.5.4\", \"pymizer\": \"0.1.0\"}\n)\nprint(report.ok)",
+    "crumbs": [
+      "R Bridge",
+      "evaluate_versions"
+    ]
+  },
+  {
+    "objectID": "api/evaluate_versions.html#parameters",
+    "href": "api/evaluate_versions.html#parameters",
+    "title": "evaluate_versions",
+    "section": "",
+    "text": "Name\nType\nDescription\nDefault\n\n\n\n\nversions\ndict[str, str]\nMapping of component name to version string.\nrequired\n\n\nminimum_versions\ndict[str, str] | None\nOptional override for the default minimum versions.\nNone",
+    "crumbs": [
+      "R Bridge",
+      "evaluate_versions"
+    ]
+  },
+  {
+    "objectID": "api/evaluate_versions.html#returns",
+    "href": "api/evaluate_versions.html#returns",
+    "title": "evaluate_versions",
+    "section": "",
+    "text": "Name\nType\nDescription\n\n\n\n\nA\nCompatibilityReport\nclass:CompatibilityReport.",
+    "crumbs": [
+      "R Bridge",
+      "evaluate_versions"
+    ]
+  },
+  {
+    "objectID": "api/evaluate_versions.html#examples",
+    "href": "api/evaluate_versions.html#examples",
+    "title": "evaluate_versions",
+    "section": "",
+    "text": "import pymizer as mz\n\nreport = mz.evaluate_versions(\n    {\"python\": \"3.12.0\", \"rpy2\": \"3.6.7\", \"R\": \"4.5.3\", \"mizer\": \"2.5.4\", \"pymizer\": \"0.1.0\"}\n)\nprint(report.ok)",
+    "crumbs": [
+      "R Bridge",
+      "evaluate_versions"
+    ]
+  },
+  {
+    "objectID": "api/list_datasets.html",
+    "href": "api/list_datasets.html",
+    "title": "list_datasets",
+    "section": "",
+    "text": "list_datasets(env=None)\nList datasets shipped with the R mizer package.\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nenv\nMizerREnvironment | None\nOptional shared R environment wrapper.\nNone\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\n\npd.DataFrame\nA pandas.DataFrame with name and title columns.\n\n\n\n\n\n\nimport pymizer as mz\n\ndatasets = mz.list_datasets()\nprint(datasets.head())",
+    "crumbs": [
+      "Datasets",
+      "list_datasets"
+    ]
+  },
+  {
+    "objectID": "api/list_datasets.html#parameters",
+    "href": "api/list_datasets.html#parameters",
+    "title": "list_datasets",
+    "section": "",
+    "text": "Name\nType\nDescription\nDefault\n\n\n\n\nenv\nMizerREnvironment | None\nOptional shared R environment wrapper.\nNone",
+    "crumbs": [
+      "Datasets",
+      "list_datasets"
+    ]
+  },
+  {
+    "objectID": "api/list_datasets.html#returns",
+    "href": "api/list_datasets.html#returns",
+    "title": "list_datasets",
+    "section": "",
+    "text": "Name\nType\nDescription\n\n\n\n\n\npd.DataFrame\nA pandas.DataFrame with name and title columns.",
+    "crumbs": [
+      "Datasets",
+      "list_datasets"
+    ]
+  },
+  {
+    "objectID": "api/list_datasets.html#examples",
+    "href": "api/list_datasets.html#examples",
+    "title": "list_datasets",
+    "section": "",
+    "text": "import pymizer as mz\n\ndatasets = mz.list_datasets()\nprint(datasets.head())",
+    "crumbs": [
+      "Datasets",
+      "list_datasets"
+    ]
+  },
+  {
+    "objectID": "api/new_community_params.html",
+    "href": "api/new_community_params.html",
+    "title": "new_community_params",
+    "section": "",
+    "text": "new_community_params(env=None, **kwargs)\nCreate a simple community model.\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nenv\nMizerREnvironment | None\nOptional shared R environment wrapper.\nNone\n\n\n**kwargs\nAny\nAdditional arguments forwarded to mizer::newCommunityParams().\n{}\n\n\n\n\n\n\nimport pymizer as mz\n\nparams = mz.new_community_params(no_w=20)",
+    "crumbs": [
+      "Constructors",
+      "new_community_params"
+    ]
+  },
+  {
+    "objectID": "api/new_community_params.html#parameters",
+    "href": "api/new_community_params.html#parameters",
+    "title": "new_community_params",
+    "section": "",
+    "text": "Name\nType\nDescription\nDefault\n\n\n\n\nenv\nMizerREnvironment | None\nOptional shared R environment wrapper.\nNone\n\n\n**kwargs\nAny\nAdditional arguments forwarded to mizer::newCommunityParams().\n{}",
+    "crumbs": [
+      "Constructors",
+      "new_community_params"
+    ]
+  },
+  {
+    "objectID": "api/new_community_params.html#examples",
+    "href": "api/new_community_params.html#examples",
+    "title": "new_community_params",
+    "section": "",
+    "text": "import pymizer as mz\n\nparams = mz.new_community_params(no_w=20)",
+    "crumbs": [
+      "Constructors",
+      "new_community_params"
+    ]
+  }
+]

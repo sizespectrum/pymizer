@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>pymizer</title>
+<title>news – pymizer</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -22,41 +22,6 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
-}
-/* CSS for syntax highlighting */
-html { -webkit-text-size-adjust: 100%; }
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -128,7 +93,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link active" href="./index.html" aria-current="page"> 
+    <a class="nav-link" href="./index.html"> 
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
@@ -190,7 +155,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     </ul>
   </li>
   <li class="nav-item">
-    <a class="nav-link" href="./news.html"> 
+    <a class="nav-link active" href="./news.html" aria-current="page"> 
 <span class="menu-text">News</span></a>
   </li>  
 </ul>
@@ -209,14 +174,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#pymizer" id="toc-pymizer" class="nav-link active" data-scroll-target="#pymizer">pymizer</a>
+  <li><a href="#news" id="toc-news" class="nav-link active" data-scroll-target="#news">News</a>
   <ul class="collapse">
-  <li><a href="#why-a-python-wrapper" id="toc-why-a-python-wrapper" class="nav-link" data-scroll-target="#why-a-python-wrapper">Why a Python wrapper?</a></li>
-  <li><a href="#current-scope" id="toc-current-scope" class="nav-link" data-scroll-target="#current-scope">Current scope</a></li>
-  <li><a href="#site-guide" id="toc-site-guide" class="nav-link" data-scroll-target="#site-guide">Site Guide</a></li>
+  <li><a href="#section" id="toc-section" class="nav-link" data-scroll-target="#section">0.1.0</a></li>
   </ul></li>
   </ul>
-<div class="toc-actions"><ul><li><a href="https://github.com/sizespectrum/pymizer/blob/main/index.md" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/sizespectrum/pymizer/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+<div class="toc-actions"><ul><li><a href="https://github.com/sizespectrum/pymizer/blob/main/news.md" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/sizespectrum/pymizer/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
@@ -224,52 +187,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 
-<section id="pymizer" class="level1">
-<h1>pymizer</h1>
-<p><code>pymizer</code> brings core <code>mizer</code> workflows into Python while continuing to rely on the mature R implementation for the actual model logic and numerical solvers.</p>
-<p>The current wrapper focuses on the common interactive workflow:</p>
-<ol type="1">
-<li>load or construct a <code>MizerParams</code> model</li>
-<li>run a projection with <code>project()</code></li>
-<li>pull results back into Python as <code>pandas</code>, <code>numpy</code>, or <code>xarray</code></li>
-</ol>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pymizer <span class="im">as</span> mz</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>params <span class="op">=</span> mz.new_community_params(no_w<span class="op">=</span><span class="dv">20</span>)</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>sim <span class="op">=</span> params.project(t_max<span class="op">=</span><span class="dv">5</span>, dt<span class="op">=</span><span class="fl">0.1</span>, t_save<span class="op">=</span><span class="dv">1</span>, progress_bar<span class="op">=</span><span class="va">False</span>)</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>biomass <span class="op">=</span> sim.biomass()</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>times <span class="op">=</span> sim.times()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<section id="why-a-python-wrapper" class="level2">
-<h2 class="anchored" data-anchor-id="why-a-python-wrapper">Why a Python wrapper?</h2>
-<p><code>mizer</code> already has a rich R API and excellent package documentation. The goal of <code>pymizer</code> is not to replace that ecosystem, but to make it easier to:</p>
+<section id="news" class="level1">
+<h1>News</h1>
+<section id="section" class="level2">
+<h2 class="anchored" data-anchor-id="section">0.1.0</h2>
 <ul>
-<li>use <code>mizer</code> from Python notebooks and analysis scripts</li>
-<li>move simulation outputs directly into the Python data stack</li>
-<li>access packaged example datasets from Python</li>
-<li>keep the Python interface close to the mental model of the R package</li>
-</ul>
-</section>
-<section id="current-scope" class="level2">
-<h2 class="anchored" data-anchor-id="current-scope">Current scope</h2>
-<p>The wrapper currently supports:</p>
-<ul>
-<li>constructing models with <code>new_multispecies_params()</code>, <code>new_single_species_params()</code>, and <code>new_community_params()</code></li>
-<li>loading saved models with <code>read_params()</code></li>
-<li>running simulations through <code>MizerParams.project()</code></li>
-<li>accessing common outputs from <code>MizerSim</code></li>
-<li>listing and loading built-in <code>mizer</code> datasets</li>
-</ul>
-<p>Advanced extension mechanisms in <code>mizer</code>, especially custom rate functions, are not yet wrapped in a Python-native way.</p>
-</section>
-<section id="site-guide" class="level2">
-<h2 class="anchored" data-anchor-id="site-guide">Site Guide</h2>
-<ul>
-<li><a href="./get-started.html">Get Started</a> shows installation and the first simulation.</li>
-<li><a href="./articles/community-model.html">Articles</a> provides worked examples.</li>
-<li><a href="./reference/index.html">Reference Overview</a> summarises the public Python API.</li>
-<li><a href="./api/index.html">API Reference</a> is generated from the package source with <code>quartodoc</code>.</li>
-<li><a href="./news.html">News</a> summarises recent changes to the wrapper.</li>
+<li>Initial <code>pymizer</code> proof-of-concept package added under <code>python/</code></li>
+<li>Added wrappers for <code>MizerParams</code>, <code>MizerSim</code>, model constructors, and simulation output accessors</li>
+<li>Added built-in dataset access from Python</li>
+<li>Added a MkDocs documentation site with articles and API reference</li>
 </ul>
 
 
@@ -682,4 +608,4 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 
-<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/sizespectrum/pymizer/blob/main/index.md" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/sizespectrum/pymizer/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/sizespectrum/pymizer/blob/main/news.md" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/sizespectrum/pymizer/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>

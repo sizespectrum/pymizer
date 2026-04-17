@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>pymizer</title>
+<title>roadmap – pymizer</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -22,41 +22,6 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
-}
-/* CSS for syntax highlighting */
-html { -webkit-text-size-adjust: 100%; }
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -128,7 +93,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link active" href="./index.html" aria-current="page"> 
+    <a class="nav-link" href="./index.html"> 
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
@@ -136,7 +101,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span class="menu-text">Get Started</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./roadmap.html"> 
+    <a class="nav-link active" href="./roadmap.html" aria-current="page"> 
 <span class="menu-text">Roadmap</span></a>
   </li>  
   <li class="nav-item dropdown ">
@@ -209,14 +174,60 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#pymizer" id="toc-pymizer" class="nav-link active" data-scroll-target="#pymizer">pymizer</a>
+  <li><a href="#roadmap" id="toc-roadmap" class="nav-link active" data-scroll-target="#roadmap">Roadmap</a>
   <ul class="collapse">
-  <li><a href="#why-a-python-wrapper" id="toc-why-a-python-wrapper" class="nav-link" data-scroll-target="#why-a-python-wrapper">Why a Python wrapper?</a></li>
-  <li><a href="#current-scope" id="toc-current-scope" class="nav-link" data-scroll-target="#current-scope">Current scope</a></li>
-  <li><a href="#site-guide" id="toc-site-guide" class="nav-link" data-scroll-target="#site-guide">Site Guide</a></li>
+  <li><a href="#guiding-principles" id="toc-guiding-principles" class="nav-link" data-scroll-target="#guiding-principles">Guiding Principles</a></li>
+  <li><a href="#phase-1-stabilise-the-core-wrapper" id="toc-phase-1-stabilise-the-core-wrapper" class="nav-link" data-scroll-target="#phase-1-stabilise-the-core-wrapper">Phase 1: Stabilise The Core Wrapper</a>
+  <ul class="collapse">
+  <li><a href="#goals" id="toc-goals" class="nav-link" data-scroll-target="#goals">Goals</a></li>
+  <li><a href="#work-items" id="toc-work-items" class="nav-link" data-scroll-target="#work-items">Work Items</a></li>
+  </ul></li>
+  <li><a href="#phase-2-expand-high-value-analysis-surface" id="toc-phase-2-expand-high-value-analysis-surface" class="nav-link" data-scroll-target="#phase-2-expand-high-value-analysis-surface">Phase 2: Expand High-Value Analysis Surface</a>
+  <ul class="collapse">
+  <li><a href="#goals-1" id="toc-goals-1" class="nav-link" data-scroll-target="#goals-1">Goals</a></li>
+  <li><a href="#priority-additions" id="toc-priority-additions" class="nav-link" data-scroll-target="#priority-additions">Priority Additions</a></li>
+  </ul></li>
+  <li><a href="#phase-3-parameter-editing-and-model-manipulation" id="toc-phase-3-parameter-editing-and-model-manipulation" class="nav-link" data-scroll-target="#phase-3-parameter-editing-and-model-manipulation">Phase 3: Parameter Editing And Model Manipulation</a>
+  <ul class="collapse">
+  <li><a href="#goals-2" id="toc-goals-2" class="nav-link" data-scroll-target="#goals-2">Goals</a></li>
+  <li><a href="#priority-additions-1" id="toc-priority-additions-1" class="nav-link" data-scroll-target="#priority-additions-1">Priority Additions</a></li>
+  </ul></li>
+  <li><a href="#phase-4-better-dataset-and-example-support" id="toc-phase-4-better-dataset-and-example-support" class="nav-link" data-scroll-target="#phase-4-better-dataset-and-example-support">Phase 4: Better Dataset And Example Support</a>
+  <ul class="collapse">
+  <li><a href="#goals-3" id="toc-goals-3" class="nav-link" data-scroll-target="#goals-3">Goals</a></li>
+  <li><a href="#work-items-1" id="toc-work-items-1" class="nav-link" data-scroll-target="#work-items-1">Work Items</a></li>
+  </ul></li>
+  <li><a href="#phase-5-packaging-and-distribution" id="toc-phase-5-packaging-and-distribution" class="nav-link" data-scroll-target="#phase-5-packaging-and-distribution">Phase 5: Packaging And Distribution</a>
+  <ul class="collapse">
+  <li><a href="#goals-4" id="toc-goals-4" class="nav-link" data-scroll-target="#goals-4">Goals</a></li>
+  <li><a href="#work-items-2" id="toc-work-items-2" class="nav-link" data-scroll-target="#work-items-2">Work Items</a></li>
+  </ul></li>
+  <li><a href="#phase-6-testing-and-continuous-integration" id="toc-phase-6-testing-and-continuous-integration" class="nav-link" data-scroll-target="#phase-6-testing-and-continuous-integration">Phase 6: Testing And Continuous Integration</a>
+  <ul class="collapse">
+  <li><a href="#goals-5" id="toc-goals-5" class="nav-link" data-scroll-target="#goals-5">Goals</a></li>
+  <li><a href="#test-layers" id="toc-test-layers" class="nav-link" data-scroll-target="#test-layers">Test Layers</a></li>
+  </ul></li>
+  <li><a href="#phase-7-plotting-and-python-native-ergonomics" id="toc-phase-7-plotting-and-python-native-ergonomics" class="nav-link" data-scroll-target="#phase-7-plotting-and-python-native-ergonomics">Phase 7: Plotting And Python-Native Ergonomics</a>
+  <ul class="collapse">
+  <li><a href="#goals-6" id="toc-goals-6" class="nav-link" data-scroll-target="#goals-6">Goals</a></li>
+  <li><a href="#possible-additions" id="toc-possible-additions" class="nav-link" data-scroll-target="#possible-additions">Possible Additions</a></li>
+  </ul></li>
+  <li><a href="#phase-8-advanced-and-experimental-features" id="toc-phase-8-advanced-and-experimental-features" class="nav-link" data-scroll-target="#phase-8-advanced-and-experimental-features">Phase 8: Advanced And Experimental Features</a>
+  <ul class="collapse">
+  <li><a href="#goals-7" id="toc-goals-7" class="nav-link" data-scroll-target="#goals-7">Goals</a></li>
+  <li><a href="#candidates" id="toc-candidates" class="nav-link" data-scroll-target="#candidates">Candidates</a></li>
+  </ul></li>
+  <li><a href="#recommended-near-term-priorities" id="toc-recommended-near-term-priorities" class="nav-link" data-scroll-target="#recommended-near-term-priorities">Recommended Near-Term Priorities</a></li>
+  <li><a href="#milestones" id="toc-milestones" class="nav-link" data-scroll-target="#milestones">Milestones</a>
+  <ul class="collapse">
+  <li><a href="#milestone-a-usable-beta" id="toc-milestone-a-usable-beta" class="nav-link" data-scroll-target="#milestone-a-usable-beta">Milestone A: Usable Beta</a></li>
+  <li><a href="#milestone-b-analysis-ready" id="toc-milestone-b-analysis-ready" class="nav-link" data-scroll-target="#milestone-b-analysis-ready">Milestone B: Analysis-Ready</a></li>
+  <li><a href="#milestone-c-modelling-ready" id="toc-milestone-c-modelling-ready" class="nav-link" data-scroll-target="#milestone-c-modelling-ready">Milestone C: Modelling-Ready</a></li>
+  </ul></li>
+  <li><a href="#source" id="toc-source" class="nav-link" data-scroll-target="#source">Source</a></li>
   </ul></li>
   </ul>
-<div class="toc-actions"><ul><li><a href="https://github.com/sizespectrum/pymizer/blob/main/index.md" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/sizespectrum/pymizer/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+<div class="toc-actions"><ul><li><a href="https://github.com/sizespectrum/pymizer/blob/main/roadmap.md" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/sizespectrum/pymizer/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
@@ -224,53 +235,265 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 
-<section id="pymizer" class="level1">
-<h1>pymizer</h1>
-<p><code>pymizer</code> brings core <code>mizer</code> workflows into Python while continuing to rely on the mature R implementation for the actual model logic and numerical solvers.</p>
-<p>The current wrapper focuses on the common interactive workflow:</p>
+<section id="roadmap" class="level1">
+<h1>Roadmap</h1>
+<p>This page tracks the planned development of <code>pymizer</code>, the Python wrapper for the R <code>mizer</code> package.</p>
+<p>The current package already supports:</p>
+<ul>
+<li>creating <code>MizerParams</code> wrappers from Python</li>
+<li>running <code>project()</code> through the R <code>mizer</code> package</li>
+<li>extracting common results as <code>pandas</code>, <code>numpy</code>, and <code>xarray</code></li>
+<li>loading built-in <code>mizer</code> datasets from Python</li>
+<li>building a dedicated documentation website</li>
+</ul>
+<p>The next stages should focus on turning the current proof of concept into a more robust and maintainable bridge for real analysis workflows.</p>
+<section id="guiding-principles" class="level2">
+<h2 class="anchored" data-anchor-id="guiding-principles">Guiding Principles</h2>
+<ul>
+<li>Keep the Python API close to the mental model of <code>mizer</code>, but make return types feel natural in Python.</li>
+<li>Prefer thin, reliable wrapping of stable R functionality over partial reimplementation in Python.</li>
+<li>Expand the public API in layers, starting with the most common scientific workflows.</li>
+<li>Treat packaging, testing, and documentation as product features, not polish.</li>
+</ul>
+</section>
+<section id="phase-1-stabilise-the-core-wrapper" class="level2">
+<h2 class="anchored" data-anchor-id="phase-1-stabilise-the-core-wrapper">Phase 1: Stabilise The Core Wrapper</h2>
+<section id="goals" class="level3">
+<h3 class="anchored" data-anchor-id="goals">Goals</h3>
+<ul>
+<li>Make the existing wrapper reliable for day-to-day use.</li>
+<li>Reduce avoidable environment friction.</li>
+<li>Tighten the boundaries of the supported API.</li>
+</ul>
+</section>
+<section id="work-items" class="level3">
+<h3 class="anchored" data-anchor-id="work-items">Work Items</h3>
+<ul>
+<li>Add explicit version checks for compatible R, <code>mizer</code>, and <code>rpy2</code> versions.</li>
+<li>Improve startup diagnostics when R or the <code>mizer</code> package is unavailable.</li>
+<li>Standardise conversion helpers so all wrapped functions follow the same rules for <code>pandas</code>, <code>numpy</code>, and <code>xarray</code> outputs.</li>
+<li>Add lightweight validation helpers for constructor inputs such as <code>species_params</code> and interaction matrices.</li>
+<li>Improve object summaries so <code>MizerParams.summary()</code> and <code>MizerSim</code> reporting are more useful in notebooks.</li>
+<li>Add convenience methods for common save/load workflows on <code>MizerSim</code> as well as <code>MizerParams</code>.</li>
+</ul>
+</section>
+</section>
+<section id="phase-2-expand-high-value-analysis-surface" class="level2">
+<h2 class="anchored" data-anchor-id="phase-2-expand-high-value-analysis-surface">Phase 2: Expand High-Value Analysis Surface</h2>
+<section id="goals-1" class="level3">
+<h3 class="anchored" data-anchor-id="goals-1">Goals</h3>
+<ul>
+<li>Cover the most commonly used read-only <code>mizer</code> analysis functions.</li>
+<li>Make Python notebooks viable without frequent escapes into raw R objects.</li>
+</ul>
+</section>
+<section id="priority-additions" class="level3">
+<h3 class="anchored" data-anchor-id="priority-additions">Priority Additions</h3>
+<ul>
+<li><code>MizerSim</code> accessors:
+<ul>
+<li><code>ssb()</code></li>
+<li><code>yield_gear()</code></li>
+<li><code>f_mort_gear()</code></li>
+<li><code>pred_mort()</code></li>
+<li><code>diet()</code></li>
+<li><code>growth_curves()</code></li>
+</ul></li>
+<li><code>MizerParams</code> accessors:
+<ul>
+<li><code>initial_n()</code></li>
+<li><code>initial_n_resource()</code></li>
+<li><code>biomass()</code></li>
+<li><code>feeding_level()</code></li>
+<li><code>pred_rate()</code></li>
+</ul></li>
+<li>indicator functions:
+<ul>
+<li>community slope</li>
+<li>mean weight</li>
+<li>proportion of large fish</li>
+<li>trophic level outputs</li>
+</ul></li>
+</ul>
+</section>
+</section>
+<section id="phase-3-parameter-editing-and-model-manipulation" class="level2">
+<h2 class="anchored" data-anchor-id="phase-3-parameter-editing-and-model-manipulation">Phase 3: Parameter Editing And Model Manipulation</h2>
+<section id="goals-2" class="level3">
+<h3 class="anchored" data-anchor-id="goals-2">Goals</h3>
+<ul>
+<li>Support the common “load, tweak, rerun” workflow from Python.</li>
+<li>Preserve the immutability pattern used by <code>mizer</code>.</li>
+</ul>
+</section>
+<section id="priority-additions-1" class="level3">
+<h3 class="anchored" data-anchor-id="priority-additions-1">Priority Additions</h3>
+<ul>
+<li><code>set_interaction()</code></li>
+<li><code>set_resource()</code></li>
+<li><code>set_reproduction()</code></li>
+<li><code>set_initial_values()</code></li>
+<li><code>set_metadata()</code></li>
+<li><code>set_pred_kernel()</code></li>
+<li><code>set_search_volume()</code></li>
+<li><code>set_max_intake_rate()</code></li>
+<li><code>set_metabolic_rate()</code></li>
+<li><code>project_to_steady()</code> if feasible through the current bridge design</li>
+</ul>
+</section>
+</section>
+<section id="phase-4-better-dataset-and-example-support" class="level2">
+<h2 class="anchored" data-anchor-id="phase-4-better-dataset-and-example-support">Phase 4: Better Dataset And Example Support</h2>
+<section id="goals-3" class="level3">
+<h3 class="anchored" data-anchor-id="goals-3">Goals</h3>
+<ul>
+<li>Make the wrapper easy to learn through real models and reproducible examples.</li>
+</ul>
+</section>
+<section id="work-items-1" class="level3">
+<h3 class="anchored" data-anchor-id="work-items-1">Work Items</h3>
+<ul>
+<li>Add richer helpers around built-in datasets, such as loading matching North Sea inputs together.</li>
+<li>Add example notebooks for:
+<ul>
+<li>community model</li>
+<li>North Sea model</li>
+<li>basic plotting and analysis in Python</li>
+</ul></li>
+<li>Add a helper to expose package example file paths if needed.</li>
+<li>Add a documented “recommended first workflow” that uses built-in example data only.</li>
+</ul>
+</section>
+</section>
+<section id="phase-5-packaging-and-distribution" class="level2">
+<h2 class="anchored" data-anchor-id="phase-5-packaging-and-distribution">Phase 5: Packaging And Distribution</h2>
+<section id="goals-4" class="level3">
+<h3 class="anchored" data-anchor-id="goals-4">Goals</h3>
+<ul>
+<li>Make installation predictable outside this repository.</li>
+<li>Clarify how Python and R dependencies should be managed together.</li>
+</ul>
+</section>
+<section id="work-items-2" class="level3">
+<h3 class="anchored" data-anchor-id="work-items-2">Work Items</h3>
+<ul>
+<li>Decide on the intended release model:
+<ul>
+<li>publish <code>pymizer</code> as a Python package only</li>
+<li>or keep it as a repo-local companion package for now</li>
+</ul></li>
+<li>Add wheel and source distribution checks.</li>
+<li>Document installation strategies for:
+<ul>
+<li>local developer setup</li>
+<li>virtualenv/venv</li>
+<li>Conda or Mamba</li>
+<li>CI environments</li>
+</ul></li>
+<li>Decide whether installation should attempt any automatic R package checks or remain fully manual.</li>
+<li>Add a minimal support matrix covering OS, Python version, and R version.</li>
+</ul>
+</section>
+</section>
+<section id="phase-6-testing-and-continuous-integration" class="level2">
+<h2 class="anchored" data-anchor-id="phase-6-testing-and-continuous-integration">Phase 6: Testing And Continuous Integration</h2>
+<section id="goals-5" class="level3">
+<h3 class="anchored" data-anchor-id="goals-5">Goals</h3>
+<ul>
+<li>Move from smoke tests to confidence-building coverage.</li>
+</ul>
+</section>
+<section id="test-layers" class="level3">
+<h3 class="anchored" data-anchor-id="test-layers">Test Layers</h3>
+<ul>
+<li>unit tests for conversion helpers and shape handling</li>
+<li>integration tests for live R bridge behaviour</li>
+<li>regression tests for built-in examples</li>
+<li>documentation build tests</li>
+</ul>
+</section>
+</section>
+<section id="phase-7-plotting-and-python-native-ergonomics" class="level2">
+<h2 class="anchored" data-anchor-id="phase-7-plotting-and-python-native-ergonomics">Phase 7: Plotting And Python-Native Ergonomics</h2>
+<section id="goals-6" class="level3">
+<h3 class="anchored" data-anchor-id="goals-6">Goals</h3>
+<ul>
+<li>Make output exploration feel more natural in the Python ecosystem.</li>
+</ul>
+</section>
+<section id="possible-additions" class="level3">
+<h3 class="anchored" data-anchor-id="possible-additions">Possible Additions</h3>
+<ul>
+<li>convenience plotting methods backed by <code>matplotlib</code>, <code>seaborn</code>, or <code>plotly</code></li>
+<li>helper methods for converting outputs to tidy long-form <code>pandas</code></li>
+<li>utility functions for common notebook display patterns</li>
+<li>optional integration with Jupyter-rich summaries for wrapped objects</li>
+</ul>
+</section>
+</section>
+<section id="phase-8-advanced-and-experimental-features" class="level2">
+<h2 class="anchored" data-anchor-id="phase-8-advanced-and-experimental-features">Phase 8: Advanced And Experimental Features</h2>
+<section id="goals-7" class="level3">
+<h3 class="anchored" data-anchor-id="goals-7">Goals</h3>
+<ul>
+<li>Explore whether more of <code>mizer</code>’s extension surface can be exposed from Python without creating fragile abstractions.</li>
+</ul>
+</section>
+<section id="candidates" class="level3">
+<h3 class="anchored" data-anchor-id="candidates">Candidates</h3>
+<ul>
+<li>support for more extension hooks and metadata</li>
+<li>controlled access to custom rate-function registration</li>
+<li>pass-through helpers for advanced users who need raw R evaluation</li>
+<li>helpers for serialising wrapper state in mixed Python/R workflows</li>
+</ul>
+</section>
+</section>
+<section id="recommended-near-term-priorities" class="level2">
+<h2 class="anchored" data-anchor-id="recommended-near-term-priorities">Recommended Near-Term Priorities</h2>
+<p>If development time is limited, the best next sequence is:</p>
 <ol type="1">
-<li>load or construct a <code>MizerParams</code> model</li>
-<li>run a projection with <code>project()</code></li>
-<li>pull results back into Python as <code>pandas</code>, <code>numpy</code>, or <code>xarray</code></li>
+<li>Stabilise the bridge and input validation.</li>
+<li>Add the highest-value summary and indicator accessors.</li>
+<li>Expand tests and CI coverage.</li>
+<li>Publish example notebooks using the built-in datasets.</li>
+<li>Add selected parameter-setting methods for iterative modelling workflows.</li>
 </ol>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pymizer <span class="im">as</span> mz</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>params <span class="op">=</span> mz.new_community_params(no_w<span class="op">=</span><span class="dv">20</span>)</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>sim <span class="op">=</span> params.project(t_max<span class="op">=</span><span class="dv">5</span>, dt<span class="op">=</span><span class="fl">0.1</span>, t_save<span class="op">=</span><span class="dv">1</span>, progress_bar<span class="op">=</span><span class="va">False</span>)</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>biomass <span class="op">=</span> sim.biomass()</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>times <span class="op">=</span> sim.times()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<section id="why-a-python-wrapper" class="level2">
-<h2 class="anchored" data-anchor-id="why-a-python-wrapper">Why a Python wrapper?</h2>
-<p><code>mizer</code> already has a rich R API and excellent package documentation. The goal of <code>pymizer</code> is not to replace that ecosystem, but to make it easier to:</p>
+</section>
+<section id="milestones" class="level2">
+<h2 class="anchored" data-anchor-id="milestones">Milestones</h2>
+<section id="milestone-a-usable-beta" class="level3">
+<h3 class="anchored" data-anchor-id="milestone-a-usable-beta">Milestone A: Usable Beta</h3>
 <ul>
-<li>use <code>mizer</code> from Python notebooks and analysis scripts</li>
-<li>move simulation outputs directly into the Python data stack</li>
-<li>access packaged example datasets from Python</li>
-<li>keep the Python interface close to the mental model of the R package</li>
+<li>clean install process documented</li>
+<li>constructor and projection workflows stable</li>
+<li>built-in dataset loading stable</li>
+<li>core result accessors covered by tests</li>
+<li>docs site published</li>
 </ul>
 </section>
-<section id="current-scope" class="level2">
-<h2 class="anchored" data-anchor-id="current-scope">Current scope</h2>
-<p>The wrapper currently supports:</p>
+<section id="milestone-b-analysis-ready" class="level3">
+<h3 class="anchored" data-anchor-id="milestone-b-analysis-ready">Milestone B: Analysis-Ready</h3>
 <ul>
-<li>constructing models with <code>new_multispecies_params()</code>, <code>new_single_species_params()</code>, and <code>new_community_params()</code></li>
-<li>loading saved models with <code>read_params()</code></li>
-<li>running simulations through <code>MizerParams.project()</code></li>
-<li>accessing common outputs from <code>MizerSim</code></li>
-<li>listing and loading built-in <code>mizer</code> datasets</li>
+<li>common summary and indicator functions wrapped</li>
+<li>North Sea example notebook available</li>
+<li>CI runs bridge tests automatically</li>
+<li>version compatibility policy documented</li>
 </ul>
-<p>Advanced extension mechanisms in <code>mizer</code>, especially custom rate functions, are not yet wrapped in a Python-native way.</p>
 </section>
-<section id="site-guide" class="level2">
-<h2 class="anchored" data-anchor-id="site-guide">Site Guide</h2>
+<section id="milestone-c-modelling-ready" class="level3">
+<h3 class="anchored" data-anchor-id="milestone-c-modelling-ready">Milestone C: Modelling-Ready</h3>
 <ul>
-<li><a href="./get-started.html">Get Started</a> shows installation and the first simulation.</li>
-<li><a href="./articles/community-model.html">Articles</a> provides worked examples.</li>
-<li><a href="./reference/index.html">Reference Overview</a> summarises the public Python API.</li>
-<li><a href="./api/index.html">API Reference</a> is generated from the package source with <code>quartodoc</code>.</li>
-<li><a href="./news.html">News</a> summarises recent changes to the wrapper.</li>
+<li>important setter methods wrapped</li>
+<li>save/load workflow broadened</li>
+<li>more realistic end-to-end examples added</li>
+<li>error handling improved for model editing workflows</li>
 </ul>
+</section>
+</section>
+<section id="source" class="level2">
+<h2 class="anchored" data-anchor-id="source">Source</h2>
+<p>The canonical repository version of this plan also lives in the repository as <code>python/ROADMAP.md</code>.</p>
 
 
 </section>
@@ -682,4 +905,4 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 
-<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/sizespectrum/pymizer/blob/main/index.md" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/sizespectrum/pymizer/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/sizespectrum/pymizer/blob/main/roadmap.md" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/sizespectrum/pymizer/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>
