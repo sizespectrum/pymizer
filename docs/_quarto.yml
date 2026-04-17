@@ -71,6 +71,7 @@ quartodoc:
         - new_multispecies_params
         - new_single_species_params
         - read_params
+        - read_rds
     - title: Model Wrappers
       desc: Inspect, edit, and project model state through Python-native wrappers.
       contents:

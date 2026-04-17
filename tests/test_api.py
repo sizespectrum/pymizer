@@ -16,6 +16,7 @@ def test_public_api_imports():
     assert hasattr(module, "load_dataset")
     assert hasattr(module, "load_north_sea")
     assert hasattr(module, "new_multispecies_params")
+    assert hasattr(module, "read_rds")
     assert hasattr(module, "runtime_diagnostics")
     assert hasattr(module, "validate_species_params")
 
@@ -214,6 +215,52 @@ def test_set_initial_values_metadata_and_resource():
     assert updated_metadata.metadata()["title"] == "Community example"
     assert updated_metadata.metadata()["description"] == "Test model"
     assert updated_resource.project(t_max=0.5, dt=0.1, t_save=0.5, progress_bar=False).biomass().shape[0] == 2
+
+
+@pytest.mark.integration
+def test_rate_functions_can_be_inspected_and_updated():
+    pymizer = importlib.import_module("pymizer")
+    params = pymizer.new_community_params(no_w=20)
+
+    original = params.rate_functions()
+    updated = params.set_rate_functions(RDD="BevertonHoltRDD")
+
+    assert original["RDD"] == "constantRDD"
+    assert updated.rate_functions()["RDD"] == "BevertonHoltRDD"
+    assert params.rate_functions()["RDD"] == "constantRDD"
+
+
+@pytest.mark.integration
+def test_rds_round_trip_and_raw_r_evaluation(tmp_path):
+    pymizer = importlib.import_module("pymizer")
+    params = pymizer.new_community_params(no_w=20)
+    sim = params.project(t_max=1, dt=0.1, t_save=1, progress_bar=False)
+    params_path = tmp_path / "params.rds"
+    sim_path = tmp_path / "sim.rds"
+
+    params.save_rds(params_path)
+    sim.save_rds(sim_path)
+
+    loaded_params = pymizer.read_rds(params_path)
+    loaded_sim = pymizer.read_rds(sim_path)
+    evaluated = pymizer.get_environment().eval(
+        """
+        list(
+          params_class = class(params)[1],
+          sim_class = class(sim)[1],
+          final_time = max(getTimes(sim))
+        )
+        """,
+        params=loaded_params,
+        sim=loaded_sim,
+    )
+
+    assert isinstance(loaded_params, pymizer.MizerParams)
+    assert isinstance(loaded_sim, pymizer.MizerSim)
+    assert loaded_sim.times().tolist() == [0.0, 1.0]
+    assert evaluated.rx2("params_class")[0] == "MizerParams"
+    assert evaluated.rx2("sim_class")[0] == "MizerSim"
+    assert float(evaluated.rx2("final_time")[0]) == pytest.approx(1.0)
 
 
 @pytest.mark.integration

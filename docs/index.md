@@ -36,12 +36,14 @@ The wrapper currently supports:
 - constructing models with `new_multispecies_params()`,
   `new_single_species_params()`, and `new_community_params()`
 - loading saved models with `read_params()`
+- round-tripping generic `.rds` files with `read_rds()`
 - running simulations through `MizerParams.project()`
 - accessing common outputs from `MizerSim`
 - listing and loading built-in `mizer` datasets
 
-Advanced extension mechanisms in `mizer`, especially custom rate functions,
-are not yet wrapped in a Python-native way.
+Advanced features are still intentionally narrow, but `pymizer` now includes
+controlled access to the `rates_funcs` slot, generic RDS helpers, and a
+temporary-environment `eval()` helper on the bridge for mixed Python/R work.
 
 ## Site Guide
 

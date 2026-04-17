@@ -228,6 +228,10 @@ class MizerParams:
         """Save the params object using `saveParams()`."""
         self._env.call("saveParams", self._r_obj, str(path))
 
+    def save_rds(self, path: str | Path) -> None:
+        """Serialise the wrapped params object as a generic `.rds` file."""
+        self._env.save_rds(self._r_obj, path)
+
     def interaction_matrix(self) -> pd.DataFrame:
         """Return the species interaction matrix.
 
@@ -245,6 +249,43 @@ class MizerParams:
             description, timestamps, and `mizer` version information.
         """
         return _listvector_to_python(self._env.call("getMetadata", self._r_obj))
+
+    def rate_functions(self) -> dict[str, str]:
+        """Return the registered R rate-function names from ``params@rates_funcs``."""
+        rates = self._r_obj.do_slot("rates_funcs")
+        names = [str(name) for name in rates.names]
+        return {name: str(rates.rx2(name)[0]) for name in names}
+
+    def set_rate_functions(self, **rate_functions: str) -> "MizerParams":
+        """Return a new params object with selected ``rates_funcs`` entries updated.
+
+        Each keyword must match an existing name in ``params@rates_funcs`` and
+        each value must be the name of an R function visible in the current R
+        session. This gives advanced users controlled access to existing
+        extension hooks without supporting Python callbacks.
+        """
+        if not rate_functions:
+            return self.copy()
+
+        current = self.rate_functions()
+        unknown = sorted(set(rate_functions) - set(current))
+        if unknown:
+            raise ValueError(
+                "Unknown rate-function entries: "
+                f"{', '.join(unknown)}. Available entries: {', '.join(current)}."
+            )
+        for key, value in rate_functions.items():
+            if not isinstance(value, str) or not value:
+                raise TypeError(f"Rate function '{key}' must be a non-empty R function name.")
+            if not self._env.function_exists(value):
+                raise ValueError(f"R function '{value}' was not found in the active R session.")
+
+        updated = self._env.clone(self._r_obj)
+        rates = updated.do_slot("rates_funcs")
+        for key, value in rate_functions.items():
+            rates.rx2[key] = robjects.StrVector([value])
+        updated.do_slot_assign("rates_funcs", rates)
+        return _wrap_params(updated, self._env)
 
     def set_interaction(self, interaction: Any) -> "MizerParams":
         """Return a new params object with an updated interaction matrix.
@@ -923,6 +964,10 @@ class MizerSim:
         params = self._env.call("getParams", self._r_obj)
         return _wrap_params(params, self._env)
 
+    def save_rds(self, path: str | Path) -> None:
+        """Serialise the wrapped simulation object as a generic `.rds` file."""
+        self._env.save_rds(self._r_obj, path)
+
     def _final_params(self) -> MizerParams:
         """Return params updated to the final state of the simulation."""
         params = self._env.call("getParams", self._r_obj)
@@ -1303,3 +1348,14 @@ def read_params(path: str | Path, env: MizerREnvironment | None = None) -> Mizer
     env = env or get_environment()
     params = env.call("readParams", str(path))
     return _wrap_params(params, env)
+
+
+def read_rds(path: str | Path, env: MizerREnvironment | None = None):
+    """Read a generic `.rds` file and wrap recognised ``mizer`` objects.
+
+    This is intended for mixed Python/R workflows where the object may have
+    been saved from either side. ``MizerParams`` and ``MizerSim`` objects are
+    wrapped automatically; other R objects are returned raw.
+    """
+    env = env or get_environment()
+    return env.read_rds(path, wrap=True)

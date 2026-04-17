@@ -60,3 +60,21 @@ def test_new_single_species_params_rejects_multiple_rows():
 
     with pytest.raises(ValueError, match="requires exactly one row"):
         new_single_species_params(species_params=species, env=_UnusedEnv())
+
+
+def test_set_rate_functions_rejects_unknown_entries():
+    import pymizer as mz
+
+    params = mz.new_community_params(no_w=20)
+
+    with pytest.raises(ValueError, match="Unknown rate-function entries"):
+        params.set_rate_functions(NotARealEntry="constantRDD")
+
+
+def test_set_rate_functions_rejects_missing_r_function():
+    import pymizer as mz
+
+    params = mz.new_community_params(no_w=20)
+
+    with pytest.raises(ValueError, match="was not found in the active R session"):
+        params.set_rate_functions(RDD="definitely_not_an_r_function")

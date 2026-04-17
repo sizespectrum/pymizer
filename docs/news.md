@@ -17,3 +17,5 @@
 - Added converter, failure-mode, and example regression tests for the Python
   wrapper
 - Added GitHub Actions coverage for Python tests and documentation builds
+- Added advanced bridge helpers for raw R evaluation, generic `.rds`
+  round-tripping, and controlled rate-function registration

@@ -52,6 +52,9 @@ The public API deliberately stays narrower than the full R package:
 - constructor functions are exposed at top level
 - `MizerParams` and `MizerSim` provide the most common workflows
 - raw R objects remain accessible through the `.r` property when needed
+- advanced workflows can use `read_rds()`, `MizerREnvironment.eval()`, and
+  `MizerParams.set_rate_functions()` when the core wrapper surface is not
+  quite enough
 
 For full signatures and class pages, use the generated
 [API Reference](../api/index.qmd).

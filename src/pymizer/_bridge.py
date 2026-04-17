@@ -173,14 +173,61 @@ class MizerREnvironment:
         except Exception as exc:
             raise MizerError(f"Calling mizer::{name} failed.") from exc
 
+    def eval(self, code: str, /, **bindings: Any) -> Any:
+        """Evaluate arbitrary R code in a temporary environment.
+
+        Args:
+            code: R code to evaluate.
+            **bindings: Temporary variables exposed to the evaluation
+                environment. Python arrays and pandas objects are converted to
+                R using the active `rpy2` converters. Wrapped `pymizer`
+                objects contribute their underlying R object via the `.r`
+                property automatically.
+
+        Returns:
+            The raw R object returned by the final expression in ``code``.
+
+        Raises:
+            MizerError: If the code cannot be parsed or evaluated.
+        """
+        eval_env = robjects.Environment(robjects.r["new.env"](parent=robjects.globalenv))
+        with conversion.localconverter(default_converter + numpy2ri.converter + pandas2ri.converter):
+            for name, value in bindings.items():
+                eval_env[name] = self._binding_to_r(value)
+        try:
+            expr = robjects.r["parse"](text=code)
+            return robjects.r["eval"](expr, envir=eval_env)
+        except Exception as exc:
+            raise MizerError("Evaluating custom R code failed.") from exc
+
     def save_rds(self, obj: Any, path: str | Path) -> None:
         """Save an R object to an `.rds` file."""
         with conversion.localconverter(default_converter + numpy2ri.converter + pandas2ri.converter):
             self.base.saveRDS(obj, file=str(path))
 
-    def read_rds(self, path: str | Path) -> Any:
-        """Read an `.rds` file and return the raw R object."""
-        return self.base.readRDS(str(path))
+    def read_rds(self, path: str | Path, *, wrap: bool = False) -> Any:
+        """Read an `.rds` file and optionally wrap recognised mizer objects."""
+        obj = self.base.readRDS(str(path))
+        if wrap:
+            return self.wrap(obj)
+        return obj
+
+    def wrap(self, obj: Any) -> Any:
+        """Wrap recognised raw R objects as ``pymizer`` model classes."""
+        cls = self.class_name(obj)
+        if cls == "MizerParams":
+            from .model import _wrap_params
+
+            return _wrap_params(obj, self)
+        if cls == "MizerSim":
+            from .model import _wrap_sim
+
+            return _wrap_sim(obj, self)
+        return obj
+
+    def clone(self, obj: Any) -> Any:
+        """Return a deep copy of an R object via serialize/unserialize."""
+        return self.base.unserialize(self.base.serialize(obj, robjects.NULL))
 
     def class_name(self, obj: Any) -> str:
         """Return the first class name for an R object."""
@@ -203,6 +250,17 @@ class MizerREnvironment:
             if isinstance(frame, pd.DataFrame):
                 return frame
             return pd.DataFrame(frame)
+
+    def function_exists(self, name: str) -> bool:
+        """Return whether a function name resolves in the active R session."""
+        return bool(robjects.r["exists"](name, mode="function", inherits=True)[0])
+
+    @staticmethod
+    def _binding_to_r(value: Any) -> Any:
+        """Convert a Python-side binding to an R object for evaluation."""
+        if hasattr(value, "r"):
+            return value.r
+        return value
 
     def versions(self) -> dict[str, str]:
         """Return version information for the active Python and R bridge stack.
